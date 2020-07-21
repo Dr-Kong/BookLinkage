@@ -1,12 +1,16 @@
 {
   "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/books/books",
+    "pages/upload/upload",
+    "pages/tutorial/tutorial",
+    "pages/starred/starred",
+    "pages/feedback/feedback",
+    "pages/about/about"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "BookLinkage",
     "navigationBarTextStyle":"black"
   },
   "style": "v2",
