@@ -5,7 +5,9 @@
     "pages/starred/starred",
     "pages/feedback/feedback",
     "pages/about/about",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/book/book",
+    "pages/history/history"
   ],
   "window":{
     "backgroundTextStyle":"light",
