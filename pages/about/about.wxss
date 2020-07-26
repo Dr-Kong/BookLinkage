@@ -1,1 +1,20 @@
 /* pages/about/about.wxss */
+.BL{
+  font-size: large;
+  padding-top: 0%;
+}
+.PB{
+  font-size: small;
+  padding-top: 50%;
+}
+.SA{
+  font-size: small;
+  
+}
+.logo{
+  padding-top: 10%;
+  height: 150rpx;
+  width: 225rpx;
+  src: "icons/photo.png";
+  background-color: #eeeeee;
+}

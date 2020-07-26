@@ -1,2 +1,7 @@
 <!--pages/about/about.wxml-->
-<text>pages/about/about.wxml</text>
+<view class="container">
+  <image class="logo"></image>
+  <view class="BL">BookLinkage</view>
+  <text class="PB">Powered by Dr.Kong & Robert Sun</text>
+  <text class="SA">Specially acknowledge </text>
+</view>
