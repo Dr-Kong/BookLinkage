@@ -1,2 +1,5 @@
 <!--pages/mine/mine.wxml-->
-<button bindtap="ToAbout">about</button>
+<view>
+	<text>我的</text>
+	<button bindtap="ToAbout">about</button>
+</view>
