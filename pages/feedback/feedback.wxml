@@ -1,2 +1,10 @@
 <!--pages/feedback/feedback.wxml-->
-<text>pages/feedback/feedback.wxml</text>
+<!--  -->
+<view class="container">
+	<button open-type='feedback'>意见反馈</button>
+	<text>常见问题</text>
+	<expandable-list is_expanded='{{false}}' wx:for="{{qna.a}}" wx:key='index' to_show='{{item}}'>
+		{{qna.q[index]}}
+	</expandable-list>
+	
+</view>

@@ -1,2 +1,9 @@
 <!--pages/upload/upload.wxml-->
-<text>upload</text>
+<view class="container">
+	<!-- <picker-view>
+		<picker-view-column>
+
+		</picker-view-column>
+	</picker-view>
+	<button bindtap="upload">上传</button> -->
+</view>

@@ -1,6 +1,9 @@
 //index.js
 //获取应用实例
 const app = getApp()
+const db = wx.cloud.database()
+const util = require('../../utils/util.js')
+const book_list = util.book_list
 
 Page({
   data: {
@@ -11,8 +14,8 @@ Page({
   },
   //事件处理函数
   bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+    wx.switchTab({
+      url: '../mine/mine',
     })
   },
   onLoad: function () {
@@ -44,7 +47,6 @@ Page({
     }
   },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

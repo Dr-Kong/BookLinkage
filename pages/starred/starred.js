@@ -1,4 +1,8 @@
 // pages/starred/starred.js
+const db = wx.cloud.database()
+const util = require('../../utils/util.js')
+const book_list = util.book_list
+
 Page({
 
 	/**

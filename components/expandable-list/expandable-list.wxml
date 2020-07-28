@@ -1,0 +1,12 @@
+<!--components/list/list.wxml-->
+<view>
+	<!--展开前-->
+	<view class='pre-expander'>
+		<slot/>
+		<!--展开图标-->
+		<image class='expander' wx:if="{{is_expanded}}" src='../../icons/expander.png' bindtap="expand"/>
+		<image class='expander' wx:else src="../../icons/_expander.png" bindtap="expand"/>
+	</view>
+	<!--展开后-->
+    <view class='post-expander' wx:if="{{is_expanded}}">{{to_show}}</view>
+</view>

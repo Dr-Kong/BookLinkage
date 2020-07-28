@@ -1,5 +1,8 @@
 <!--pages/mine/mine.wxml-->
-<view>
-	<text>我的</text>
-	<button bindtap="ToAbout">about</button>
+<view class="container">
+	<button bindtap="to_upload">上传书本</button>
+	<button bindtap="">历史记录</button>
+	<button bindtap="">我的收藏</button>
+	<button bindtap="to_feedback">解答反馈</button>
+	<button bindtap="to_about">关于我们</button>	
 </view>

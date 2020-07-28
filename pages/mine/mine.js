@@ -8,9 +8,21 @@ Page({
 
   },
 
-  ToAbout: function(){
+  to_upload() {
+    wx.navigateTo({
+      url: '../upload/upload',
+    })
+  },
+
+  to_about() {
     wx.navigateTo({
       url: '../about/about',
+    })
+  },
+
+  to_feedback() {
+    wx.navigateTo({
+      url: '../feedback/feedback',
     })
   },
   /**
