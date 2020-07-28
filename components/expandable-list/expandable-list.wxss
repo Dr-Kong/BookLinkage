@@ -5,7 +5,6 @@
 	flex-direction: row;
 	padding: 25rpx;
 	justify-content: space-between;
-	font-size: 34rpx;
 }
 
 .expander {
