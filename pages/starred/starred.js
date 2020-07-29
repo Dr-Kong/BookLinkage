@@ -1,4 +1,6 @@
 // pages/starred/starred.js
+const db = wx.cloud.database()
+
 Page({
 
 	/**

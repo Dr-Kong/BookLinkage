@@ -8,25 +8,31 @@ Page({
     userInfo:{}
   },
 
-  ToAbout: function(){
+  to_upload() {
+    wx.navigateTo({
+      url: '../upload/upload',
+    })
+  },
+
+  to_about() {
     wx.navigateTo({
       url: '../about/about',
     })
   },
 
-  ToHistory: function(){
+  to_history() {
     wx.navigateTo({
       url: '../history/history',
     })
   },
 
-  ToFeedback: function(){
+  to_feedback() {
     wx.navigateTo({
       url: '../feedback/feedback',
     })
   },
 
-  ToStarred: function(){
+  to_starred() {
     wx.navigateTo({
       url: '../starred/starred',
     })

@@ -1,1 +1,4 @@
 /* pages/feedback/feedback.wxss */
+.common_questions {
+	font-size: 34rpx;
+}

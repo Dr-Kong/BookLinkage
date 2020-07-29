@@ -1,13 +1,13 @@
 /* pages/about/about.wxss */
-.BL{
+.bl{
   font-size: large;
   padding-top: 0%;
 }
-.PB{
+.pb{
   font-size: small;
   padding-top: 50%;
 }
-.SA{
+.sa{
   font-size: small;
   
 }

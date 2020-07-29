@@ -1,4 +1,6 @@
 // pages/history/history.js
+const db = wx.cloud.database()
+
 Page({
 
 	/**

@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "用户反馈",
-  "usingComponents": {}
+  "navigationBarTitleText": "解答反馈",
+  "usingComponents": {
+    "expandable-list": "../../components/expandable-list/expandable-list"
+  }
 }

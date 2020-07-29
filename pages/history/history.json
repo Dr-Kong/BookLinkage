@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "历史记录",
+  "usingComponents": {
+    "item": "../../components/item/item"
+  }
 }

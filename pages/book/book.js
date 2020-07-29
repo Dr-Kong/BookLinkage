@@ -1,4 +1,6 @@
 // pages/book/book.js
+const db = wx.cloud.database()
+
 Page({
 
 	/**

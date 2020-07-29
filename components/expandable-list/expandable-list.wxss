@@ -1,0 +1,21 @@
+/* components/list/list.wxss */
+.pre-expander {
+	display: flex;
+	width: 720rpx;
+	flex-direction: row;
+	padding: 25rpx;
+	justify-content: space-between;
+}
+
+.expander {
+    width: 42rpx;
+    height: 22rpx;
+}
+
+.post-expander {
+	height: 80rpx;
+    overflow: visible;
+	white-space: initial;
+    padding: 0 25rpx;
+    font-size: 30rpx;
+}
