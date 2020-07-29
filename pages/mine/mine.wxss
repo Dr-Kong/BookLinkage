@@ -1,1 +1,61 @@
 /* pages/mine/mine.wxss */
+.userInfo-avatar{
+  width: 150rpx;
+  height: 150rpx;
+  margin: 20rpx;
+  margin-top: 200rpx;
+  border-radius: 50%;
+  margin-left: 40.5%;
+}
+.userinfo-nickname{
+  padding-top: 0%;
+  font-weight: bolder;
+  text-align: center;
+  color: #aaa;
+}
+
+.userBackground{
+  width: 100%;
+  height: 45vh;
+  margin-top: 0%;
+  background-color: aquamarine;
+}
+
+.container{
+  padding-top: 0%;
+  height: 1200rpx;
+  background-color: #edece8;
+}
+
+.user-content{
+  margin-top: 40rpx;
+  width: 100%;
+  
+}
+
+.user-history{
+  padding: 20rpx;
+  width: 100%;
+  background-color: #fff;
+}
+
+.user-starred{
+  margin-top: 10rpx;
+  background-color: #fff;
+  width: 100%;
+  padding: 20rpx;
+}
+
+.user-about{
+  margin-top: 10rpx;
+  background-color: #fff;
+  width: 100%;
+  padding: 20rpx;
+}
+
+.user-feedback{
+  margin-top: 10rpx;
+  background-color: #fff;
+  width: 100%;
+  padding: 20rpx;
+}

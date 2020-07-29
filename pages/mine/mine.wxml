@@ -1,5 +1,26 @@
 <!--pages/mine/mine.wxml-->
-<view>
-	<text>我的</text>
-	<button bindtap="ToAbout">about</button>
+<view class="container">
+	<view class="userBackground">
+		<image class="userInfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+		<view class="userinfo-nickname">{{userInfo.nickName}}</view>
+	</view>
+
+	<view class="user-content">
+		<view class="user-history" bindtap="ToHistory">
+		历史购买记录
+		</view>
+
+		<view class="user-starred" bindtap="ToStarred">
+		我的收藏
+		</view>
+
+		<view class="user-feedback" bindtap="ToFeedback">
+		联系开发者
+		</view>
+
+		<view class="user-about" bindtap="ToAbout">
+		关于我们
+		</view>
+	</view>
+	
 </view>

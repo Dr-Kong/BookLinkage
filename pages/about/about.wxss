@@ -15,6 +15,6 @@
   padding-top: 10%;
   height: 150rpx;
   width: 225rpx;
-  src: "icons/photo.png";
+  src: "../../icons/photo.png";
   background-color: #eeeeee;
 }

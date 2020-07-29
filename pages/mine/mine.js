@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userInfo:{}
   },
 
   ToAbout: function(){
@@ -13,10 +13,31 @@ Page({
       url: '../about/about',
     })
   },
+
+  ToHistory: function(){
+    wx.navigateTo({
+      url: '../history/history',
+    })
+  },
+
+  ToFeedback: function(){
+    wx.navigateTo({
+      url: '../feedback/feedback',
+    })
+  },
+
+  ToStarred: function(){
+    wx.navigateTo({
+      url: '../starred/starred',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
+    const userinfo = wx.getStorageSync("userinfo");
+    this.setData({userInfo: userinfo});
 
   },
 
@@ -31,7 +52,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+   
   },
 
   /**
