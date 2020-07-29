@@ -1,9 +1,7 @@
 //index.js
 //获取应用实例
-const app = getApp()
-const db = wx.cloud.database()
-const util = require('../../utils/util.js')
-const book_list = util.book_list
+const app = getApp(),
+      db = wx.cloud.database()
 
 Page({
   data: {

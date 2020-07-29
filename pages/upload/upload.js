@@ -1,7 +1,9 @@
 // pages/upload/upload.js
-const db = wx.cloud.database()
-const util = require('../../utils/util.js')
-const book_list = util.book_list
+const db = wx.cloud.database(),
+	  util= require('../../utils/util.js'),
+	  book_list = util.book_list,
+	  sbj_list = util.sbj_list,
+	  _sbj_list = util._sbj_list
 
 Page({
 
@@ -9,8 +11,14 @@ Page({
 	 * Page initial data
 	 */
 	data: {
-		/* sbj: '',
-		name: '' */
+		_sbj_list: _sbj_list,
+		pub_list: ['barron', 'gardner'],
+		edt_list: [3, 4],
+		sbj: 0,
+		pub: 0,
+		edt: 0,
+		p: 0,
+		add_info: ''
 	},
 
 	/**
@@ -67,6 +75,44 @@ Page({
 	 */
 	onShareAppMessage: function () {
 
+	},
+
+	get_pub_list(i) {
+		book_list[sbj_list[i]].forEach(pub => {
+			pub_list.push(pub)
+		})
+		return pub_list
+	},
+
+	get_edt_list(j) {
+		book_list[sbj_list[this.data.sbj]][j].forEach(edt => {
+			edt_list.push(edt)
+		})
+		return edt_list
+	},
+
+	set_info(e) {
+		const val = e.detail.value,
+			  s =  this.data.sbj
+		this.setData({sbj: val[0]})
+		if (s != 9) {
+			this.get_pub_list(s)
+			this.setData({pub: val[1]})
+			this.get_edt_list(val[1])
+			this.setData({edt: val[2]})
+		}
+	},
+
+	set_price(e) {
+		this.setData({
+			p: e.detail.value
+		})
+	},
+
+	set_add_info(e) {
+		this.setData({
+			add_info: e.detail.value
+		})
 	},
 
 	choose_img() {

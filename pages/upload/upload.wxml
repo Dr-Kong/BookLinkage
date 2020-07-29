@@ -1,9 +1,35 @@
 <!--pages/upload/upload.wxml-->
 <view class="container">
-	<!-- <picker-view>
+	<view>
+		<text>{{_sbj_list[sbj]}}</text>
+		<text wx:if="sbj != 9"> {{pub_list[pub]}} 第{{edt_list[edt]}}版</text>
+	</view>
+	<picker-view indicator-style="height: 50px;" style="width: 600rpx; height: 300px;"
+				 bindchange="set_info">
+		<!-- subject -->
 		<picker-view-column>
-
+			<view wx:for="{{_sbj_list}}" wx:key='index' style="line-height: 50px">
+				{{item}}
+			</view>
+		</picker-view-column>
+		<!-- publisher -->
+		<picker-view-column wx:if="sbj != 9" >
+			<view wx:for="{{pub_list}}" wx:key='index' style="line-height: 50px">
+				{{item}}
+			</view>
+		</picker-view-column>
+		<!-- edition -->
+		<picker-view-column wx:if="sbj != 9">
+			<view style="line-height: 50px" wx:for="{{edt_list}}" wx:key='index'>
+				{{item}}
+			</view>
 		</picker-view-column>
 	</picker-view>
-	<button bindtap="upload">上传</button> -->
+	<view wx:if="{{true}}">
+		<input placeholder="意向价格" maxlength="3" type="number" confirm-type="next" bindinput="set_price"/>
+		<input placeholder="其他信息" maxlength="-1" bindinput="set_add_info"/>
+		<button bindtap="">选择图片</button>
+		<button bindtap="">上传书本</button>
+	</view>
+	<view wx:else>请勿重复上传同一本书籍</view>	
 </view>
