@@ -10,7 +10,7 @@
 		上传书本
 		</view>
 		
-		<view class="user-history" bindtap="to_istory">
+		<view class="user-history" bindtap="to_history">
 		历史记录
 		</view>
 
