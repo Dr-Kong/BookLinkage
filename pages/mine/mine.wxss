@@ -24,6 +24,7 @@
 .container{
   padding-top: 0%;
   height: 1200rpx;
+  width: 100%;
   background-color: #edece8;
 }
 

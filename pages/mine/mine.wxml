@@ -6,23 +6,25 @@
 	</view>
 
 	<view class="user-content">
-		<button bindtap="to_upload">上传书本</button>
+		<view class="user-upload" bindtap="to_upload">
+		上传书本
+		</view>
 		
-		<button class="user-history" bindtap="to_istory">
+		<view class="user-history" bindtap="to_istory">
 		历史记录
-		</button>
+		</view>
 
-		<button class="user-starred" bindtap="to_starred">
+		<view class="user-starred" bindtap="to_starred">
 		我的收藏
-		</button>
+		</view>
 
-		<button class="user-feedback" bindtap="to_feedback">
+		<view class="user-feedback" bindtap="to_feedback">
 		解答反馈
-		</button>
+		</view>
 
-		<button class="user-about" bindtap="to_about">
+		<view class="user-about" bindtap="to_about">
 		关于我们
-		</button>
+		</view>
 	</view>
 	
 </view>
