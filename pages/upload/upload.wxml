@@ -26,9 +26,17 @@
 		</picker-view-column>
 	</picker-view>
 	<view wx:if="{{true}}">
-		<input placeholder="意向价格" maxlength="3" type="number" confirm-type="next" bindinput="set_price"/>
-		<input placeholder="其他信息" maxlength="-1" bindinput="set_add_info"/>
-		<button bindtap="">选择图片</button>
+		<view class="input">
+			<input placeholder="意向价格" maxlength="3" type="number" confirm-type="next" bindinput="set_price"/>
+		</view>
+		<view class="input">
+			<input placeholder="其他信息" maxlength="-1" bindinput="set_add_info"/>
+		</view>
+		<view class="fullwidth">
+			<image wx:for="{{temp_imgs}}" src="{{item}}" mode="aspectFill" class="imgs"></image>
+		</view>
+
+		<button bindtap="chooseImage">选择图片</button>
 		<button bindtap="">上传书本</button>
 	</view>
 	<view wx:else>请勿重复上传同一本书籍</view>	

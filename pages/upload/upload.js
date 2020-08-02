@@ -21,6 +21,19 @@ Page({
 		add_info: ''
 	},
 
+	chooseImage(){
+		var that = this;
+		wx.chooseImage({
+			count: 4,
+			sizeType: ['original'],
+			sourceType: ['album', 'camera'],
+			success (res) {
+				that.setData({
+					temp_imgs: res.tempFilePaths
+				})
+			}
+		})
+	},
 	/**
 	 * Lifecycle function--Called when page load
 	 */
