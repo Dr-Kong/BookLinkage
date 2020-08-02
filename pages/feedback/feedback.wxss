@@ -2,3 +2,7 @@
 .common_questions {
 	font-size: 34rpx;
 }
+.common{
+
+	margin-top: 25rpx;
+}

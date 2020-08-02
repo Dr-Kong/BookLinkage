@@ -24,6 +24,7 @@
 .container{
   padding-top: 0%;
   height: 1200rpx;
+  width: 100%;
   background-color: #edece8;
 }
 
@@ -34,6 +35,7 @@
 }
 
 .user-history{
+  margin-top: 10rpx;
   padding: 20rpx;
   width: 100%;
   background-color: #fff;
@@ -54,6 +56,13 @@
 }
 
 .user-feedback{
+  margin-top: 10rpx;
+  background-color: #fff;
+  width: 100%;
+  padding: 20rpx;
+}
+
+.user-upload{
   margin-top: 10rpx;
   background-color: #fff;
   width: 100%;

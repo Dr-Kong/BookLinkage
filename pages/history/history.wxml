@@ -1,1 +1,12 @@
+<view class="container">
+  <navigator class="history-list">
+    <view class="bookName">书名</view>
+    <view class="space"></view>
+    <view>
+    <text class="price">¥999</text>
+    </view>
+  </navigator>
 
+
+
+</view>
