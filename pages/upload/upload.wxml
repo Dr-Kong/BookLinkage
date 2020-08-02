@@ -1,11 +1,25 @@
 <!--pages/upload/upload.wxml-->
 <view class="container">
+	<view>个人信息</view>
 	<view>
-		<text>{{_sbj_list[sbj]}}</text>
-		<text wx:if="sbj != 9"> {{pub_list[pub]}} 第{{edt_list[edt]}}版</text>
+		<text>请允许他人通过微信号和手机号添加您，并准确填写如下信息。
+			  您也可以在下方图片上传入口中添加个人名片，方便购书者与您沟通</text>
+		<input value='{{last_name}}' placeholder="中文姓氏" maxlength="2"
+			   type="text" confirm-type="next" bindinput="set_last_name"/>
+		<input value='{{user_id}}' placeholder="微信ID" maxlength="-1"
+			   confirm-type="next" bindinput="set_user_id"/>
+		<input value='{{tel}}' placeholder="手机号码"
+			   maxlength="11" type="number" bindinput="set_tel"/>
 	</view>
-	<picker-view indicator-style="height: 50px;" style="width: 600rpx; height: 300px;"
-				 bindchange="set_info">
+	<view>书本信息</view>
+	<view>请注意区分校本数学，ap微积分及ap统计，
+		  ap环科以及校本地理，英文小说请选英语</view>
+	<view>
+		<text>科目：{{_sbj_list[sbj]}}</text>
+		<text wx:if="sbj != 11"> 出版商：{{pub_list[pub]}}</text>
+	</view>
+	<picker-view indicator-style="height: 50px;" style="width: 300rpx; height: 300px;"
+				 bindchange="set_bk_info">
 		<!-- subject -->
 		<picker-view-column>
 			<view wx:for="{{_sbj_list}}" wx:key='index' style="line-height: 50px">
@@ -13,23 +27,21 @@
 			</view>
 		</picker-view-column>
 		<!-- publisher -->
-		<picker-view-column wx:if="sbj != 9" >
+		<picker-view-column wx:if="sbj != 11" >
 			<view wx:for="{{pub_list}}" wx:key='index' style="line-height: 50px">
 				{{item}}
 			</view>
 		</picker-view-column>
-		<!-- edition -->
-		<picker-view-column wx:if="sbj != 9">
-			<view style="line-height: 50px" wx:for="{{edt_list}}" wx:key='index'>
-				{{item}}
-			</view>
-		</picker-view-column>
 	</picker-view>
-	<view wx:if="{{true}}">
-		<input placeholder="意向价格" maxlength="3" type="number" confirm-type="next" bindinput="set_price"/>
-		<input placeholder="其他信息" maxlength="-1" bindinput="set_add_info"/>
-		<button bindtap="">选择图片</button>
-		<button bindtap="">上传书本</button>
-	</view>
-	<view wx:else>请勿重复上传同一本书籍</view>	
+	<input placeholder="请准确输入书名，并用空格区分不同词语（例：Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找"
+		   maxlength="-1" confirm-type="next" bindinput="set_bk_name"/>
+	<input placeholder="是否原版书籍（非复印影印版）" maxlength="1"
+		   confirm-type="next" bindinput="set_is_legal"/>
+	<input placeholder="意向价格" maxlength="3" type="number"
+		   confirm-type="next" bindinput="set_p"/>
+	<input placeholder="其他信息（如：新旧程度，全新/九成新），请用空格区分关键词" maxlength="-1"
+		   bindinput="set_add_info"/>
+	<text>如果上传个人名片，请在交易完成以后及时到历史记录中下架，防止多次咨询</text>
+	<button bindtap="choose_img">选择图片</button>
+	<button disabled="! temp_paths == []" indtap="upload">上传书本</button>
 </view>

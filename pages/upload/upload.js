@@ -1,7 +1,7 @@
 // pages/upload/upload.js
-const db = wx.cloud.database(),
+const db = wx.cloud.database().collection('uploads'),
 	  util= require('../../utils/util.js'),
-	  book_list = util.book_list,
+	  pub_list = util.pub_list,
 	  sbj_list = util.sbj_list,
 	  _sbj_list = util._sbj_list
 
@@ -12,13 +12,17 @@ Page({
 	 */
 	data: {
 		_sbj_list: _sbj_list,
-		pub_list: ['barron', 'gardner'],
-		edt_list: [3, 4],
+		pub_list: pub_list,
+		last_name: '',
+		user_id: '',
+		tel: '',
 		sbj: 0,
 		pub: 0,
-		edt: 0,
+		bk_name: '',
+		is_legal: false,
 		p: 0,
-		add_info: ''
+		add_info: '',
+		temp_paths: []
 	},
 
 	/**
@@ -77,33 +81,46 @@ Page({
 
 	},
 
-	get_pub_list(i) {
-		book_list[sbj_list[i]].forEach(pub => {
-			pub_list.push(pub)
+	set_last_name(e) {
+		this.setData({
+			last_name: e.detail.value
 		})
-		return pub_list
 	},
 
-	get_edt_list(j) {
-		book_list[sbj_list[this.data.sbj]][j].forEach(edt => {
-			edt_list.push(edt)
+	set_user_id(e) {
+		this.setData({
+			user_id: e.detail.value
 		})
-		return edt_list
 	},
 
-	set_info(e) {
-		const val = e.detail.value,
-			  s =  this.data.sbj
-		this.setData({sbj: val[0]})
-		if (s != 9) {
-			this.get_pub_list(s)
-			this.setData({pub: val[1]})
-			this.get_edt_list(val[1])
-			this.setData({edt: val[2]})
-		}
+	set_tel(e) {
+		this.setData({
+			tel: e.detail.value
+		})
 	},
 
-	set_price(e) {
+	set_bk_info(e) {
+		const val = e.detail
+		this.setData({
+			sbj: val[0],
+			pub: val[1]
+		})
+	},
+
+	set_bk_name(e){
+		this.setData({
+			bk_name: e.detail.value
+		})
+	},
+
+	set_is_legal(e){
+		if(e.detail.value == '是')
+			this.setData({
+				is_legal: true
+			})
+	},
+
+	set_p(e) {
 		this.setData({
 			p: e.detail.value
 		})
@@ -121,28 +138,75 @@ Page({
 			sourceType: ['album', 'camera'],
 			success (res) {
 				// tempFilePath can be used as the src property of the img tag to display images.
-				const temp_paths = res.tempFilePaths
+				this.setData({temp_paths: res.tempFilePaths})
 			}
 		  })
 	},
 
-	/* upload(sbj, name, ) {
-		var that = this
-		that.choose_img()
-		for (let i = 0; index < temp_paths.length; i++) {
-			wx.cloud.uploadFile({
-				cloudPath: 'book_img/' + '_' + sbj + '_' + name + '_' + id + '_' + i + '.jpg',
-				filePath: temp_paths[i], // File path
-				success: res => {
-				// get resource ID
-				},
-				fail: err => {
-				// handle error
+	upload() {
+		const that = this,
+			  s = that.data.sbj,
+			  p = that.data.pub,
+			  bn = that.data.bk_name,
+			  il = that.data.is_legal,
+			  ai = that.data.add_info
+			  tp = that.data.temp_paths
+		var tags = [], len = tags.length
+		tags.push(sbj_list[s])
+		tags.push(_sbj_list[s])
+		tags.push(pub_list[p])
+		tags.push(bn)
+		tags.push(ai)
+		if (il) {
+			tags.push('正版')
+			tags.push('原版')
+			tags.push('原装')
+		} else {
+			tags.push('盗版')
+			tags.push('复印')
+			tags.push('影印版')
+		}
+		// traverse tags
+		for (let i = 0; i < len; i++) {
+			var temp_tags = str.split(' ')
+			//remove duplicate or multiple-word tag
+			if (i + 1 <len && tags.indexOf(tags[i]) != -1
+			 || temp_tags.length > 1) {
+				tags.splice(i, 1)
+				//in case of skipping element
+				i--
+				// add splited words
+				if(temp_tags.length > 1) {
+					tags.concat(temp_tags)
 				}
+			}
+		}
+		for (let i = 0; i < that.data.temp_paths.length; i++) {
+			wx.cloud.uploadFile({
+				cloudPath: format_time(new Date()) + '.jpg',
+				filePath: tp[i], // File path
+				success(res) {
+					/* get resource ID using the reference 'tp',
+					rather than the property 'temp_paths' */
+					tp[i] = res.fileID
+				}/* ,
+				fail(err) {
+				// handle error
+				} */
 			})
 		}
-		wx.showToast({
-			title: '上传成功',
+		db.add({
+			data: {
+				tags: tags,
+				last_name: that.data.last_name,
+				user_id: that.data.user_id,
+				telephone: that.data.tel,
+				book_name: that.data.bk_name,
+				price: p,
+				add_info: ai,
+				file_id: tp
+			},
+			success(res) {wx.showToast({title: '上传成功'})}
 		})
-	} */
+	}
 })
