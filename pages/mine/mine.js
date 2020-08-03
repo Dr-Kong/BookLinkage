@@ -1,11 +1,15 @@
 // pages/mine/mine.js
+const app = getApp(),
+      util= require('../../utils/util.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo:{}
+    userInfo: {},
+    hasUserInfo: app.globalData.hasUserInfo
   },
 
   to_upload() {
@@ -41,24 +45,41 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
-    const userinfo = wx.getStorageSync("userinfo");
-    this.setData({userInfo: userinfo});
-
+  onLoad() {
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-   
+  onShow() {
+    const that = this
+    if (app.globalData.userInfo == {}) {
+      wx.getUserInfo({
+        success(res) {
+          app.globalData.userInfo = res.userInfo
+          app.globalData.hasUserInfo = true
+          that.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+          util.setOpenID()
+        }
+      })
+    } else {
+      that.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: app.globalData.hasUserInfo
+      })
+      util.setOpenID()
+    }
   },
 
   /**
@@ -94,5 +115,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  setUserInfo(e) {
+    app.globalData.userInfo = e.detail.userInfo
+    app.globalData.hasUserInfo = true
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+    util.setOpenID()
   }
 })

@@ -1,3 +1,5 @@
+const app = getApp()
+
 function format_time(date) {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -14,6 +16,17 @@ function format_number(n) {
   return n[1] ? n : '0' + n
 }
 
+function setOpenID() {
+  if (!app.globalData.openID ) {
+    wx.cloud.callFunction({
+      name: 'getOpenID',
+      complete: res => {
+        app.globalData.openID = res.result.openId
+      }
+    })
+  }
+}
+
 const pub_list = ['', 'barron', 'cambridge', 'hease', 'hodder', 'mcgraw', 'oxford', '新东方'],
       sbj_list = ['art history', 'biology', 'calculus', 'chemistry', 'chinese', 'computer science',
                   'economics', 'english', 'environmental science', 'geograph', 'mathematics',
@@ -25,5 +38,6 @@ module.exports = {
   pub_list: pub_list,
   sbj_list: sbj_list,
   _sbj_list: _sbj_list,
-  format_time: format_time
+  format_time: format_time,
+  setOpenID: setOpenID
 }

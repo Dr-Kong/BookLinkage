@@ -6,8 +6,8 @@
 			  您也可以在下方图片上传入口中添加个人名片，方便购书者与您沟通</text>
 		<input value='{{last_name}}' placeholder="中文姓氏" maxlength="2"
 			   type="text" confirm-type="next" bindinput="set_last_name"/>
-		<input value='{{user_id}}' placeholder="微信ID" maxlength="-1"
-			   confirm-type="next" bindinput="set_user_id"/>
+		<input value='{{wx_id}}' placeholder="微信ID" maxlength="-1"
+			   confirm-type="next" bindinput="set_wx_id"/>
 		<input value='{{tel}}' placeholder="手机号码"
 			   maxlength="11" type="number" bindinput="set_tel"/>
 	</view>

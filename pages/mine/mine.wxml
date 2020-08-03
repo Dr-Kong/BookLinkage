@@ -1,21 +1,30 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
 	<view class="userBackground">
-		<image class="userInfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-		<view class="userinfo-nickname">{{userInfo.nickName}}</view>
+		<image class="userInfo-avatar" wx:if="{{hasUserInfo}}"
+			   src="{{userInfo.avatarUrl}}" mode="cover"/>
+		<image class="userInfo-avatar" wx:else
+			   src="" mode="cover"/>
+		<text class="userinfo-nickname" wx:if="{{hasUserInfo}}">
+			{{userInfo.nickName}}
+		</text>
+		<button wx:else open-type="getUserInfo"
+			bindgetuserinfo="setUserInfo">
+			 登录 
+		</button>
 	</view>
 
 	<view class="user-content">
-		<view class="user-upload" bindtap="to_upload">
-		上传书本
-		</view>
-		
-		<view class="user-history" bindtap="to_history">
-		历史记录
-		</view>
-
-		<view class="user-starred" bindtap="to_starred">
-		我的收藏
+		<view wx:if="{{hasUserInfo}}">
+			<view class="user-upload" bindtap="to_upload">
+				上传书本
+			</view>
+			<view class="user-history" bindtap="to_history">
+				历史记录
+			</view>
+			<view class="user-starred" bindtap="to_starred">
+				我的收藏
+			</view>
 		</view>
 
 		<view class="user-feedback" bindtap="to_feedback">

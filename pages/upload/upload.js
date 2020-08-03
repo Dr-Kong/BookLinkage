@@ -1,5 +1,6 @@
 // pages/upload/upload.js
-const db = wx.cloud.database().collection('uploads'),
+const app = getApp(),
+	  db = wx.cloud.database().collection('uploads'),
 	  util= require('../../utils/util.js'),
 	  pub_list = util.pub_list,
 	  sbj_list = util.sbj_list,
@@ -11,10 +12,11 @@ Page({
 	 * Page initial data
 	 */
 	data: {
+		openID: app.globalData.openID,
 		_sbj_list: _sbj_list,
 		pub_list: pub_list,
 		last_name: '',
-		user_id: '',
+		wx_id: '',
 		tel: '',
 		sbj: 0,
 		pub: 0,
@@ -23,20 +25,6 @@ Page({
 		p: 0,
 		add_info: '',
 		temp_paths: []
-	},
-
-	chooseImage(){
-		var that = this;
-		wx.chooseImage({
-			count: 4,
-			sizeType: ['original'],
-			sourceType: ['album', 'camera'],
-			success (res) {
-				that.setData({
-					temp_imgs: res.tempFilePaths
-				})
-			}
-		})
 	},
 	/**
 	 * Lifecycle function--Called when page load
@@ -55,9 +43,7 @@ Page({
 	/**
 	 * Lifecycle function--Called when page show
 	 */
-	onShow: function () {
-
-	},
+	onShow() {},
 
 	/**
 	 * Lifecycle function--Called when page hide
@@ -100,9 +86,9 @@ Page({
 		})
 	},
 
-	set_user_id(e) {
+	set_wx_id(e) {
 		this.setData({
-			user_id: e.detail.value
+			wx_id: e.detail.value
 		})
 	},
 
@@ -113,7 +99,7 @@ Page({
 	},
 
 	set_bk_info(e) {
-		const val = e.detail
+		const val = e.detail.value
 		this.setData({
 			sbj: val[0],
 			pub: val[1]
@@ -167,9 +153,11 @@ Page({
 		var tags = [], len = tags.length
 		tags.push(sbj_list[s])
 		tags.push(_sbj_list[s])
-		tags.push(pub_list[p])
 		tags.push(bn)
 		tags.push(ai)
+		if (pub != 0) {
+			tags.push(pub_list[p])
+		}
 		if (il) {
 			tags.push('正版')
 			tags.push('原版')
@@ -212,12 +200,13 @@ Page({
 			data: {
 				tags: tags,
 				last_name: that.data.last_name,
-				user_id: that.data.user_id,
+				wx_id: that.data.wx_id,
 				telephone: that.data.tel,
 				book_name: that.data.bk_name,
 				price: p,
 				add_info: ai,
-				file_id: tp
+				file_id: tp,
+				is_sold_out: false
 			},
 			success(res) {wx.showToast({title: '上传成功'})}
 		})
