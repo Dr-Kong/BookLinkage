@@ -7,7 +7,27 @@ App({
       env: "booklinkage-ryfw4",
       traceUser: true
     })
-    // 登录
+    wx.getSetting({
+      success(r) {
+        if (r.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success(res) {
+              that.globalData.userInfo = res.userInfo
+              wx.cloud.callFunction({
+                name: 'getOpenID',
+                data: {
+                  e: wx.cloud.CloudID(res.cloudID)
+                },
+                complete(r) {
+                  that.globalData.openID = r.result.openid
+                }
+              })
+            }
+          })
+        }
+      }
+    })
+    /* // 登录
     wx.login()
     // 获取用户信息
     wx.getSetting({
@@ -35,12 +55,10 @@ App({
           })
         }
       }
-    })
+    }) */
   },
   globalData: {
-    userInfo: {},
-    hasUserInfo: false,
-    openID: null,
-    telphone: null
+    userInfo: null,
+    openID: null
   }
 })

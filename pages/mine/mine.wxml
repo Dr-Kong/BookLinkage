@@ -1,21 +1,25 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
 	<view class="userBackground">
-		<image class="userInfo-avatar" wx:if="{{hasUserInfo}}"
-			   src="{{userInfo.avatarUrl}}" mode="cover"/>
-		<image class="userInfo-avatar" wx:else
-			   src="" mode="cover"/>
-		<text class="userinfo-nickname" wx:if="{{hasUserInfo}}">
-			{{userInfo.nickName}}
-		</text>
-		<button wx:else open-type="getUserInfo"
-			bindgetuserinfo="setUserInfo">
-			 登录 
-		</button>
+		<view wx:if="{{a.globalData.userInfo != null}}">
+			<image class="userInfo-avatar"
+				   src="{{a.globalData.userInfo.avatarUrl}}"/>
+			<text class="userinfo-nickname">
+				 {{userInfo.nickName}} 
+			</text>
+		</view>
+		<view wx:else>
+			<image class="userInfo-avatar"
+				   src=""/>
+			<button open-type="getUserInfo"
+					bindgetuserinfo="setUserInfo">
+				 登录 
+			</button>
+		</view>
 	</view>
 
 	<view class="user-content">
-		<view wx:if="{{hasUserInfo}}">
+		<view wx:if="{{a.globalData.userInfo != null}}">
 			<view class="user-upload" bindtap="to_upload">
 				上传书本
 			</view>

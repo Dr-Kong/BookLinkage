@@ -21,16 +21,16 @@ Page({
 		sbj: 0,
 		pub: 0,
 		bk_name: '',
-		is_legal: false,
-		p: 0,
+		is_legal: null,
+		p: '',
 		add_info: '',
-		temp_paths: []
+		temp_paths: null
 	},
 	/**
 	 * Lifecycle function--Called when page load
 	 */
-	onLoad: function (options) {
-
+	onLoad(opt) {
+		
 	},
 
 	/**
@@ -113,10 +113,15 @@ Page({
 	},
 
 	set_is_legal(e){
-		if(e.detail.value == '是')
+		if (e.detail.value == '是') {
 			this.setData({
 				is_legal: true
 			})
+		} else if (e.detail.value == '否') {
+			this.setData({
+				is_legal: false
+			})
+		}
 	},
 
 	set_p(e) {
@@ -132,12 +137,14 @@ Page({
 	},
 
 	choose_img() {
+		const that = this
 		wx.chooseImage({
 			sizeType: ['original'],
 			sourceType: ['album', 'camera'],
+			count: -1,
 			success (res) {
 				// tempFilePath can be used as the src property of the img tag to display images.
-				this.setData({temp_paths: res.tempFilePaths})
+				that.setData({temp_paths: res.tempFilePaths})
 			}
 		  })
 	},
@@ -148,21 +155,50 @@ Page({
 			  p = that.data.pub,
 			  bn = that.data.bk_name,
 			  il = that.data.is_legal,
-			  ai = that.data.add_info
-			  tp = that.data.temp_paths
+			  ai = that.data.add_info,
+			  tp = that.data.temp_paths,
+			  id = that.data.wx_id,
+			  tel = that.data.tel,
+			  fi = []
 		var tags = [], len = tags.length
-		tags.push(sbj_list[s])
-		tags.push(_sbj_list[s])
+		if (id == '' && tel == '') {
+			wx.showToast({
+				title: '请您填写至少一种联系方式（微信号或手机号）',
+				icon: 'none'
+			})
+			return
+		}
+		if (bn == '') {
+			wx.showToast({
+				title: '请您',
+				icon: 'none'
+			})
+			return
+		}
+		if (tp == null) {
+			wx.showToast({
+				title: '请您至少选择一张图片',
+				icon: 'none'
+			})
+			return
+		}
+		wx.showLoading({
+			title: '上传中'
+		})
+		if (s != 11) {
+			tags.push(sbj_list[s])
+			tags.push(_sbj_list[s])
+		}
+		if (p != 0) {
+			tags.push(pub_list[p])
 		tags.push(bn)
 		tags.push(ai)
-		if (pub != 0) {
-			tags.push(pub_list[p])
 		}
-		if (il) {
+		if (il == true) {
 			tags.push('正版')
 			tags.push('原版')
 			tags.push('原装')
-		} else {
+		} else if (il == false) {
 			tags.push('盗版')
 			tags.push('复印')
 			tags.push('影印版')
@@ -171,25 +207,32 @@ Page({
 		for (let i = 0; i < len; i++) {
 			var temp_tags = str.split(' ')
 			//remove duplicate or multiple-word tag
-			if (i + 1 <len && tags.indexOf(tags[i]) != -1
-			 || temp_tags.length > 1) {
-				tags.splice(i, 1)
-				//in case of skipping element
-				i--
+			if (i + 1 <len
+			 && tags.indexOf(tags[i]) != i
+			 || tags.indexOf(tags[i], i + 1) != -1
+			 || temp_tags.length > 1
+			 || tags[i] == '') {
 				// add splited words
 				if(temp_tags.length > 1) {
 					tags.concat(temp_tags)
 				}
+				//remove duplicate ones
+				tags.splice(i, 1)
+				//in case of skipping element
+				i--
 			}
 		}
 		for (let i = 0; i < that.data.temp_paths.length; i++) {
 			wx.cloud.uploadFile({
-				cloudPath: format_time(new Date()) + '.jpg',
+				cloudPath: util.format_time(new Date()) + '.jpg',
 				filePath: tp[i], // File path
 				success(res) {
 					/* get resource ID using the reference 'tp',
 					rather than the property 'temp_paths' */
-					tp[i] = res.fileID
+					fi.push(
+						'cloud://booklinkage-ryfw4.626f-booklinkage-ryfw4-1302677239/'
+						+ this.cloudPath
+					)
 				}/* ,
 				fail(err) {
 				// handle error
@@ -199,16 +242,37 @@ Page({
 		db.add({
 			data: {
 				tags: tags,
-				last_name: that.data.last_name,
-				wx_id: that.data.wx_id,
-				telephone: that.data.tel,
-				book_name: that.data.bk_name,
+				lastName: that.data.last_name,
+				wxID: id,
+				telephone: tel,
+				bookName: that.data.bk_name,
 				price: p,
-				add_info: ai,
-				file_id: tp,
-				is_sold_out: false
+				additionInfo: ai,
+				fileID: fi,
+				isSoldOut: false
 			},
-			success(res) {wx.showToast({title: '上传成功'})}
+			success(res) {
+				wx.hideLoading()
+				wx.showToast({
+					title: '上传成功',
+					mask: true,
+					success(res) {
+						setTimeout (
+							function() {
+								wx.navigateBack()
+							},
+							3000
+						)
+					}
+				})
+			},
+			fail(err) {
+				wx.hideLoading()
+				wx.showToast({
+					title: '上传失败，请重新上传',
+					icon: 'none'
+				})
+			}
 		})
 	}
 })

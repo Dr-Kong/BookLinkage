@@ -2,7 +2,6 @@
   "pages":[
     "pages/homepage/homepage",
     "pages/upload/upload",
-    "pages/starred/starred",
     "pages/feedback/feedback",
     "pages/about/about",
     "pages/mine/mine",

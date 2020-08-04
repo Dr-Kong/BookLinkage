@@ -8,7 +8,9 @@ function format_time(date) {
   const minute = date.getMinutes()
   const second = date.getSeconds()
 
-  return [month, day, year].map(format_number).join('/') + '_' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day].map(format_number)
+         + '_' +
+         [hour, minute, second].map(format_number)
 }
 
 function format_number(n) {
@@ -16,15 +18,20 @@ function format_number(n) {
   return n[1] ? n : '0' + n
 }
 
-function setOpenID() {
-  if (!app.globalData.openID ) {
-    wx.cloud.callFunction({
-      name: 'getOpenID',
-      complete: res => {
-        app.globalData.openID = res.result.openId
-      }
-    })
-  }
+function setOpenID(res) {
+  wx.cloud.callFunction({
+    name: 'getOpenID',
+    data: {
+      e: wx.cloud.CloudID(res.cloudID)
+    },
+    complete(r) {
+      app.globalData.openID = r.result.openid
+    }
+  })
+}
+
+function setUserInfo(res) {
+  app.globalData.userInfo = res.userInfo
 }
 
 const pub_list = ['', 'barron', 'cambridge', 'hease', 'hodder', 'mcgraw', 'oxford', '新东方'],
@@ -39,5 +46,6 @@ module.exports = {
   sbj_list: sbj_list,
   _sbj_list: _sbj_list,
   format_time: format_time,
-  setOpenID: setOpenID
+  setOpenID: setOpenID,
+  setUserInfo: setUserInfo
 }

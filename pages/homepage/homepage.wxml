@@ -1,8 +1,9 @@
 <view class="container">
 	<!-- Heading -->
 	<view>
-		<image class="userInfo-avatar" wx:if="{{hasUserInfo}}"
-			   src="{{userInfo.avatarUrl}}" mode="cover"
+		<image class="userInfo-avatar"
+			   wx:if="{{a.globalData.userInfo != null}}"
+			   src="{{a.globalData.userInfo.avatarUrl}}"
 			   bindtap="bindViewTap"/>
 		<button wx:else open-type="getUserInfo"
 				bindgetuserinfo="setUserInfo">
@@ -10,4 +11,7 @@
 				   src="" mode="aspectFit"/>
 		</button>
 	</view>
+	<!-- Scroll Bar -->
+
+	<!-- Books List -->
 </view>
