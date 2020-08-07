@@ -16,6 +16,8 @@
 	<text>由于平台无法跟踪交易是否完成，将所有咨询视作交易完成。如果交易未完成，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架</text>
 	<!-- Bk Name -->
 	<text>{{bkName}}</text>
+	<!-- Legal -->
+	<text>{{isLegal ? '正版书籍' : ''}}</text>
 	<!-- Price -->
 	<text>{{' ￥ ' + p + ' '}}</text>
 	<!-- Additional Info -->

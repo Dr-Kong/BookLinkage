@@ -69,6 +69,8 @@
 		<image src="{{item.fileID[0]}}" mode="aspectFill" lazy-load="{{true}}" />
 		<!-- Book Name -->
 		<text>{{item.bkName}}</text>
+		<!-- Legal -->
+		<text>{{item.isLegal ? '正版书籍' : ''}}</text>
 		<!-- Additional Info -->
 		<text>{{item.additionalInfo}}</text>
 		<!-- Price -->

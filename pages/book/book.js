@@ -17,6 +17,7 @@ Page({
 		wxID: null,
 		tel: null,
 		bkName: null,
+		isLegal: null,
 		p: null,
 		addInfo: null,
 		fID: null,
@@ -39,6 +40,7 @@ Page({
 					wxID: r.wxID,
 					tel: r.telephone,
 					bkName: r.bkName,
+					isLegal: r.isLegal,
 					p: r.price,
 					addInfo: r.additionalInfo,
 					fID: r.fileID,
@@ -99,7 +101,7 @@ Page({
 				}
 			})
 		}
-		
+
 	},
 
 	/**
