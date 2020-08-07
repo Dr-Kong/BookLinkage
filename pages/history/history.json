@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "历史记录",
-  "usingComponents": {}
+  "usingComponents": {
+    "expandable-list": "../../components/expandable-list/expandable-list",
+    "tabs": "../../components/tabs/tabs"
+  }
 }

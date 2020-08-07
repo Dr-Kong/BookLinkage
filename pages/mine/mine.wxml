@@ -23,11 +23,14 @@
 			<view class="user-upload" bindtap="to_upload">
 				上传书本
 			</view>
-			<view class="user-history" bindtap="to_history">
-				历史记录
+			<view class="user-history" bindtap="to_uploads">
+				上传历史
 			</view>
-			<view class="user-starred" bindtap="to_starred">
+			<view class="user-history" bindtap="to_bargains">
 				我的收藏
+			</view>
+			<view class="user-history" bindtap="to_favorites">
+				咨询历史
 			</view>
 		</view>
 

@@ -41,13 +41,6 @@
   background-color: #fff;
 }
 
-.user-starred{
-  margin-top: 10rpx;
-  background-color: #fff;
-  width: 100%;
-  padding: 20rpx;
-}
-
 .user-about{
   margin-top: 10rpx;
   background-color: #fff;

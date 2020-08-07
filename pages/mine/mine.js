@@ -23,7 +23,19 @@ Page({
     })
   },
 
-  to_history() {
+  to_uploads() {
+    wx.navigateTo({
+      url: '../history/history',
+    })
+  },
+
+  to_bargains() {
+    wx.navigateTo({
+      url: '../history/history',
+    })
+  },
+
+  to_favorites() {
     wx.navigateTo({
       url: '../history/history',
     })
@@ -34,13 +46,6 @@ Page({
       url: '../feedback/feedback',
     })
   },
-
-  to_starred() {
-    wx.navigateTo({
-      url: '../starred/starred',
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */

@@ -4,25 +4,38 @@ Component({
 	 * Component properties
 	 */
 	properties: {
-		is_expanded: Boolean,
-		to_show: String
+		on: {
+			type: Boolean,
+			value: false
+		},
+		title: String,
+		src: String,
+		disabled: {
+			type: Boolean,
+			value: false
+		}
 	},
 
 	/**
 	 * Component initial data
 	 */
 	data: {
-		
+
 	},
+
+	/* External Classes */
+	externalClasses: ['title-class', 'contents-class'],
 
 	/**
 	 * Component methods
 	 */
 	methods: {
 		expand() {
-			this.setData({
-				is_expanded: !this.data.is_expanded
-			})
+			if (!disabled) {
+				this.setData({
+					on: !this.data.on
+				})
+			}
 		}
 	}
 })

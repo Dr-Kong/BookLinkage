@@ -1,12 +1,44 @@
 <view class="container">
-  <navigator class="history-list">
-    <view class="bookName">书名</view>
-    <view class="space"></view>
-    <view>
-    <text class="price">¥999</text>
-    </view>
-  </navigator>
-
-
-
+	<tabs bindChange='switchList'
+		titles='{{titles}}'
+		value='{{type}}'/>
+	<expandable-list wx:for="{{bkList}}"
+		wx:key='index'
+		src='{{item.fileID[0]}}'
+		title='{{item.bkName}}'
+		title-class=''
+		contents-class=''>
+		<!-- Status -->
+		<text class='{{item.isSoldOut ? '' : ''}}'>
+			{{item.isSoldOut ? '已下架' : "等待交易"}}
+		</text>
+		<!-- Putaway -->
+		<text bindtap="putAway"
+			wx:if="{{item.isSoldOut && type ！= 1}}"
+			data-bkID="{{item._id}}">
+			重新上架
+		</text>
+		<!-- Detail -->
+		<navigator url="{{'../book/book?type=' + type + '&bkID=' + item._id}}">
+			<text>书本详情</text>
+		</navigator>
+		<!-- Edit -->
+		<navigator url="{{'../upload/upload?type=1&bkID=' + item._id}}"
+			wx:if="{{type == 0}}">
+			<text>编辑</text>
+		</navigator>
+		<!-- Delete -->
+		<text bindtap="delete"
+			wx:if="{{type == 0}}"
+			data-bkID="{{item._id}}">
+			删除
+		</text>
+		<text bindtap="delete"
+			wx:else='{{type == 1}}'
+			data-bkID="{{item._id}}">
+			移除收藏
+		</text>
+		<!-- Price -->
+		<text>{{' ￥ ' + item.price + ' '}}</text>
+	</expandable-list>
 </view>

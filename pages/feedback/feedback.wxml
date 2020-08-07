@@ -4,8 +4,9 @@
 	<button open-type='feedback'>意见反馈</button>
 	<text class="common">常见问题</text>
 	<view class='common_questions'>	
-		<expandable-list is_expanded='{{false}}' wx:for="{{qna.a}}" wx:key='index' to_show='{{item}}'>
-			{{qna.q[index]}}
+		<expandable-list class='' wx:for="{{qna.a}}"
+						 wx:key='index' title='{{qna.q[index]}}'>
+			{{item}}
 		</expandable-list>
 	</view>
 </view>

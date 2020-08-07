@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "首页",
-  "usingComponents": {}
+  "usingComponents": {
+    "expandable-list": "../../components/expandable-list/expandable-list"
+  }
 }

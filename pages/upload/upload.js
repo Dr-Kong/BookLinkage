@@ -1,8 +1,11 @@
 // pages/upload/upload.js
 const app = getApp(),
-	  db = wx.cloud.database().collection('uploads'),
+	  db = wx.cloud.database({
+		throwOnNotFound: false
+	  }),
 	  util= require('../../utils/util.js'),
 	  pub_list = util.pub_list,
+	  _pub_list = util._pub_list,
 	  sbj_list = util.sbj_list,
 	  _sbj_list = util._sbj_list
 
@@ -12,25 +15,39 @@ Page({
 	 * Page initial data
 	 */
 	data: {
-		openID: app.globalData.openID,
 		_sbj_list: _sbj_list,
 		pub_list: pub_list,
+		_pub_list: _pub_list,
 		last_name: '',
 		wx_id: '',
 		tel: '',
-		sbj: 0,
+		sbj: 11,
 		pub: 0,
 		bk_name: '',
 		is_legal: null,
 		p: '',
 		add_info: '',
-		temp_paths: null
+		temp_paths: null,
+		hasUserInfo: false,
+		hasImg: false
 	},
 	/**
 	 * Lifecycle function--Called when page load
 	 */
-	onLoad(opt) {
-		
+	onLoad(options) {
+		const that = this
+		db.collection('uploads').where({
+			_openid: app.globalData.openID
+		}).get({
+			success(res){
+				const r = res.data[res.data.length - 1]
+				that.setData({
+					last_name: r.lastName,
+					wx_id: r.wxID,
+					tel: r.telephone
+				})
+			}
+		})
 	},
 
 	/**
@@ -82,13 +99,15 @@ Page({
 
 	set_last_name(e) {
 		this.setData({
-			last_name: e.detail.value
+			last_name: e.detail.value,
+			hasUserInfo: true
 		})
 	},
 
 	set_wx_id(e) {
 		this.setData({
-			wx_id: e.detail.value
+			wx_id: e.detail.value,
+			hasUserInfo: true
 		})
 	},
 
@@ -141,10 +160,12 @@ Page({
 		wx.chooseImage({
 			sizeType: ['original'],
 			sourceType: ['album', 'camera'],
-			count: -1,
 			success (res) {
 				// tempFilePath can be used as the src property of the img tag to display images.
-				that.setData({temp_paths: res.tempFilePaths})
+				that.setData({
+					temp_paths: res.tempFilePaths,
+					hasImg: true
+				})
 			}
 		  })
 	},
@@ -158,30 +179,11 @@ Page({
 			  ai = that.data.add_info,
 			  tp = that.data.temp_paths,
 			  id = that.data.wx_id,
-			  tel = that.data.tel,
-			  fi = []
-		var tags = [], len = tags.length
-		if (id == '' && tel == '') {
-			wx.showToast({
-				title: '请您填写至少一种联系方式（微信号或手机号）',
-				icon: 'none'
-			})
-			return
-		}
-		if (bn == '') {
-			wx.showToast({
-				title: '请您',
-				icon: 'none'
-			})
-			return
-		}
-		if (tp == null) {
-			wx.showToast({
-				title: '请您至少选择一张图片',
-				icon: 'none'
-			})
-			return
-		}
+			  tel = that.data.tel
+		var tags = [], fi = []
+		// disable the buttom in case of repeated upload
+		that.setData({hasUserInfo: false})
+		// humanistic optimize
 		wx.showLoading({
 			title: '上传中'
 		})
@@ -191,9 +193,10 @@ Page({
 		}
 		if (p != 0) {
 			tags.push(pub_list[p])
+			tags.push(_pub_list[p])
+		}
 		tags.push(bn)
 		tags.push(ai)
-		}
 		if (il == true) {
 			tags.push('正版')
 			tags.push('原版')
@@ -203,51 +206,42 @@ Page({
 			tags.push('复印')
 			tags.push('影印版')
 		}
-		// traverse tags
-		for (let i = 0; i < len; i++) {
-			var temp_tags = str.split(' ')
-			//remove duplicate or multiple-word tag
-			if (i + 1 <len
-			 && tags.indexOf(tags[i]) != i
-			 || tags.indexOf(tags[i], i + 1) != -1
-			 || temp_tags.length > 1
-			 || tags[i] == '') {
-				// add splited words
-				if(temp_tags.length > 1) {
-					tags.concat(temp_tags)
-				}
-				//remove duplicate ones
+		for (var i = 0; i < tags.length; i++) {
+			var temp_tags = tags[i].split(' ')
+			if (i + 1 < tags.length
+				&& tags.indexOf(tags[i], i + 1) != -1
+				|| tags.indexOf(tags[i]) != i
+				|| tags[i] == ''
+				|| tags[i] == ' '
+				|| temp_tags.length > 1) {
+				// remove unqualified tag
 				tags.splice(i, 1)
-				//in case of skipping element
+				// in case of skipping element
 				i--
+				// add splited words
+				if (temp_tags.length > 1) {
+					tags = tags.concat(temp_tags)
+				}
 			}
 		}
-		for (let i = 0; i < that.data.temp_paths.length; i++) {
+		// upload img and record its cloudpath
+		for (let i = 0; i < tp.length; i++) {
+			var cp = Date.parse(new Date()) / 10 + i + '.jpg'
+			fi.push('cloud://booklinkage-ryfw4.626f-booklinkage-ryfw4-1302677239/' + cp)
 			wx.cloud.uploadFile({
-				cloudPath: util.format_time(new Date()) + '.jpg',
-				filePath: tp[i], // File path
-				success(res) {
-					/* get resource ID using the reference 'tp',
-					rather than the property 'temp_paths' */
-					fi.push(
-						'cloud://booklinkage-ryfw4.626f-booklinkage-ryfw4-1302677239/'
-						+ this.cloudPath
-					)
-				}/* ,
-				fail(err) {
-				// handle error
-				} */
+				cloudPath: cp,
+				filePath: tp[i]
 			})
 		}
-		db.add({
+		db.collection('uploads').add({
 			data: {
 				tags: tags,
 				lastName: that.data.last_name,
 				wxID: id,
 				telephone: tel,
-				bookName: that.data.bk_name,
-				price: p,
-				additionInfo: ai,
+				bkName: bn,
+				price: that.data.p,
+				additionalInfo: ai,
 				fileID: fi,
 				isSoldOut: false
 			},
@@ -257,19 +251,16 @@ Page({
 					title: '上传成功',
 					mask: true,
 					success(res) {
-						setTimeout (
-							function() {
-								wx.navigateBack()
-							},
-							3000
-						)
+						wx.navigateBack()
 					}
 				})
 			},
 			fail(err) {
+				// enable the buttom
+				that.setData({hasUserInfo: true})
 				wx.hideLoading()
 				wx.showToast({
-					title: '上传失败，请重新上传',
+					title: '上传失败',
 					icon: 'none'
 				})
 			}

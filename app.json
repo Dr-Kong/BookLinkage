@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/homepage/homepage",
     "pages/upload/upload",
     "pages/feedback/feedback",
@@ -8,11 +8,11 @@
     "pages/book/book",
     "pages/history/history"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "BookLinkage",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
@@ -20,16 +20,17 @@
     "color": "#444",
     "borderStyle": "white",
     "position": "bottom",
-    "list": [
-      {
+    "list": [{
         "text": "首页",
         "pagePath": "pages/homepage/homepage",
-        "iconPath": "icons/homepage.png"
+        "iconPath": "icons/homepage.png",
+        "selectedIconPath": "icons/_homepage.png"
       },
       {
         "text": "我的",
         "pagePath": "pages/mine/mine",
-        "iconPath": "icons/mine.png"
+        "iconPath": "icons/mine.png",
+        "selectedIconPath": "icons/_mine.png"
       }
     ]
   }
