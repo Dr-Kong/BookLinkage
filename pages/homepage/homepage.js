@@ -1,17 +1,17 @@
 //index.js
 const db = wx.cloud.database(),
   util = require('../../utils/util.js'),
-  pub_list = util.pub_list,
-  sbj_list = util.sbj_list,
+  pubList = util.pubList,
+  sbjList = util.sbjList,
   app = getApp()
 var bkList = null
 
 Page({
   data: {
     a: app,
-    _sbj_list: util._sbj_list,
-    sbj_list: sbj_list,
-    pub_list: pub_list,
+    _sbjList: util._sbjList,
+    sbjList: sbjList,
+    pubList: pubList,
     sbj: 11,
     pub: 0,
     bl: bkList,
@@ -95,22 +95,22 @@ Page({
       keywords: str,
       isFocus: true
     })
-    var temp_tags = str.split(' ')
-    for (var i = 0; i < temp_tags.length; i++) {
-      if (i + 1 < temp_tags.length &&
-        temp_tags.indexOf(temp_tags[i], i + 1) != -1 ||
-        temp_tags[i] == '' ||
-        temp_tags[i] == ' ') {
+    var tempTags = str.split(' ')
+    for (var i = 0; i < tempTags.length; i++) {
+      if (i + 1 < tempTags.length &&
+        tempTags.indexOf(tempTags[i], i + 1) != -1 ||
+        tempTags[i] == '' ||
+        tempTags[i] == ' ') {
         // remove unqualified tag
-        temp_tags.splice(i, 1)
+        tempTags.splice(i, 1)
         // in case of skipping element
         i--
       }
     }
     that.setData({
-      tags: temp_tags
+      tags: tempTags
     })
-    that.search(temp_tags)
+    that.search(tempTags)
   },
 
   searchByTags(e) {
@@ -119,7 +119,7 @@ Page({
       sbj: val[0],
       pub: val[1],
       isFocus: false,
-      tags: [_sbj_list[val[0]], pub_list[val[1]]]
+      tags: [_sbjList[val[0]], pubList[val[1]]]
     })
     this.search(this.data.tags)
   },

@@ -41,7 +41,7 @@
 				bindchange="searchByTags">
 				<!-- subject -->
 				<picker-view-column>
-					<view wx:for="{{_sbj_list}}"
+					<view wx:for="{{_sbjList}}"
 						wx:key='index'
 						style="line-height: 50px">
 						{{item}}
@@ -49,7 +49,7 @@
 				</picker-view-column>
 				<!-- publisher -->
 				<picker-view-column>
-					<view wx:for="{{pub_list}}"
+					<view wx:for="{{pubList}}"
 						wx:key='index'
 						style="line-height: 50px">
 						{{item}}

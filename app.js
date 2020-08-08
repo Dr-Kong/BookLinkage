@@ -1,7 +1,7 @@
 //app.js
 
 App({
-  onLaunch () {
+  onLaunch() {
     const that = this
     wx.cloud.init({
       env: "booklinkage-ryfw4",

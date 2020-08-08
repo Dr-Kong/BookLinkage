@@ -1,8 +1,9 @@
 /* pages/feedback/feedback.wxss */
-.common_questions {
+.common-questions {
 	font-size: 34rpx;
 }
-.common{
+
+.common {
 
 	margin-top: 25rpx;
 }

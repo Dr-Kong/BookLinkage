@@ -3,7 +3,7 @@
 <view class="container">
 	<button open-type='feedback'>意见反馈</button>
 	<text class="common">常见问题</text>
-	<view class='common_questions'>	
+	<view class='common-questions'>	
 		<expandable-list class='' wx:for="{{qna.a}}"
 						 wx:key='index' title='{{qna.q[index]}}'>
 			{{item}}

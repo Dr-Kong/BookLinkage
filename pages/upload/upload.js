@@ -4,10 +4,10 @@ const app = getApp(),
 		throwOnNotFound: false
 	  }),
 	  util= require('../../utils/util.js'),
-	  pub_list = util.pub_list,
-	  _pub_list = util._pub_list,
-	  sbj_list = util.sbj_list,
-	  _sbj_list = util._sbj_list
+	  pubList = util.pubList,
+	  _pubList = util._pubList,
+	  sbjList = util.sbjList,
+	  _sbjList = util._sbjList
 
 Page({
 
@@ -17,19 +17,19 @@ Page({
 	data: {
 		type: 0,
 		_id: null,
-		_sbj_list: _sbj_list,
-		pub_list: pub_list,
-		_pub_list: _pub_list,
-		last_name: '',
-		wx_id: '',
+		_sbjList: _sbjList,
+		pubList: pubList,
+		_pubList: _pubList,
+		lastName: '',
+		wxID: '',
 		tel: '',
 		sbj: 11,
 		pub: 0,
-		bk_name: '',
-		is_legal: null,
+		bkName: '',
+		isLegal: null,
 		p: '',
-		add_info: '',
-		temp_paths: [],
+		addInfo: '',
+		tempPaths: [],
 		tags: [],
 		hasUserInfo: false
 	},
@@ -45,14 +45,14 @@ Page({
 					that.setData({
 						type: options.type,
 						_id: options.bkID,
-						last_name: r.lastName,
-						wx_id: r.wxID,
+						lastName: r.lastName,
+						wxID: r.wxID,
 						tel: r.telephone,
-						bk_name: r.bkName,
-						is_legal: r.isLegal,
+						bkName: r.bkName,
+						isLegal: r.isLegal,
 						p: r.price,
-						add_info: r.additionalInfo,
-						temp_paths: r.fileID,
+						addInfo: r.additionalInfo,
+						tempPaths: r.fileID,
 						tags: r.tags
 					})
 				}
@@ -64,8 +64,8 @@ Page({
 				success(res){
 					const r = res.data[res.data.length - 1]
 					that.setData({
-						last_name: r.lastName,
-						wx_id: r.wxID,
+						lastName: r.lastName,
+						wxID: r.wxID,
 						tel: r.telephone
 					})
 				}
@@ -120,27 +120,27 @@ Page({
 
 	},
 
-	set_last_name(e) {
+	setLastName(e) {
 		this.setData({
-			last_name: e.detail.value,
+			lastName: e.detail.value,
 			hasUserInfo: true
 		})
 	},
 
-	set_wx_id(e) {
+	setWxID(e) {
 		this.setData({
-			wx_id: e.detail.value,
+			wxID: e.detail.value,
 			hasUserInfo: true
 		})
 	},
 
-	set_tel(e) {
+	setTel(e) {
 		this.setData({
 			tel: e.detail.value
 		})
 	},
 
-	set_bk_info(e) {
+	setBkInfo(e) {
 		const val = e.detail.value
 		this.setData({
 			sbj: val[0],
@@ -148,46 +148,46 @@ Page({
 		})
 	},
 
-	set_bk_name(e){
+	setBkName(e){
 		this.setData({
-			bk_name: e.detail.value
+			bkName: e.detail.value
 		})
 	},
 
-	set_is_legal(e){
+	setIsLegal(e){
 		if (e.detail.value == '是') {
 			this.setData({
-				is_legal: true
+				isLegal: true
 			})
 		} else if (e.detail.value == '否') {
 			this.setData({
-				is_legal: false
+				isLegal: false
 			})
 		}
 	},
 
-	set_p(e) {
+	setP(e) {
 		this.setData({
 			p: e.detail.value
 		})
 	},
 
-	set_add_info(e) {
+	setAddInfo(e) {
 		this.setData({
-			add_info: e.detail.value
+			addInfo: e.detail.value
 		})
 	},
 
-	choose_img() {
+	chooseImg() {
 		const that = this,
-			tp = that.data.temp_paths
+			tp = that.data.tempPaths
 		wx.chooseImage({
 			sizeType: ['original'],
 			sourceType: ['album', 'camera'],
 			success (res) {
 				// tempFilePath can be used as the src property of the img tag to display images.
 				that.setData({
-					temp_paths: tp.concat(res.tempFilePaths)
+					tempPaths: tp.concat(res.tempFilePaths)
 				})
 			}
 		  })
@@ -195,9 +195,9 @@ Page({
 
 	removeImg(e) {
 		const i = e.currentTarget.dataset.i,
-			tp = this.data.temp_paths
+			tp = this.data.tempPaths
 		this.setData({
-			temp_paths: tp.splice(i, 1)
+			tempPaths: tp.splice(i, 1)
 		})
 	},
 
@@ -206,10 +206,10 @@ Page({
 			  t = that.data.type
 			  s = that.data.sbj,
 			  p = that.data.pub,
-			  bn = that.data.bk_name,
-			  il = that.data.is_legal,
-			  ai = that.data.add_infos,
-			  id = that.data.wx_id,
+			  bn = that.data.bkName,
+			  il = that.data.isLegal,
+			  ai = that.data.addInfo,
+			  id = that.data.wxID,
 			  tel = that.data.tel,
 			  tags = that.data.tags
 		var fi = [], tp = that.data.temp_path
@@ -220,12 +220,12 @@ Page({
 			title: t == 0 ? '上传中' : '更新信息中'
 		})
 		if (s != 11) {
-			tags.push(sbj_list[s])
-			tags.push(_sbj_list[s])
+			tags.push(sbjList[s])
+			tags.push(_sbjList[s])
 		}
 		if (p != 0) {
-			tags.push(pub_list[p])
-			tags.push(_pub_list[p])
+			tags.push(pubList[p])
+			tags.push(_pubList[p])
 		}
 		tags.push(bn)
 		tags.push(ai)
@@ -239,20 +239,20 @@ Page({
 			tags.push('影印版')
 		}
 		for (var i = 0; i < tags.length; i++) {
-			var temp_tags = tags[i].split(' ')
+			var tempTags = tags[i].split(' ')
 			if (i + 1 < tags.length
 				&& tags.indexOf(tags[i], i + 1) != -1
 				|| tags.indexOf(tags[i]) != i
 				|| tags[i] == ''
 				|| tags[i] == ' '
-				|| temp_tags.length > 1) {
+				|| tempTags.length > 1) {
 				// remove unqualified tag
 				tags.splice(i, 1)
 				// in case of skipping element
 				i--
 				// add splited words
-				if (temp_tags.length > 1) {
-					tags = tags.concat(temp_tags)
+				if (tempTags.length > 1) {
+					tags = tags.concat(tempTags)
 				}
 			}
 		}
@@ -276,7 +276,7 @@ Page({
 			db.collection('uploads').doc(that.data._id).set({
 				data: {
 					tags: tags,
-					lastName: that.data.last_name,
+					lastName: that.data.lastName,
 					wxID: id,
 					telephone: tel,
 					bkName: bn,
