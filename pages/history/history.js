@@ -1,7 +1,9 @@
 // pages/history/history.js
-const db = wx.cloud.database(),
+const db = wx.cloud.database({
+		throwOnNotFound: false
+	}),
 	app = getApp(),
-	_ = db.command()
+	_ = db.command
 
 Page({
 
@@ -17,7 +19,7 @@ Page({
 	/**
 	 * Lifecycle function--Called when page load
 	 */
-	onLoad: function (options) {
+	onLoad(options) {
 		this.setData({
 			type: options.type
 		})
@@ -113,7 +115,7 @@ Page({
 	},
 
 	putAway(e) {
-		db.collection('uploads').doc(e.currentTaget.dataset.bkID).update({
+		db.collection('uploads').doc(e.currentTarget.dataset.bkID).update({
 			data: {
 				isSoldOut: false
 			}
@@ -121,7 +123,7 @@ Page({
 	},
 
 	delete(e) {
-		const bkID = e.currentTaget.dataset.bkID,
+		const bkID = e.currentTarget.dataset.bkID,
 			a = [null, 'favorites', 'bargains']
 		t = this.data.type
 		if (t == 0) {

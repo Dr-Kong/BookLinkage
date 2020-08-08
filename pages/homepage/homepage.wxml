@@ -1,6 +1,6 @@
 <view class="container">
 	<!-- Heading -->
-	<view></view>
+	<view>
 		<!-- Notifictions -->
 		<text>注：具体交易价格以实际咨询为准</text>
 		<!-- User Avatar -->
@@ -64,7 +64,7 @@
 	<!-- Books Item -->
 	<navigator wx:for="{{bl}}"
 		wx:key='index'
-		wx:if="{{item._openid != a.globalData.openID"
+		wx:if="{{item._openid != a.globalData.openID}}"
 		url="{{'../book/book?bkID=' + bl[index]._id + '&type=0'}}">
 		<image src="{{item.fileID[0]}}" mode="aspectFill" lazy-load="{{true}}" />
 		<!-- Book Name -->

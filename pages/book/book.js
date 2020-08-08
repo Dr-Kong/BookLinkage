@@ -3,7 +3,7 @@ const app = getApp(),
 	db = wx.cloud.database({
 		throwOnNotFound: false
 	}),
-	_ = db.command()
+	_ = db.command
 
 Page({
 
@@ -76,14 +76,14 @@ Page({
 				_openid: app.globalData.openID
 			}).get({
 				success(res) {
-					const r = res.data[0].arr,
-						for (let i = 0; i < r.length; i++) {
-							if (r[i] == that.data._id) {
-								that.setData({
-									starred: true
-								})
-							}
+					const r = res.data[0].arr
+					for (let i = 0; i < r.length; i++) {
+						if (r[i] == that.data._id) {
+							that.setData({
+								starred: true
+							})
 						}
+					}
 				}
 			})
 			// check if sold out

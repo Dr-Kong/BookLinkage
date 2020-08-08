@@ -1,5 +1,5 @@
 <view class="container">
-	<tabs bindChange='switchList'
+	<tabs bindchange='switchList'
 		titles='{{titles}}'
 		value='{{type}}'/>
 	<expandable-list wx:for="{{bkList}}"
@@ -9,15 +9,18 @@
 		title-class=''
 		contents-class=''>
 		<!-- Status -->
-		<text class='{{item.isSoldOut ? '' : ''}}'>
-			{{item.isSoldOut ? '已下架' : "等待交易"}}
-		</text>
+		<view>
+			<text class='{{item.isSoldOut ? "" : ""}}'>
+				{{item.isSoldOut ? '已下架' : "等待交易"}}
+			</text>
+		</view>
 		<!-- Putaway -->
-		<text bindtap="putAway"
-			wx:if="{{item.isSoldOut && type ！= 1}}"
-			data-bkID="{{item._id}}">
-			重新上架
-		</text>
+		<view wx:if="{{type != 1 && item.isSoldOut == true}}">
+			<text bindtap="putAway"
+				data-bkID="{{item._id}}">
+				重新上架
+			</text>
+		</view>
 		<!-- Detail -->
 		<navigator url="{{'../book/book?type=' + type + '&bkID=' + item._id}}">
 			<text>书本详情</text>
@@ -28,17 +31,19 @@
 			<text>编辑</text>
 		</navigator>
 		<!-- Delete -->
-		<text bindtap="delete"
-			wx:if="{{type == 0}}"
-			data-bkID="{{item._id}}">
-			删除
-		</text>
-		<text bindtap="delete"
-			wx:else='{{type == 1}}'
-			data-bkID="{{item._id}}">
-			移除收藏
-		</text>
+		<view>
+			<text bindtap="delete"
+				wx:if="{{type == 0}}"
+				data-bkID="{{item._id}}">
+				删除
+			</text>
+			<text bindtap="delete"
+				wx:else='{{type == 1}}'
+				data-bkID="{{item._id}}">
+				移除收藏
+			</text>
+		</view>
 		<!-- Price -->
-		<text>{{' ￥ ' + item.price + ' '}}</text>
+		<view><text>{{' ￥ ' + item.price + ' '}}</text></view>
 	</expandable-list>
 </view>

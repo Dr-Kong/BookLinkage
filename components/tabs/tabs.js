@@ -20,9 +20,11 @@ Component({
 	 * Component methods
 	 */
 	methods: {
-		bindTap(e) {
-			const i = e.currentTaget.dataset.index
-			this.triggerEvent('change', {index: i})
+		bindtap(e) {
+			const i = e.currentTarget.dataset.index
+			this.triggerEvent('change', {
+				index: i
+			})
 		}
 	}
 })

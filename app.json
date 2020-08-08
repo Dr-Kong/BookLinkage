@@ -29,8 +29,7 @@
       {
         "text": "我的",
         "pagePath": "pages/mine/mine",
-        "iconPath": "icons/mine.png",
-        "selectedIconPath": "icons/_mine.png"
+        "iconPath": "icons/mine.png"
       }
     ]
   }

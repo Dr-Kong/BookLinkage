@@ -31,9 +31,9 @@ Component({
 	 */
 	methods: {
 		expand() {
-			if (!disabled) {
+			if (!this.properties.disabled) {
 				this.setData({
-					on: !this.data.on
+					on: !this.properties.on
 				})
 			}
 		}

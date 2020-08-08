@@ -178,7 +178,7 @@ Page({
       bl: bkList,
       keywords: '',
       isFocus: null,
-      tags = null
+      tags: null
     })
   }
 })

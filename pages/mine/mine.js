@@ -1,6 +1,6 @@
 // pages/mine/mine.js
 const app = getApp(),
-      util= require('../../utils/util.js')
+  util = require('../../utils/util.js')
 
 Page({
 
@@ -9,42 +9,6 @@ Page({
    */
   data: {
     a: app
-  },
-
-  to_upload() {
-    wx.navigateTo({
-      url: '../upload/upload',
-    })
-  },
-
-  to_about() {
-    wx.navigateTo({
-      url: '../about/about',
-    })
-  },
-
-  to_uploads() {
-    wx.navigateTo({
-      url: '../history/history',
-    })
-  },
-
-  to_bargains() {
-    wx.navigateTo({
-      url: '../history/history',
-    })
-  },
-
-  to_favorites() {
-    wx.navigateTo({
-      url: '../history/history',
-    })
-  },
-
-  to_feedback() {
-    wx.navigateTo({
-      url: '../feedback/feedback',
-    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -59,14 +23,18 @@ Page({
               success(res) {
                 util.setUserInfo(res)
                 util.setOpenID(res)
-                that.setData({a: getApp()})
+                that.setData({
+                  a: getApp()
+                })
               }
             })
           }
         }
       })
     } else if (that.data.a.globalData.userInfo == null) {
-      that.setData({a: getApp()})
+      that.setData({
+        a: getApp()
+      })
     }
   },
 
@@ -74,14 +42,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    
+
   },
 
   /**
@@ -123,6 +91,8 @@ Page({
     const res = e.detail
     util.setUserInfo(res)
     util.setOpenID(res)
-    this.setData({app: getApp()})
+    this.setData({
+      app: getApp()
+    })
   }
 })

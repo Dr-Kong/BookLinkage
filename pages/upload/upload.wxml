@@ -45,14 +45,13 @@
 	<text>
 		请准确输入书名，并用空格区分不同词语（例：Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
 	</text>
-	<textarea placeholder="书名"
+	<input placeholder="书名"
 		   maxlength="-1"
 		   value="{{bk_name}}"
 		   confirm-type="next"
 		   bindinput="set_bk_name"/>
 	<input placeholder="是否原版书籍（非复印影印版）"
 		maxlength="1"
-		value="{{is_legal ? '是' : '否'}}"
 		confirm-type="next"
 		bindinput="set_is_legal"/>
 	<input placeholder="意向价格/元"
