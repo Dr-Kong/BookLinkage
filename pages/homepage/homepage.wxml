@@ -13,13 +13,16 @@
 				<!-- Search Bar -->
 				<view class="inputView">
 					<view class="space"></view>
-					<input value="{{keywords}}"
-					maxlength="-1"
-					disabled="{{isFocus == false}}"
-					placeholder="输入书本名称（请用空格分隔关键词）"
-					confirm-type="search"
-					bindinput="searchByKeywords"
-					bindconfirm='hideKeyboard'/>
+					<view class="bgc">
+						<input value="{{keywords}}"
+						maxlength="-1"
+						disabled="{{isFocus == false}}"
+						placeholder="输入书本名称(请用空格分隔关键词)"
+						placeholder-class="PHC"
+						confirm-type="search"
+						bindinput="searchByKeywords"
+						bindconfirm='hideKeyboard'/>
+					</view>
 				</view>
 			</view>
 			<view wx:else
@@ -30,23 +33,28 @@
 				<!-- Search Bar-->
 				<view class="inputView">
 					<view class="space"></view>
-					<input value="{{keywords}}"
-					maxlength="-1"
-					disabled="{{isFocus == false}}"
-					placeholder="输入书本名称（请用空格分隔关键词)"
-					placeholder-class="PHC"
-					confirm-type="search"
-					bindinput="searchByKeywords"
-					bindconfirm='hideKeyboard'
-					class="input"/>
+					<view class="bgc">
+						<input value="{{keywords}}"
+						maxlength="-1"
+						disabled="{{isFocus == false}}"
+						placeholder="输入书本名称(请用空格分隔关键词)"
+						placeholder-class="PHC"
+						confirm-type="search"
+						bindinput="searchByKeywords"
+						bindconfirm='hideKeyboard'/>
+					</view>
+				</view>
+				<view class="cancel">
+				<view class="space"></view>
+					<button wx:if="{{isFocus}}" bindtap="cancelSearch" 
+				  size="mini" class="cancelButton">
+					X
+					</button>
 				</view>
 			</view>
 
 		</view>
 		
-		<text wx:if="{{isFocus}}" bindtap="cancelSearch">
-			取消
-		</text>
 	</view>
 	<!-- Tags selecting -->
 	<view wx:if="isFocus != true">
@@ -76,7 +84,7 @@
 			</picker-view>
 		</expandable-list>
 		<text wx:if="{{isFocus == false}}" bindtap="cancelSearch">
-			取消
+			x
 		</text>
 	</view>
 	<!-- Books Item -->
