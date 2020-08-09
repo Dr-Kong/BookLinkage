@@ -1,9 +1,15 @@
 /* pages/feedback/feedback.wxss */
 .common-questions {
-	font-size: 34rpx;
+	font-size: 60rpx;
 }
 
 .common {
-
+	width: 100%;
 	margin-top: 25rpx;
+}
+.EL{
+	
+}
+.container{
+	padding: 30rpx 0;
 }

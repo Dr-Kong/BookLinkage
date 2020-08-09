@@ -2,25 +2,31 @@
 .userInfo-avatar{
   width: 150rpx;
   height: 150rpx;
-  margin: 20rpx;
-  margin-top: 200rpx;
   border-radius: 50%;
-  margin-left: 40.5%;
 }
 .userinfo-nickname{
-  padding-top: 0%;
-  font-weight: bolder;
-  text-align: center;
-  color: #aaa;
+  margin-top: 40rpx;
+  color: white;
+  font-size: medium;
+  font-weight: bold;
 }
-
+.userInfo{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20%;
+  text-align: center;
+}
 .userBackground{
   width: 100%;
-  height: 45vh;
+  height: 50vh;
   margin-top: 0%;
-  background-color: aquamarine;
+  height: 55vh;
 }
-
+.filter{
+  filter: blur(10rpx);
+  height: 55vh;
+}
 .container{
   padding-top: 0%;
   height: 1200rpx;

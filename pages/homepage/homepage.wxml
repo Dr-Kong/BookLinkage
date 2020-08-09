@@ -5,10 +5,11 @@
 		<text class="notice">注：具体交易价格以实际咨询为准</text>
 		<!-- User Avatar -->
 		<view class="wid">
-			<view wx:if="{{a.globalData.userInfo != null}}" bindtap="bindViewTap" 
+			<view wx:if="{{a.globalData.userInfo != null}}"  
 			class="userInputView">
 				<image class="userInfo-avatar"
-				   src="{{a.globalData.userInfo.avatarUrl}}"/>
+				   src="{{a.globalData.userInfo.avatarUrl}}"
+					 bindtap="bindViewTap"/>
 
 				<!-- Search Bar -->
 				<view class="inputView">

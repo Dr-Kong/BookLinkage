@@ -1,11 +1,4 @@
 /* pages/upload/upload.wxss */
-.input{
-  margin-top: 15rpx;
-  align-items: center;
-  border-bottom: grey solid 4rpx;
-  width: 100%;
-  margin-bottom: 30rpx;
-}
 
 .imgs{
   width: 200rpx;
@@ -17,4 +10,53 @@
 .fullwidth{
   width: 100%;
   height: 800rpx;
+}
+.container{
+  padding: 30rpx 0;
+  background-color: rgb(210, 210, 219);
+}
+.inputC{
+  margin-top: 15rpx;
+  align-items: center;
+  border-bottom: grey solid 4rpx;
+  width: 100%;
+  margin-bottom: 15rpx;
+  background-color: white;
+  height: 65rpx;
+}
+.bookInfo{
+  margin-left: 60rpx;
+  font-size: large;
+  font-weight: bold;
+}
+.BI{
+  margin-top: 50rpx;
+}
+.additionalInfo{
+  height: 400rpx;
+  width: 90%;
+}
+
+.imgDisplay{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 600rpx;
+}
+
+.up_img_wrap{
+  width: 100rpx;
+  height: 100rpx;
+  position: relative;
+  padding: 30rpx;
+}
+.up_img_wrap .oneImg{
+  width: 100%;
+  height: 100%;
+  border-radius: 15rpx;
+}
+.up_img_wrap .oneIcon{
+  position: absolute;
+  top: 5rpx;
+  right: 5rpx;
 }

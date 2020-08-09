@@ -3,14 +3,10 @@
 	<!-- Title -->
 	<view class='title title-class'>
 		<!-- Title Text -->
-		<text>{{title}}</text>
+		<view bindtap="expand">{{title}}</view>
 		<!-- Title Img -->
-		<image src="{{src}}"/>
-		<!-- Expand Button -->
-		<image style="width: 42rpx; height: 22rpx;" wx:if="{{on}}"
-			   src='../../icons/expander.png' bindtap="expand"/>
-		<image style="width: 42rpx; height: 22rpx;" wx:if='{{! on}}'
-			   src="../../icons/_expander.png" bindtap="expand"/>
+		<image wx:if='{{src != ""}}' src="{{src}}"/>
+
 	</view>
 	<!-- Contents -->
     <view class='contents contents-class' wx:if="{{on}}">

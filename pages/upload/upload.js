@@ -196,8 +196,9 @@ Page({
 	removeImg(e) {
 		const i = e.currentTarget.dataset.i,
 			tp = this.data.tempPaths
+		tp.splice(i, 1)
 		this.setData({
-			tempPaths: tp.splice(i, 1)
+			tempPaths: tp
 		})
 	},
 
