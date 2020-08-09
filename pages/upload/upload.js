@@ -1,13 +1,14 @@
 // pages/upload/upload.js
 const app = getApp(),
-	  db = wx.cloud.database({
+	db = wx.cloud.database({
 		throwOnNotFound: false
-	  }),
-	  util= require('../../utils/util.js'),
-	  pubList = util.pubList,
-	  _pubList = util._pubList,
-	  sbjList = util.sbjList,
-	  _sbjList = util._sbjList
+	}),
+	_ = db.command,
+	util = require('../../utils/util.js'),
+	pubList = util.pubList,
+	_pubList = util._pubList,
+	sbjList = util.sbjList,
+	_sbjList = util._sbjList
 
 Page({
 
@@ -29,8 +30,7 @@ Page({
 		isLegal: null,
 		p: '',
 		addInfo: '',
-		tempPaths: [],
-		tags: [],
+		tempPaths: null,
 		hasUserInfo: false
 	},
 	/**
@@ -52,8 +52,7 @@ Page({
 						isLegal: r.isLegal,
 						p: r.price,
 						addInfo: r.additionalInfo,
-						tempPaths: r.fileID,
-						tags: r.tags
+						tempPaths: r.fileID
 					})
 				}
 			})
@@ -61,7 +60,7 @@ Page({
 			db.collection('uploads').where({
 				_openid: app.globalData.openID
 			}).get({
-				success(res){
+				success(res) {
 					const r = res.data[res.data.length - 1]
 					that.setData({
 						lastName: r.lastName,
@@ -122,8 +121,7 @@ Page({
 
 	setLastName(e) {
 		this.setData({
-			lastName: e.detail.value,
-			hasUserInfo: true
+			lastName: e.detail.value
 		})
 	},
 
@@ -136,7 +134,8 @@ Page({
 
 	setTel(e) {
 		this.setData({
-			tel: e.detail.value
+			tel: e.detail.value,
+			hasUserInfo: true
 		})
 	},
 
@@ -148,13 +147,13 @@ Page({
 		})
 	},
 
-	setBkName(e){
+	setBkName(e) {
 		this.setData({
 			bkName: e.detail.value
 		})
 	},
 
-	setIsLegal(e){
+	setIsLegal(e) {
 		if (e.detail.value == '是') {
 			this.setData({
 				isLegal: true
@@ -179,18 +178,19 @@ Page({
 	},
 
 	chooseImg() {
-		const that = this,
-			tp = that.data.tempPaths
+		const that = this
+		var tp = that.data.tempPaths
+		tp = (tp == null) ? [] : tp
 		wx.chooseImage({
 			sizeType: ['original'],
 			sourceType: ['album', 'camera'],
-			success (res) {
+			success(res) {
 				// tempFilePath can be used as the src property of the img tag to display images.
 				that.setData({
 					tempPaths: tp.concat(res.tempFilePaths)
 				})
 			}
-		  })
+		})
 	},
 
 	removeImg(e) {
@@ -203,62 +203,66 @@ Page({
 
 	upload() {
 		const that = this,
-			  t = that.data.type
-			  s = that.data.sbj,
-			  p = that.data.pub,
-			  bn = that.data.bkName,
-			  il = that.data.isLegal,
-			  ai = that.data.addInfo,
-			  id = that.data.wxID,
-			  tel = that.data.tel,
-			  tags = that.data.tags
-		var fi = [], tp = that.data.temp_path
+			t = that.data.type,
+			s = that.data.sbj,
+			p = that.data.pub,
+			bn = that.data.bkName,
+			il = that.data.isLegal,
+			ai = that.data.addInfo,
+			id = that.data.wxID,
+			tel = that.data.tel
+		var tp = that.data.tempPaths,
+			tags = []
 		// disable the buttom in case of repeated upload
-		that.setData({hasUserInfo: false})
+		that.setData({
+			hasUserInfo: false
+		})
 		// humanistic optimize
 		wx.showLoading({
 			title: t == 0 ? '上传中' : '更新信息中'
 		})
-		if (s != 11) {
-			tags.push(sbjList[s])
-			tags.push(_sbjList[s])
-		}
-		if (p != 0) {
-			tags.push(pubList[p])
-			tags.push(_pubList[p])
-		}
-		tags.push(bn)
-		tags.push(ai)
-		if (il == true) {
-			tags.push('正版')
-			tags.push('原版')
-			tags.push('原装')
-		} else if (il == false) {
-			tags.push('盗版')
-			tags.push('复印')
-			tags.push('影印版')
-		}
-		for (var i = 0; i < tags.length; i++) {
-			var tempTags = tags[i].split(' ')
-			if (i + 1 < tags.length
-				&& tags.indexOf(tags[i], i + 1) != -1
-				|| tags.indexOf(tags[i]) != i
-				|| tags[i] == ''
-				|| tags[i] == ' '
-				|| tempTags.length > 1) {
-				// remove unqualified tag
-				tags.splice(i, 1)
-				// in case of skipping element
-				i--
-				// add splited words
-				if (tempTags.length > 1) {
-					tags = tags.concat(tempTags)
+		if (t == 0) {
+			if (s != 11) {
+				tags.push(sbjList[s])
+				tags.push(_sbjList[s])
+			}
+			if (p != 0) {
+				tags.push(pubList[p])
+				tags.push(_pubList[p])
+			}
+			tags.push(bn)
+			tags.push(ai)
+			if (il == true) {
+				tags.push('正版')
+				tags.push('原版')
+				tags.push('原装')
+			} else if (il == false) {
+				tags.push('盗版')
+				tags.push('复印')
+				tags.push('影印版')
+			}
+			for (var i = 0; i < tags.length; i++) {
+				var tempTags = tags[i].split(' ')
+				if (i + 1 < tags.length &&
+					tags.indexOf(tags[i], i + 1) != -1 ||
+					tags.indexOf(tags[i]) != i ||
+					tags[i] == '' ||
+					tags[i] == ' ' ||
+					tempTags.length > 1) {
+					// remove unqualified tag
+					tags.splice(i, 1)
+					// in case of skipping element
+					i--
+					// add splited words
+					if (tempTags.length > 1) {
+						tags = tags.concat(tempTags)
+					}
 				}
 			}
 		}
 		// upload img and record its cloudpath
 		for (let i = 0; i < tp.length; i++) {
-			// remove cloud img
+			// remove cloud img url
 			if (tp[i].substr(0, 8) == 'cloud://') {
 				tp.splice(i, 1)
 				i--
@@ -272,24 +276,27 @@ Page({
 				filePath: cur
 			})
 		}
-		if (type == 0) {
-			db.collection('uploads').doc(that.data._id).set({
+		that.setData({
+			tempPaths: tp
+		})
+		// add or update record
+		if (t == 1) {
+			db.collection('uploads').doc(that.data._id).update({
 				data: {
-					tags: tags,
 					lastName: that.data.lastName,
 					wxID: id,
 					telephone: tel,
 					bkName: bn,
-					isLegal: il,
 					price: that.data.p,
 					additionalInfo: ai,
-					fileID: tp,
-					isSoldOut: false
+					fileID: _.push({
+						each: tp
+					})
 				},
 				success(res) {
 					wx.hideLoading()
 					wx.showToast({
-						title: t == 0 ? '上传成功' : '更新成功',
+						title: '更新成功',
 						mask: true,
 						success(res) {
 							wx.navigateBack()
@@ -298,7 +305,9 @@ Page({
 				},
 				fail(err) {
 					// enable the buttom
-					that.setData({hasUserInfo: true})
+					that.setData({
+						hasUserInfo: true
+					})
 					wx.hideLoading()
 					wx.showToast({
 						title: '失败',
@@ -306,6 +315,42 @@ Page({
 					})
 				}
 			})
-		} else {}
+		} else {
+			db.collection('uploads').add({
+				data: {
+					lastName: that.data.lastName,
+					wxID: id,
+					telephone: tel,
+					bkName: bn,
+					price: that.data.p,
+					additionalInfo: ai,
+					fileID: tp,
+					isSoldOut: false,
+					tags: tags,
+					isLegal: il
+				},
+				success(res) {
+					wx.hideLoading()
+					wx.showToast({
+						title: '上传成功',
+						mask: true,
+						success(res) {
+							wx.navigateBack()
+						}
+					})
+				},
+				fail(err) {
+					// enable the buttom
+					that.setData({
+						hasUserInfo: true
+					})
+					wx.hideLoading()
+					wx.showToast({
+						title: '失败',
+						icon: 'none'
+					})
+				}
+			})
+		}
 	}
 })

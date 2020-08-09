@@ -52,13 +52,17 @@ Page({
   },
 
   onShow() {
-    const isf = this.data.isFocus
+    const isf = this.data.isFocus,
+      that = this
     if (isf == null) {
       db.collection('uploads').where({
         isSoldOut: false
       }).get({
         success(res) {
           bkList = res.data
+          that.setData({
+            bl: bkList
+          })
         }
       })
     } else {

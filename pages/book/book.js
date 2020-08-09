@@ -13,14 +13,7 @@ Page({
 	data: {
 		_id: null,
 		type: null,
-		lastName: null,
-		wxID: null,
-		tel: null,
-		bkName: null,
-		isLegal: null,
-		p: null,
-		addInfo: null,
-		fID: null,
+		record: null,
 		starred: null,
 		showContactInfo: false
 	},
@@ -34,16 +27,7 @@ Page({
 			success(res) {
 				const r = res.data[0]
 				that.setData({
-					_id: options.bkID,
-					type: options.type,
-					lastName: r.lastName,
-					wxID: r.wxID,
-					tel: r.telephone,
-					bkName: r.bkName,
-					isLegal: r.isLegal,
-					p: r.price,
-					addInfo: r.additionalInfo,
-					fID: r.fileID,
+					record: r
 				})
 			},
 			fail(err) {
@@ -141,9 +125,7 @@ Page({
 
 	star() {
 		const that = this,
-			bkID = that.data._id
-		// whether the record exists
-		var bool = false
+			bkID = that.data.record._id
 		// set val on current page
 		that.setData({
 			starred: true
@@ -151,16 +133,9 @@ Page({
 		// set val in database
 		db.collection('favorites').where({
 			_openid: app.globalData.openID
-		}).get({
-			success(res) {
-				bool = true
-			}
-		})
-		db.collection('favorites').where({
-			_openid: app.globalData.openID
 		}).set({
 			data: {
-				arr: bool ? _.unshift(bkID) : [bkID]
+				arr: _.unshift(bkID)
 			}
 		})
 	},

@@ -66,6 +66,7 @@
 		wx:key='index'
 		wx:if="{{item._openid != a.globalData.openID}}"
 		url="{{'../book/book?bkID=' + bl[index]._id + '&type=0'}}">
+		<!-- Bk Img -->
 		<image src="{{item.fileID[0]}}" mode="aspectFill" lazy-load="{{true}}" />
 		<!-- Book Name -->
 		<text>{{item.bkName}}</text>

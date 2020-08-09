@@ -14,7 +14,7 @@
 			   maxlength="11" type="number" bindinput="setTel"/>
 	</view>
 	<view>书本信息</view>
-	<view wx:if="{{type != 1}}">
+	<view wx:if="{{type == 0}}">
 		<view>请注意区分校本数学，ap微积分及ap统计，
 			ap环科以及校本地理，英文小说请选英语</view>
 		<view>
@@ -40,33 +40,33 @@
 				</view>
 			</picker-view-column>
 		</picker-view>
+		<!-- 'input' for short placeholder, 'textarea' for long -->
+		<text>
+			请准确输入书名，并用空格区分不同词语（例：Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
+		</text>
+		<input placeholder="书名"
+			maxlength="-1"
+			value="{{bkName}}"
+			confirm-type="next"
+			bindinput="setBkName"/>
+		<input placeholder="是否原版书籍（非复印影印版）"
+			maxlength="1"
+			confirm-type="next"
+			bindinput="setIsLegal"/>
+		<input placeholder="意向价格/元"
+			value='{{p}}'
+			maxlength="3"
+			type="number"
+			confirm-type="next"
+			bindinput="setP"/>
+		<text>
+			其他信息（如：新旧程度，全新/九成新），请用空格区分关键词
+		</text>
+		<textarea placeholder="其他信息"
+			value="{{addInfo}}"
+			maxlength="-1"
+			bindinput="setAddInfo"/>
 	</view>
-	<!-- 'input' for short placeholder, 'textarea' for long -->
-	<text>
-		请准确输入书名，并用空格区分不同词语（例：Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
-	</text>
-	<input placeholder="书名"
-		   maxlength="-1"
-		   value="{{bkName}}"
-		   confirm-type="next"
-		   bindinput="setBkName"/>
-	<input placeholder="是否原版书籍（非复印影印版）"
-		maxlength="1"
-		confirm-type="next"
-		bindinput="setIsLegal"/>
-	<input placeholder="意向价格/元"
-		value='{{p}}'
-		maxlength="3"
-		type="number"
-		confirm-type="next"
-		bindinput="setP"/>
-	<text>
-		其他信息（如：新旧程度，全新/九成新），请用空格区分关键词
-	</text>
-	<textarea placeholder="其他信息"
-		value="{{addInfo}}"
-		maxlength="-1"
-		bindinput="setAddInfo"/>
 	<text>
 		如果在图片中上传个人名片，请在交易完成以后及时到历史记录中下架，防止多次咨询
 	</text>
@@ -81,7 +81,7 @@
 			data-i="{{index}}"/>
 	</view>
 	<!-- in case of duplicate uploads -->
-	<button disabled="{{!hasUserInfo || tempPaths == []}}"
+	<button disabled="{{!hasUserInfo || tempPaths == null}}"
 			bindtap="upload">
 		 {{type == 0 ? '上传书本' : '提交更新'}} 
 	</button>
