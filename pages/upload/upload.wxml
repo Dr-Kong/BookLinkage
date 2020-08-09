@@ -2,24 +2,31 @@
 <view class="container">
 	<view>个人信息</view>
 	<view>
-		<text>请允许他人通过微信号和手机号添加您，并准确填写如下信息。
-			  您也可以在下方图片上传入口中添加个人名片，方便购书者与您沟通</text>
-		<input value='{{lastName}}' placeholder="中文姓氏"
-			   maxlength="2" type="text" confirm-type="next"
-			   bindinput="setLastName"/>
-		<input value='{{wxID}}' placeholder="微信号"
-			   maxlength="-1" confirm-type="next"
-			   bindinput="setWxID"/>
-		<input value='{{tel}}' placeholder="手机号码"
-			   maxlength="11" type="number" bindinput="setTel"/>
+		<text>请允许他人通过微信号和手机号添加您，并准确填写如下信息。您也可以在下方图片上传入口中添加个人名片，方便购书者与您沟通。</text>
+		<view class="inputC">
+			<input value='{{lastName}}' placeholder="中文姓氏"
+					maxlength="2" type="text" confirm-type="next"
+					bindinput="setLastName"/>
+		</view>
+		<view class="inputC">
+			<input value='{{wxID}}' placeholder="微信号"
+					maxlength="-1" confirm-type="next"
+					bindinput="setWxID"/>
+		</view>
+		<view class="inputC">
+			<input value='{{tel}}' placeholder="手机号码"
+					maxlength="11" type="number" bindinput="setTel"/>
+		</view>
 	</view>
 	<view>书本信息</view>
-	<view wx:if="{{type == 0}}">
-		<view>请注意区分校本数学，ap微积分及ap统计，
-			ap环科以及校本地理，英文小说请选英语</view>
-		<view>
-			<text>科目：{{_sbjList[sbj]}}</text>
-			<text wx:if="sbj != 11"> 出版商：{{pubList[pub]}}</text>
+	<view wx:if="{{type != 1}}">
+		<text>
+			请注意区分校本数学，ap微积分及ap统计，ap环科以及校本地理，英文小说请选英语
+		</text>
+
+		<view class="BI">
+			<text class="bookInfo">科目：{{_sbjList[sbj]}}</text>
+			<text class="bookInfo" wx:if="sbj != 11"> 出版商：{{pubList[pub]}}</text>
 		</view>
 		<picker-view indicator-style="height: 50px;"
 					style="width: 500rpx; height: 300px;"
@@ -40,28 +47,33 @@
 				</view>
 			</picker-view-column>
 		</picker-view>
-		<!-- 'input' for short placeholder, 'textarea' for long -->
-		<text>
-			请准确输入书名，并用空格区分不同词语（例：Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
-		</text>
-		<input placeholder="书名"
-			maxlength="-1"
-			value="{{bkName}}"
-			confirm-type="next"
-			bindinput="setBkName"/>
-		<input placeholder="是否原版书籍（非复印影印版）"
-			maxlength="1"
-			confirm-type="next"
-			bindinput="setIsLegal"/>
-		<input placeholder="意向价格/元"
-			value='{{p}}'
-			maxlength="3"
-			type="number"
-			confirm-type="next"
-			bindinput="setP"/>
-		<text>
-			其他信息（如：新旧程度，全新/九成新），请用空格区分关键词
-		</text>
+	</view>
+	<!-- 'input' for short placeholder, 'textarea' for long -->
+	<text>
+		请准确输入书名，并用空格区分不同词语（例：Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
+	</text>
+	<input placeholder="书名"
+		   maxlength="-1"
+		   value="{{bkName}}"
+		   confirm-type="next"
+		   bindinput="setBkName"
+			 class="inputC"/>
+	<input placeholder="是否原版书籍（非复印影印版）"
+		maxlength="1"
+		confirm-type="next"
+		bindinput="setIsLegal"
+		class="inputC"/>
+	<input placeholder="意向价格/元"
+		value='{{p}}'
+		maxlength="3"
+		type="number"
+		confirm-type="next"
+		bindinput="setP"
+		class="inputC"/>
+	<text>
+		其他信息（如：新旧程度，全新/九成新），请用空格区分关键词
+	</text>
+	<view class="additonalInfo">
 		<textarea placeholder="其他信息"
 			value="{{addInfo}}"
 			maxlength="-1"
@@ -72,13 +84,16 @@
 	</text>
 	<button bindtap="chooseImg">+</button>
 	<!-- Img Preview -->
-	<view wx:for="{{tempPaths}}" wx:key='index'>
-		<image src="{{item}}"/>
-		<icon type="clear"
-			size=""
-			color=""
-			bindtap="removeImg"
-			data-i="{{index}}"/>
+	<view class="imgDisplay">
+		<view class="up_img_wrap" wx:for="{{tempPaths}}" wx:key='index'>
+			<image class="oneImg" src="{{item}}"/>
+			<icon type="clear"
+				size="20"
+				color="white"
+				bindtap="removeImg"
+				data-i="{{index}}"
+				class="oneIcon" />
+		</view>
 	</view>
 	<!-- in case of duplicate uploads -->
 	<button disabled="{{!hasUserInfo || tempPaths == null}}"

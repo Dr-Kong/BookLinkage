@@ -1,12 +1,15 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
 	<view class="userBackground">
-		<view wx:if="{{a.globalData.userInfo != null}}">
+		<image class="filter" 
+		src="{{a.globalData.userInfo.avatarUrl}}" ></image>
+		<view class="userInfo" 
+		wx:if="{{a.globalData.userInfo != null}}">
 			<image class="userInfo-avatar"
 				   src="{{a.globalData.userInfo.avatarUrl}}"/>
-			<text class="userinfo-nickname">
-				 {{userInfo.nickName}} 
-			</text>
+			<view class="userinfo-nickname">
+				 {{a.globalData.userInfo.nickName}} 
+			</view>
 		</view>
 		<view wx:else>
 			<image class="userInfo-avatar"
