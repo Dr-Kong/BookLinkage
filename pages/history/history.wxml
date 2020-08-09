@@ -1,7 +1,9 @@
 <view class="container">
-	<tabs bindchange='switchList'
-		titles='{{titles}}'
-		value='{{type}}'/>
+	<view>
+		<tabs bindchange='switchList'
+			titles='{{titles}}'
+			value='{{type}}'/>
+	</view>
 	<expandable-list wx:for="{{bkList}}"
 		wx:key='index'
 		src='{{item.fileID[0]}}'

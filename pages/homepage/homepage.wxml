@@ -1,34 +1,60 @@
 <view class="container">
 	<!-- Heading -->
-	<view>
+	<view class="wid">
 		<!-- Notifictions -->
-		<text>注：具体交易价格以实际咨询为准</text>
+		<text class="notice">注：具体交易价格以实际咨询为准</text>
 		<!-- User Avatar -->
-		<view>
-			<image class="userInfo-avatar"
-				bindtap="bindViewTap"
-				wx:if="{{a.globalData.userInfo != null}}"
-				src="{{a.globalData.userInfo.avatarUrl}}"
-				mode="aspectFit"/>
-			<button wx:else
-				open-type="getUserInfo"
-				bindgetuserinfo="setUserInfo">
+		<view class="wid">
+			<view wx:if="{{a.globalData.userInfo != null}}" bindtap="bindViewTap" 
+			class="userInputView">
 				<image class="userInfo-avatar"
-					src=""
-					mode="aspectFit" />
-			</button>
+				   src="{{a.globalData.userInfo.avatarUrl}}"/>
+
+				<!-- Search Bar -->
+				<view class="inputView">
+					<view class="space"></view>
+					<view class="bgc">
+						<input value="{{keywords}}"
+						maxlength="-1"
+						disabled="{{isFocus == false}}"
+						placeholder="输入书本名称(请用空格分隔关键词)"
+						placeholder-class="PHC"
+						confirm-type="search"
+						bindinput="searchByKeywords"
+						bindconfirm='hideKeyboard'/>
+					</view>
+				</view>
+			</view>
+			<view wx:else
+				bindgetuserinfo="setUserInfo" class="userInputView">
+				<image class="userInfo-avatar"
+					src="../../icons/_starred.png" />
+
+				<!-- Search Bar-->
+				<view class="inputView">
+					<view class="space"></view>
+					<view class="bgc">
+						<input value="{{keywords}}"
+						maxlength="-1"
+						disabled="{{isFocus == false}}"
+						placeholder="输入书本名称(请用空格分隔关键词)"
+						placeholder-class="PHC"
+						confirm-type="search"
+						bindinput="searchByKeywords"
+						bindconfirm='hideKeyboard'/>
+					</view>
+				</view>
+				<view class="cancel">
+				<view class="space"></view>
+					<button wx:if="{{isFocus}}" bindtap="cancelSearch" 
+				  size="mini" class="cancelButton">
+					X
+					</button>
+				</view>
+			</view>
+
 		</view>
-		<!-- Search Bar -->
-		<input value="{{keywords}}"
-			maxlength="-1"
-			disabled="{{isFocus == false}}"
-			placeholder="输入书本名称（请用空格分隔关键词）"
-			confirm-type="search"
-			bindinput="searchByKeywords"
-			bindconfirm='hideKeyboard' />
-		<text wx:if="{{isFocus}}" bindtap="cancelSearch">
-			取消
-		</text>
+		
 	</view>
 	<!-- Tags selecting -->
 	<view wx:if="isFocus != true">
@@ -58,7 +84,7 @@
 			</picker-view>
 		</expandable-list>
 		<text wx:if="{{isFocus == false}}" bindtap="cancelSearch">
-			取消
+			x
 		</text>
 	</view>
 	<!-- Books Item -->

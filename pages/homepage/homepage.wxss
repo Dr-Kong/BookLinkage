@@ -5,13 +5,62 @@
   align-items: center;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
+.userInputView .userInfo-avatar{
+  width: 100rpx;
+  height: 100rpx;
   margin: 20rpx;
+  margin-top: 30rpx;
   border-radius: 50%;
+  margin-left: 5%;
 }
 
 .usermotto {
   margin-top: 200px;
 }
+.container{
+  padding: 5rpx 0;
+}
+
+.notice{
+  font-size: small;
+  color: red;
+  margin-left: 18%;
+}
+.userInputView{
+  display: flex;
+  flex-direction: row;
+}
+.userInputView.inputView{
+  display: flex;
+  flex-direction: column;
+}
+.userInputView.cancel{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+.cancelButton{
+  height: 55rpx;
+  width: 60rpx;
+}
+.wid{
+  width: 100%;
+  background-color: rgb(170, 168, 168);
+}
+.space{
+  height: 50rpx;
+  width: 100%;
+  background-color: rgb(170, 168, 168);
+}
+.input{
+  width: 500rpx
+}
+.PHC{
+  font-size: small;
+}
+.bgc{
+  background-color: white;
+  width: 500rpx;
+}
+
+
