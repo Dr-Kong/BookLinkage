@@ -11,7 +11,6 @@ Page({
 	 * Page initial data
 	 */
 	data: {
-		_id: null,
 		type: null,
 		record: null,
 		starred: null,
@@ -25,9 +24,8 @@ Page({
 		const that = this
 		db.collection('uploads').doc(options.bkID).get({
 			success(res) {
-				const r = res.data[0]
 				that.setData({
-					record: r
+					record: res.data
 				})
 			},
 			fail(err) {
@@ -62,26 +60,28 @@ Page({
 				success(res) {
 					const r = res.data[0].arr
 					for (let i = 0; i < r.length; i++) {
-						if (r[i] == that.data._id) {
+						if (r[i] == that.data.record._id) {
 							that.setData({
 								starred: true
 							})
 						}
 					}
-				}
-			})
-			// check if sold out
-			db.collection('uploads').doc(that.data._id).get({
-				success(res) {
-					if (res.data[0].isSoldOut) {
-						wx.showToast({
-							title: '此书本已经下架！',
-							icon: 'none',
-							success(res) {
-								wx.navigateBack()
+					// check if sold out
+					db.collection('uploads').doc(
+						that.data.record._id
+					).get({
+						success(res) {
+							if (res.data.isSoldOut) {
+								wx.showToast({
+									title: '此书本已经下架！',
+									icon: 'none',
+									success(res) {
+										wx.navigateBack()
+									}
+								})
 							}
-						})
-					}
+						}
+					})
 				}
 			})
 		}
@@ -142,10 +142,10 @@ Page({
 
 	bargain() {
 		const that = this
-		db.collection('uploads').doc(that.data._id).get({
+		db.collection('uploads').doc(that.data.record._id).get({
 			success(res) {
 				// check if sold out
-				if (res.data[0].isSoldOut) {
+				if (res.data.isSoldOut) {
 					wx.showToast({
 						title: '在你浏览时，已经有人开始咨询了！',
 						icon: 'none',
@@ -157,7 +157,7 @@ Page({
 					that.setData({
 						showContactInfo: true
 					})
-					db.collection('uploads').doc(that.data._id).update({
+					db.collection('uploads').doc(that.data.record._id).update({
 						data: {
 							isSoldOut: true
 						}
@@ -169,7 +169,7 @@ Page({
 
 	preview(e) {
 		const cur = e.currentTarget.dataset.i,
-			cp = this.data.fID
+			cp = this.data.record.fileID
 		wx.previewImage({
 			urls: cp,
 			current: cp[cur]

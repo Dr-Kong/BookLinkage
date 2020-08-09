@@ -95,7 +95,7 @@ Page({
 					for (let i = 0; i < bkIDList.length; i++) {
 						db.collection('uploads').doc(bkIDList[i]).get({
 							success(r) {
-								temp.push(r.data[0])
+								temp.push(r.data)
 							}
 						})
 					}

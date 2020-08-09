@@ -15,13 +15,21 @@
 	<!-- Notification -->
 	<text>由于平台无法跟踪交易是否完成，将所有咨询视作交易完成。如果交易未完成，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架</text>
 	<!-- Bk Name -->
-	<text>{{record.bkName}}</text>
+	<text wx:if="{{record.bkName != ''}}">
+		{{record.bkName}}
+	</text>
 	<!-- Legal -->
-	<text>{{record.isLegal ? '正版书籍' : ''}}</text>
+	<text wx:if="{{record.isLegal}}">
+		正版书籍
+	</text>
 	<!-- Price -->
-	<text>{{' ￥ ' + record.price + ' '}}</text>
+	<text wx:if="{{record.price != ''}}">
+		{{' ￥ ' + record.price + ' '}}
+	</text>
 	<!-- Additional Info -->
-	<text>{{record.addInfo}}</text>
+	<text wx:if="{{record.addInfo != ''}}">
+		{{record.addInfo}}
+	</text>
 	<!-- Star -->
 	<cover-view wx:if="{{type != 2}}">
 		<button bindtap="star">
@@ -42,8 +50,10 @@
 		</button>
 	</cover-view>
 	<!-- Contact Info -->
-	<cover-view wx:if="showContactInfo">
-		{{' ' + lastName + ' 同学 '}}
+	<cover-view wx:if="{{showContactInfo}}">
+		<cover-view wx:if="{{record.lastName != ''}}">
+			{{' ' + record.lastName + ' 同学 '}}
+		</cover-view>
 		<cover-view wx:if="{{record.wxID != ''}}">
 			{{record.wxID}}
 			<button>

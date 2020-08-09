@@ -41,7 +41,7 @@ Page({
 		if (options.type == 1) {
 			db.collection('uploads').doc(options.bkID).get({
 				success(res) {
-					const r = res.data[0]
+					const r = res.data
 					that.setData({
 						type: options.type,
 						_id: options.bkID,
