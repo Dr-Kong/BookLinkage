@@ -13,6 +13,10 @@
   width: 100%;
   align-items: baseline;
 }
+.container{
+  padding: 50rpx 0;
+}
+
 
 
 
