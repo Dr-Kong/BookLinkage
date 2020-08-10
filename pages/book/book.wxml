@@ -7,7 +7,7 @@
 		duration="1000"
 		class="swiper" >
 		<swiper-item wx:for="{{record.fileID}}" wx:key='index'
-		class="swiper-item">
+			class="swiper-item">
 			<image src="{{item}}"
 				mode="aspectFill"
 				data-i="index"
@@ -18,17 +18,17 @@
 	<text class="notice">由于平台无法跟踪交易是否完成，将所有咨询视作交易完成。如果交易未完成，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架</text>
 	<!-- Bk Name -->
 	<text wx:if="{{record.bkName != ''}}"
-	class="bkName">
+		class="bkName">
 		{{record.bkName}}
 	</text>
 	<!-- Legal -->
 	<text wx:if="{{record.isLegal}}"
-	class="bkLegal">
+		class="bkLegal">
 		正版书籍
 	</text>
 	<!-- Price -->
 	<text wx:if="{{record.price != ''}}"
-	class="bkPrice">
+		class="bkPrice">
 		{{' ￥ ' + record.price + ' '}}
 	</text>
 	<!-- Additional Info -->
@@ -36,7 +36,7 @@
 		{{record.additionalInfo}}
 	</text>
 	<!-- Star -->
-	<cover-view wx:if="{{type != 1}}"
+	<cover-view wx:if="{{type != 0}}"
 	class="starred">
 		<!-- Selected -->
 		<image wx:if="{{starred}}"
@@ -52,7 +52,7 @@
 			mode="scaleToFill"/>
 	</cover-view>
 	<!-- Bargain -->
-	<cover-view wx:if="{{type != 1}}" class="bargain">
+	<cover-view wx:if="{{type != 0}}" class="bargain">
 		<button wx:if="{{!showContactInfo}}"  bindtap="bargain">
 			{{type == 1 ? '开始咨询' : '查看联系方式'}}
 		</button>
