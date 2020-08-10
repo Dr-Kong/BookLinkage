@@ -52,7 +52,8 @@ Page({
 						isLegal: r.isLegal,
 						p: r.price,
 						addInfo: r.additionalInfo,
-						tempPaths: r.fileID
+						tempPaths: r.fileID,
+						hasUserInfo: true
 					})
 				}
 			})
@@ -66,7 +67,7 @@ Page({
 						lastName: r.lastName,
 						wxID: r.wxID,
 						tel: r.telephone,
-						hasUserInfo: (r.wxID != '') || (r.telephone != '')
+						hasUserInfo: r.wxID != '' || r.telephone != ''
 					})
 				}
 			})

@@ -35,7 +35,7 @@
 		{{record.additionalInfo}}
 	</text>
 	<!-- Star -->
-	<cover-view wx:if="{{type != 2}}"
+	<cover-view wx:if="{{type != 0}}"
 	class="starred">
 		<!-- Selected -->
 		<image wx:if="{{starred}}"
@@ -51,10 +51,10 @@
 			mode="scaleToFill"/>
 	</cover-view>
 	<!-- Bargain -->
-	<cover-view wx:if="{{type != 2}}"
+	<cover-view wx:if="{{type != 0}}"
 	class="bargain">
 		<button bindtap="bargain">
-			开始咨询
+			{{type == 1 ? '开始咨询' : '查看联系方式'}}
 		</button>
 	</cover-view>
 	<view class="place"></view>

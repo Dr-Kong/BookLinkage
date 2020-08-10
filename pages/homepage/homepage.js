@@ -70,7 +70,7 @@ Page({
       })
     } else {
       // in case that some books are sold out
-      this.search(tags)
+      this.search(that.data.tags)
     }
   },
 

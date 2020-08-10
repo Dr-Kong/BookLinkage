@@ -3,17 +3,17 @@
 	<view class="wid">
 		<!-- Notifictions -->
 		<text class="notice">注：具体交易价格以实际咨询为准</text>
-		<!-- User Avatar -->
 		<view class="wid">
 			<view wx:if="{{a.globalData.userInfo != null}}"  
 			class="userInputView">
+				<!-- User Avatar -->
 				<image class="userInfo-avatar"
 				   src="{{a.globalData.userInfo.avatarUrl}}"
 					 bindtap="bindViewTap"/>
 
 				<!-- Search Bar -->
 				<view class="inputView">
-					<view class="space"></view>
+					<view class="space"/>
 					<view class="bgc">
 						<input value="{{keywords}}"
 						maxlength="-1"
@@ -26,8 +26,7 @@
 					</view>
 				</view>
 			</view>
-			<view wx:else
-				class="userInputView">
+			<view wx:else class="userInputView">
 				<button class="getInfoB" open-type="getUserInfo" bindgetuserinfo="setUserInfo">
 					<image class="userInfo-avatar" src="../../icons/_starred.png" />
 				</button>
@@ -53,7 +52,6 @@
 					</button>
 				</view>
 			</view>
-
 		</view>
 		
 	</view>

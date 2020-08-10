@@ -24,17 +24,19 @@ Page({
 		const that = this
 		db.collection('uploads').doc(options.bkID).get({
 			success(res) {
+				const r = res.data
+				if (r == null) {
+					wx.showToast({
+						title: '所查询的书本已被删除！',
+						icon: 'none',
+						success(res) {
+							wx.navigateBack()
+						}
+					})
+				}
 				that.setData({
-					record: res.data
-				})
-			},
-			fail(err) {
-				wx.showToast({
-					title: '所查询的书本已被删除！',
-					icon: 'none',
-					success(res) {
-						wx.navigateBack()
-					}
+					type: options.type,
+					record: r
 				})
 			}
 		})
@@ -130,14 +132,31 @@ Page({
 		if (app.globalData.userInfo != null) {
 			// set val on current page
 			that.setData({
-				starred: ! s
+				starred: !s
 			})
 			// set val in database
 			db.collection('favorites').where({
 				_openid: app.globalData.openID
-			}).set({
-				data: {
-					arr: s ? _.pull(bkID) :_.unshift(bkID)
+			}).get({
+				success(res) {
+					if (res.data.length == 0) {
+						db.collection('favorites').add({
+							data: {
+								arr: [bkID]
+							}
+						})
+					} else {
+						db.collection('favorites').where({
+							_openid: app.globalData.openID
+						}).update({
+							data: {
+								arr: s ? _.pull(bkID) : _.unshift(bkID)
+							}
+						})
+					}
+					wx.showToast({
+						title: '收藏成功'
+					})
 				}
 			})
 		} else {
@@ -151,33 +170,58 @@ Page({
 	bargain() {
 		const that = this
 		if (app.globalData.userInfo != null) {
-			db.collection('uploads').doc(
-				that.data.record._id
-			).get({
-				success(res) {
-					// check if sold out
-					if (res.data.isSoldOut) {
-						wx.showToast({
-							title: '在你浏览时，已经有人开始咨询了！',
-							icon: 'none',
-							success(res) {
-								wx.navigateBack()
-							}
-						})
-					} else {
-						that.setData({
-							showContactInfo: true
-						})
-						db.collection('uploads').doc(
-							that.data.record._id
-						).update({
-							data: {
-								isSoldOut: true
-							}
-						})
+			if (that.data.type == 2) {
+				that.setData({
+					showContactInfo: true
+				})
+			} else {
+				db.collection('uploads').doc(that.data.record._id).get({
+					success(res) {
+						// check if sold out
+						if (res.data.isSoldOut) {
+							wx.showToast({
+								title: '在你浏览时，已经有人开始咨询了！',
+								icon: 'none',
+								success(res) {
+									wx.navigateBack()
+								}
+							})
+						} else {
+							that.setData({
+								showContactInfo: true
+							})
+							db.collection('uploads').doc(
+								that.data.record._id
+							).update({
+								data: {
+									isSoldOut: true
+								}
+							})
+							db.collection('bargains').where({
+								_openid: app.globalData.openID
+							}).get({
+								success(res) {
+									if (r.data.length == 0) {
+										db.collection('bargains').add({
+											data: {
+												arr: [bkID]
+											}
+										})
+									} else {
+										db.collection('bargains').where({
+											_openid: app.globalData.openID
+										}).update({
+											data: {
+												arr: _.unshift(bkID)
+											}
+										})
+									}
+								}
+							})
+						}
 					}
-				}
-			})
+				})
+			}
 		} else {
 			wx.showToast({
 				title: '请登录以使用此功能',

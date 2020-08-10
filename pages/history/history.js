@@ -89,15 +89,17 @@ Page({
 						bkList: res.data
 					})
 				} else {
-					// list of favorites of bargains
-					const bkIDList = res.data[0].arr
 					var temp = []
-					for (let i = 0; i < bkIDList.length; i++) {
-						db.collection('uploads').doc(bkIDList[i]).get({
-							success(r) {
-								temp.push(r.data)
-							}
-						})
+					if (res.data.length != 0) {
+						// list of favorites or bargains
+						const bkIDList = res.data[0].arr
+						for (let i = 0; i < bkIDList.length; i++) {
+							db.collection('uploads').doc(bkIDList[i]).get({
+								success(r) {
+									temp.push(r.data)
+								}
+							})
+						}
 					}
 					that.setData({
 						bkList: temp
@@ -124,10 +126,18 @@ Page({
 
 	delete(e) {
 		const bkID = e.currentTarget.dataset.bkID,
-			a = [null, 'favorites', 'bargains']
-		t = this.data.type
+			a = [null, 'favorites', 'bargains'],
+			t = this.data.type
 		if (t == 0) {
-			// remove in uploads
+			// remove upload img
+			db.collection('uploads').doc(bkID).get({
+				success(res) {
+					wx.cloud.deleteFile({
+						fileList: res.data.fileID
+					})
+				}
+			})
+			// remove upload record
 			db.collection('uploads').doc(bkID).remove()
 			// run twice, on favorites and bargains
 			for (let i = 1; i < 3; i++) {

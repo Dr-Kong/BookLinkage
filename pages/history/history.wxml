@@ -48,4 +48,5 @@
 		<!-- Price -->
 		<view><text>{{' ￥ ' + item.price + ' '}}</text></view>
 	</expandable-list>
+	<text>- - - 已展示全部记录 - - -</text>
 </view>
