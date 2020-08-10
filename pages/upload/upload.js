@@ -65,7 +65,8 @@ Page({
 					that.setData({
 						lastName: r.lastName,
 						wxID: r.wxID,
-						tel: r.telephone
+						tel: r.telephone,
+						hasUserInfo: (r.wxID != '') || (r.telephone != '')
 					})
 				}
 			})
