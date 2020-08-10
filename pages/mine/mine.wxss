@@ -30,6 +30,7 @@
 .filter {
   filter: blur(10rpx);
   height: 55vh;
+  width: 100%;
 }
 
 .container {

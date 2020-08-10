@@ -25,6 +25,13 @@
 						bindconfirm='hideKeyboard'/>
 					</view>
 				</view>
+				<view class="cancel">
+				<view class="space"></view>
+					<button wx:if="{{isFocus}}" bindtap="cancelSearch" 
+				  size="mini" class="cancelButton">
+					X
+					</button>
+				</view>
 			</view>
 			<view wx:else
 				class="userInputView">

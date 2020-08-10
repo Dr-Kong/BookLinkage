@@ -5,6 +5,9 @@
   height: 500rpx;
   width: 100%;
 }
+.swiper-item{
+  margin-left: 60rpx;
+}
 .notice{
   margin-top: 40rpx;
   width: 80%;
@@ -48,4 +51,22 @@
 .place{
   height: 200rpx;
   width: 100%;
+}
+.contactInfo{
+  align-items: center;
+}
+.ssName{
+  font-size: large;
+  font-weight: bold;
+}
+.ssWXID{
+  margin-top: 30rpx;
+}
+.copy{
+  align-self: center;
+  
+}
+.ssTL{
+  margin-top: 100rpx;
+  align-self: center;
 }

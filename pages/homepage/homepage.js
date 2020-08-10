@@ -179,6 +179,7 @@ Page({
   },
 
   cancelSearch() {
+    const that = this
     db.collection('uploads').where({
       isSoldOut: false
     }).get({
