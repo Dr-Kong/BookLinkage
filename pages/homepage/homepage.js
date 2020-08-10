@@ -61,7 +61,7 @@ Page({
         success(res) {
           bkList = res.data
           that.setData({
-            bl: bkList
+            bl: res.data
           })
         }
       })
@@ -176,13 +176,20 @@ Page({
   },
 
   cancelSearch() {
-    this.setData({
-      sbj: 11,
-      pub: 0,
-      bl: bkList,
-      keywords: '',
-      isFocus: null,
-      tags: null
+    db.collection('uploads').where({
+      isSoldOut: false
+    }).get({
+      success(res) {
+        bkList = res.data
+        that.setData({
+          sbj: 11,
+          pub: 0,
+          bl: bkList,
+          keywords: '',
+          isFocus: null,
+          tags: null
+        })
+      }
     })
   }
 })
