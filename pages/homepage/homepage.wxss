@@ -13,6 +13,14 @@
   border-radius: 50%;
   margin-left: 5%;
 }
+.userInputView .getInfoB{
+  width: 100rpx;
+  height: 100rpx;
+  margin: 20rpx;
+  margin-top: 30rpx;
+  border-radius: 50%;
+  margin-left: 5%;
+}
 
 .usermotto {
   margin-top: 200px;
