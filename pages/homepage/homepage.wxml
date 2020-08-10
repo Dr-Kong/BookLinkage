@@ -92,12 +92,8 @@
 	<navigator wx:for="{{bl}}"
 		wx:key='index'
 		wx:if="{{item._openid != a.globalData.openID}}"
-<<<<<<< HEAD
 		url="{{'../book/book?bkID=' + bl[index]._id + '&type=0'}}"
 		class="bookItem">
-=======
-		url="{{'../book/book?bkID=' + bl[index]._id + '&type='}}">
->>>>>>> master
 		<!-- Bk Img -->
 		<view class="bookImg" >
 			<image src="{{item.fileID[0]}}" mode="aspectFill" lazy-load="{{true}}" />
