@@ -4,7 +4,8 @@
 		circular='{{true}}'
 		autoplay="true" 
 		interval="3000" 
-		duration="1000">
+		duration="1000"
+		class="swiper" >
 		<swiper-item wx:for="{{record.fileID}}" wx:key='index'>
 			<image src="{{item}}"
 				mode="aspectFill"
@@ -13,17 +14,20 @@
 		</swiper-item>
 	</swiper>
 	<!-- Notification -->
-	<text>由于平台无法跟踪交易是否完成，将所有咨询视作交易完成。如果交易未完成，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架</text>
+	<text class="notice">由于平台无法跟踪交易是否完成，将所有咨询视作交易完成。如果交易未完成，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架</text>
 	<!-- Bk Name -->
-	<text wx:if="{{record.bkName != ''}}">
+	<text wx:if="{{record.bkName != ''}}"
+	class="bkName">
 		{{record.bkName}}
 	</text>
 	<!-- Legal -->
-	<text wx:if="{{record.isLegal}}">
+	<text wx:if="{{record.isLegal}}"
+	class="bkLegal">
 		正版书籍
 	</text>
 	<!-- Price -->
-	<text wx:if="{{record.price != ''}}">
+	<text wx:if="{{record.price != ''}}"
+	class="bkPrice">
 		{{' ￥ ' + record.price + ' '}}
 	</text>
 	<!-- Additional Info -->

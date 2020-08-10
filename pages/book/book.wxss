@@ -1,0 +1,25 @@
+.container{
+  padding: 50rpx 0;
+}
+.swiper{
+  height: 500rpx;
+  width: 100%;
+}
+.notice{
+  margin-top: 40rpx;
+  width: 80%;
+  font-weight: bold;
+}
+.bkName{
+  color:rgb(13, 62, 105);
+  font-size: x-large;
+}
+.bkLegal{
+  color: green;
+}
+.bkPrice{
+  color: red;
+}
+.bkAddition{
+  align-self: center;
+}

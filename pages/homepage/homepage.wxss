@@ -70,5 +70,48 @@
   background-color: white;
   width: 500rpx;
 }
-
+.bookItem{
+  width: 100%;
+  height: 700rpx;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+.bookItem .bookImg{
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30rpx;
+}
+.bookItem .bookImg image{
+  width: 100%;
+}
+.bookItem .bookInfo{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.bookItem .bookInfo .bookName{
+  display: flex;
+  overflow: hidden;
+  flex-direction: row-reverse;
+  font-size: large;
+  font-weight: bold;
+  margin-right: 30rpx;
+}
+.bookItem .bookInfo .bookPrice{
+  color: red;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 32rpx;
+  margin-right: 30rpx;
+}
+.bookItem .bookInfo .bookLegal{
+  font-size: medium;
+  font-weight: normal;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 30rpx;
+}
 

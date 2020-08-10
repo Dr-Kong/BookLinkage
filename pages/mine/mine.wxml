@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="userBackground">
 		<view wx:if="{{a.globalData.userInfo != null}}">
-			<image class="filter" 
+			<image class="filter" mode="aspectFill"
 			src="{{a.globalData.userInfo.avatarUrl}}" ></image>
 		</view>
 		<view class="userInfo" 
