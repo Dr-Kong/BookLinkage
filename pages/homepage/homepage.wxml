@@ -97,7 +97,7 @@
 	<navigator wx:for="{{bl}}"
 		wx:key='index'
 		wx:if="{{item._openid != a.globalData.openID}}"
-		url="{{'../book/book?bkID=' + bl[index]._id + '&type=0'}}"
+		url="{{'../book/book?bkID=' + bl[index]._id + '&type=1'}}"
 		class="bookItem">
 		<!-- Bk Img -->
 		<view class="bookImg" >

@@ -7,7 +7,6 @@ const db = wx.cloud.database({
   pubList = util.pubList,
   sbjList = util.sbjList,
   app = getApp()
-var bkList = null
 
 Page({
   data: {
@@ -17,10 +16,10 @@ Page({
     pubList: pubList,
     sbj: 11,
     pub: 0,
-    bl: bkList,
+    bl: null,
     keywords: '',
     isFocus: null,
-    tags: null
+    tags: ['']
   },
   // switch to mine
   bindViewTap() {
@@ -48,6 +47,7 @@ Page({
         }
       })
     } else if (that.data.a.globalData.userInfo == null) {
+      // Authorized on another page
       that.setData({
         a: getApp()
       })
@@ -55,23 +55,7 @@ Page({
   },
 
   onShow() {
-    const isf = this.data.isFocus,
-      that = this
-    if (isf == null) {
-      db.collection('uploads').where({
-        isSoldOut: false
-      }).get({
-        success(res) {
-          bkList = res.data
-          that.setData({
-            bl: res.data
-          })
-        }
-      })
-    } else {
-      // in case that some books are sold out
-      this.search(that.data.tags)
-    }
+    this.search()
   },
 
   onReachBottom() {
@@ -83,7 +67,7 @@ Page({
   },
 
   onPullDownRefresh() {
-    this.onLoad()
+    this.onShow()
   },
 
   setUserInfo(e) {
@@ -117,7 +101,7 @@ Page({
     that.setData({
       tags: tempTags
     })
-    that.search(tempTags)
+    that.search()
   },
 
   searchByTags(e) {
@@ -128,14 +112,16 @@ Page({
       isFocus: false,
       tags: [_sbjList[val[0]], pubList[val[1]]]
     })
-    this.search(this.data.tags)
+    this.search()
   },
 
-  search(arr) {
-    var kw = arr,
-      temp = [],
-      that = this
+  search() {
+    var temp = [],
+      that = this,
+      kw = that.data.tags
     db.collection('uploads').where({
+      isSoldOut: false,
+      _openid: _.neq(app.globalData.openID),
       // fuzzy search
       tags: _.elemMatch({
         $regex: '.*' + kw.pop(),
@@ -161,15 +147,6 @@ Page({
             icon: 'none'
           })
         }
-      },
-      fail(err) {
-        that.setData({
-          bl: []
-        })
-        wx.showToast({
-          title: '暂时没有您想要的书本',
-          icon: 'none'
-        })
       }
     })
   },
@@ -181,17 +158,17 @@ Page({
   cancelSearch() {
     const that = this
     db.collection('uploads').where({
-      isSoldOut: false
+      isSoldOut: false,
+      _openid: _.neq(app.globalData.openID)
     }).get({
       success(res) {
-        bkList = res.data
         that.setData({
           sbj: 11,
           pub: 0,
-          bl: bkList,
+          bl: res.data,
           keywords: '',
           isFocus: null,
-          tags: null
+          tags: ['']
         })
       }
     })
