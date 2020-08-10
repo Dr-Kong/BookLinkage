@@ -27,10 +27,10 @@
 				</view>
 			</view>
 			<view wx:else
-				bindgetuserinfo="setUserInfo" class="userInputView">
-				<image class="userInfo-avatar"
-					src="../../icons/_starred.png" />
-
+				class="userInputView">
+				<button open-type="getUserInfo" bindgetuserinfo="setUserInfo">
+					<image class="userInfo-avatar" src="../../icons/_starred.png" />
+				</button>
 				<!-- Search Bar-->
 				<view class="inputView">
 					<view class="space"></view>

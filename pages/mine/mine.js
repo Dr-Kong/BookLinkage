@@ -92,7 +92,14 @@ Page({
     util.setUserInfo(res)
     util.setOpenID(res)
     this.setData({
-      app: getApp()
+      a: getApp()
+    })
+  },
+
+  loginReminder() {
+    wx.showToast({
+      title: '请登录以使用此功能',
+      icon: 'none'
     })
   }
 })

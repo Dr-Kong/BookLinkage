@@ -126,45 +126,63 @@ Page({
 	star() {
 		const that = this,
 			bkID = that.data.record._id
-		// set val on current page
-		that.setData({
-			starred: true
-		})
-		// set val in database
-		db.collection('favorites').where({
-			_openid: app.globalData.openID
-		}).set({
-			data: {
-				arr: _.unshift(bkID)
-			}
-		})
+		if (app.globalData.userInfo != null) {
+			// set val on current page
+			that.setData({
+				starred: true
+			})
+			// set val in database
+			db.collection('favorites').where({
+				_openid: app.globalData.openID
+			}).set({
+				data: {
+					arr: _.unshift(bkID)
+				}
+			})
+		} else {
+			wx.showToast({
+				title: '请登录以使用此功能',
+				icon: 'none'
+			})
+		}
 	},
 
 	bargain() {
 		const that = this
-		db.collection('uploads').doc(that.data.record._id).get({
-			success(res) {
-				// check if sold out
-				if (res.data.isSoldOut) {
-					wx.showToast({
-						title: '在你浏览时，已经有人开始咨询了！',
-						icon: 'none',
-						success(res) {
-							wx.navigateBack()
-						}
-					})
-				} else {
-					that.setData({
-						showContactInfo: true
-					})
-					db.collection('uploads').doc(that.data.record._id).update({
-						data: {
-							isSoldOut: true
-						}
-					})
+		if (app.globalData.userInfo != null) {
+			db.collection('uploads').doc(
+				that.data.record._id
+			).get({
+				success(res) {
+					// check if sold out
+					if (res.data.isSoldOut) {
+						wx.showToast({
+							title: '在你浏览时，已经有人开始咨询了！',
+							icon: 'none',
+							success(res) {
+								wx.navigateBack()
+							}
+						})
+					} else {
+						that.setData({
+							showContactInfo: true
+						})
+						db.collection('uploads').doc(
+							that.data.record._id
+						).update({
+							data: {
+								isSoldOut: true
+							}
+						})
+					}
 				}
-			}
-		})
+			})
+		} else {
+			wx.showToast({
+				title: '请登录以使用此功能',
+				icon: 'none'
+			})
+		}
 	},
 
 	preview(e) {

@@ -88,7 +88,7 @@ Page({
     util.setUserInfo(res)
     util.setOpenID(res)
     this.setData({
-      app: getApp()
+      a: getApp()
     })
   },
 

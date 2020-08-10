@@ -1,67 +1,71 @@
 /* pages/mine/mine.wxss */
-.userInfo-avatar{
+.userInfo-avatar {
   width: 150rpx;
   height: 150rpx;
   border-radius: 50%;
 }
-.userinfo-nickname{
+
+.userinfo-nickname {
   margin-top: 40rpx;
   color: white;
   font-size: medium;
   font-weight: bold;
 }
-.userInfo{
+
+.userInfo {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   top: 20%;
   text-align: center;
 }
-.userBackground{
+
+.userBackground {
   width: 100%;
   height: 50vh;
   margin-top: 0%;
   height: 55vh;
 }
-.filter{
+
+.filter {
   filter: blur(10rpx);
   height: 55vh;
 }
-.container{
+
+.container {
   padding-top: 0%;
   height: 1200rpx;
   width: 100%;
   background-color: #edece8;
 }
 
-.user-content{
+.user-content {
   margin-top: 40rpx;
   width: 100%;
-  
 }
 
-.user-history{
+.user-history {
   margin-top: 10rpx;
   padding: 20rpx;
   width: 100%;
   background-color: #fff;
 }
 
-.user-about{
+.user-about {
   margin-top: 10rpx;
   background-color: #fff;
   width: 100%;
   padding: 20rpx;
 }
 
-.user-feedback{
+.user-feedback {
   margin-top: 10rpx;
   background-color: #fff;
   width: 100%;
   padding: 20rpx;
 }
 
-.user-upload{
+.user-upload {
   margin-top: 10rpx;
   background-color: #fff;
   width: 100%;

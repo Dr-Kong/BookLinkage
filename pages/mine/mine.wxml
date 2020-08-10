@@ -22,25 +22,29 @@
 	</view>
 
 	<view class="user-content">
-		<view wx:if="{{a.globalData.userInfo != null}}">
-			<navigator class="user-upload" url="../upload/upload?type=0">
-				上传书本
-			</navigator>
-			<navigator class="user-history" url="../history/history?type=0">
-				上传历史
-			</navigator>
-			<navigator class="user-history" url="../history/history?type=1">
-				我的收藏
-			</navigator>
-			<navigator class="user-history" url="../history/history?type=2">
-				咨询历史
-			</navigator>
-		</view>
-
+		<navigator class="user-upload"
+			url="{{a.globalData.userInfo == null ? '' : '../upload/upload?type=0'}}"
+			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
+			上传书本
+		</navigator>
+		<navigator class="user-history"
+			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=0'}}"
+			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
+			上传历史
+		</navigator>
+		<navigator class="user-history"
+			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=1'}}"
+			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
+			我的收藏
+		</navigator>
+		<navigator class="user-history"
+			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=2'}}"
+			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
+			咨询历史
+		</navigator>
 		<navigator class="user-feedback" url="../feedback/feedback">
 		解答反馈
 		</navigator>
-
 		<navigator class="user-about" url="../about/about">
 		关于我们
 		</navigator>
