@@ -22,4 +22,30 @@
 }
 .bkAddition{
   align-self: center;
+  font-size: small;
+}
+.starred{
+  position: fixed;
+  align-self: baseline;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-left: 30rpx;
+  margin-top: 800rpx;
+}
+.Img{
+  position: fixed;
+  border-radius: 50%;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: white;
+}
+.bargain{
+  position: fixed;
+  align-self: center;
+  margin-top: 1000rpx;
+}
+.place{
+  height: 200rpx;
+  width: 100%;
 }
