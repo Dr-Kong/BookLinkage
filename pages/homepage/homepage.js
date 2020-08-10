@@ -1,5 +1,8 @@
 //index.js
-const db = wx.cloud.database(),
+const db = wx.cloud.database({
+    throwOnNotFound: false
+  }),
+  _ = db.command,
   util = require('../../utils/util.js'),
   pubList = util.pubList,
   sbjList = util.sbjList,
