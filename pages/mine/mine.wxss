@@ -67,3 +67,6 @@
   width: 100%;
   padding: 20rpx;
 }
+.signIn{
+  margin-top: 200rpx;
+}

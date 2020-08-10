@@ -1,8 +1,10 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
 	<view class="userBackground">
-		<image class="filter" 
-		src="{{a.globalData.userInfo.avatarUrl}}" ></image>
+		<view wx:if="{{a.globalData.userInfo != null}}">
+			<image class="filter" 
+			src="{{a.globalData.userInfo.avatarUrl}}" ></image>
+		</view>
 		<view class="userInfo" 
 		wx:if="{{a.globalData.userInfo != null}}">
 			<image class="userInfo-avatar"
@@ -12,10 +14,9 @@
 			</view>
 		</view>
 		<view wx:else>
-			<image class="userInfo-avatar"
-				   src=""/>
 			<button open-type="getUserInfo"
-					bindgetuserinfo="setUserInfo">
+					bindgetuserinfo="setUserInfo"
+					class="signIn">
 				 登录 
 			</button>
 		</view>
