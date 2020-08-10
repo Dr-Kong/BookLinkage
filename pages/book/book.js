@@ -125,18 +125,19 @@ Page({
 
 	star() {
 		const that = this,
-			bkID = that.data.record._id
+			bkID = that.data.record._id,
+			s = that.data.starred
 		if (app.globalData.userInfo != null) {
 			// set val on current page
 			that.setData({
-				starred: true
+				starred: ! s
 			})
 			// set val in database
 			db.collection('favorites').where({
 				_openid: app.globalData.openID
 			}).set({
 				data: {
-					arr: _.unshift(bkID)
+					arr: s ? _.pull(bkID) :_.unshift(bkID)
 				}
 			})
 		} else {
