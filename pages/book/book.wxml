@@ -53,7 +53,7 @@
 	</cover-view>
 	<!-- Bargain -->
 	<cover-view wx:if="{{type != 0}}" class="bargain">
-		<button wx:if="{{!showContactInfo}}"  bindtap="bargain">
+		<button bindtap="bargain">
 			{{type == 1 ? '开始咨询' : '查看联系方式'}}
 		</button>
 	</cover-view>

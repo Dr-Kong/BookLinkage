@@ -19,34 +19,36 @@ function format_number(n) {
 } */
 
 function setOpenID(res) {
-  wx.cloud.callFunction({
-    name: 'getOpenID',
-    data: {
-      e: wx.cloud.CloudID(res.cloudID)
-    },
-    complete(r) {
-      app.globalData.openID = r.result.openid
-    }
-  })
+	wx.cloud.callFunction({
+		name: 'getOpenID',
+		data: {
+			e: wx.cloud.CloudID(res.cloudID)
+		},
+		complete(r) {
+			app.globalData.openID = r.result.openid
+		}
+	})
 }
 
 function setUserInfo(res) {
-  app.globalData.userInfo = res.userInfo
+	app.globalData.userInfo = res.userInfo
 }
 
 const pubList = ['', 'barron', 'cambridge', 'hease', 'hodder', 'mcgraw', 'oxford', 'xdf'],
-      _pubList = ['', '巴郎', '剑桥', '', '', '麦格劳', '牛津', '新东方'],
-      sbjList = ['arthistory', 'biology', 'calculus', 'chemistry', 'chinese', 'computerscience',
-                  'economics', 'english', 'environmentalscience', 'geograph', 'mathematics',
-                  'others', 'physics', 'psychology', 'statistics', 'tok', 'unitedstateshistory'],
-      _sbjList = ['艺术史', '生物', '微积分', '化学', '中文', '计算机', '经济', '英语',
-                   '环境科学', '地理', '数学', '其他', '物理', '心理', '统计', '知识论', '美国历史']
+	_pubList = ['', '巴郎', '剑桥', '', '', '麦格劳', '牛津', '新东方'],
+	sbjList = ['arthistory', 'biology', 'calculus', 'chemistry', 'chinese', 'computerscience',
+		'economics', 'english', 'environmentalscience', 'geograph', 'mathematics',
+		'others', 'physics', 'psychology', 'statistics', 'tok', 'unitedstateshistory'
+	],
+	_sbjList = ['艺术史', '生物', '微积分', '化学', '中文', '计算机', '经济', '英语',
+		'环境科学', '地理', '数学', '其他', '物理', '心理', '统计', '知识论', '美国历史'
+	]
 
 module.exports = {
-  pubList: pubList,
-  _pubList: _pubList,
-  sbjList: sbjList,
-  _sbjList: _sbjList,
-  setOpenID: setOpenID,
-  setUserInfo: setUserInfo
+	pubList: pubList,
+	_pubList: _pubList,
+	sbjList: sbjList,
+	_sbjList: _sbjList,
+	setOpenID: setOpenID,
+	setUserInfo: setUserInfo
 }
