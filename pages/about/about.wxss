@@ -1,20 +1,19 @@
 /* pages/about/about.wxss */
-.bl{
-  font-size: large;
-  padding-top: 0%;
+.inscribe {
+	font-size: small;
+	width: 700rpx;
+	padding-top: 150rpx;
+	text-align: center;
 }
-.pb{
-  font-size: small;
-  padding-top: 50%;
+
+.logo {
+	background-color: #eeeeee;
+	width: 300rpx;
+	height: 300rpx;
 }
-.sa{
-  font-size: small;
-  
-}
-.logo{
-  padding-top: 10%;
-  height: 150rpx;
-  width: 225rpx;
-  src: "../../icons/photo.png";
-  background-color: #eeeeee;
+
+.intro {
+	padding-top: 150rpx;
+	font-size: medium;
+	width: 500rpx;
 }
