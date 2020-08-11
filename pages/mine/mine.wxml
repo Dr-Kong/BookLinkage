@@ -27,27 +27,33 @@
 			url="{{a.globalData.userInfo == null ? '' : '../upload/upload?type=0'}}"
 			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
 			上传书本
+			<!-- <image src="../../icons/upload"/> -->
 		</navigator>
 		<navigator class="user-history"
 			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=0'}}"
 			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
 			上传历史
+			<!-- <image src="../../icons/uploads"/> -->
 		</navigator>
 		<navigator class="user-history"
 			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=1'}}"
 			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
 			我的收藏
+			<!-- <image src="../../icons/favorites"/> -->
 		</navigator>
 		<navigator class="user-history"
 			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=2'}}"
 			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
 			咨询历史
+			<!-- <image src="../../icons/bargains"/> -->
 		</navigator>
 		<navigator class="user-feedback" url="../feedback/feedback">
-		解答反馈
+			解答反馈
+			<!-- <image src="../../icons/feedback"/> -->
 		</navigator>
 		<navigator class="user-about" url="../about/about">
-		关于我们
+			关于我们
+			<!-- <image src="../../icons/about"/> -->
 		</navigator>
 	</view>
 	

@@ -78,6 +78,7 @@ Page({
 		this.setData({
 			a: getApp()
 		})
+		this.onShow()
 	},
 
 	searchByKeywords(e) {
@@ -119,10 +120,13 @@ Page({
 	search() {
 		var temp = [],
 			that = this,
-			kw = that.data.tags
+			kw = that.data.tags,
+			openID = app.globalData.openID
 		db.collection('uploads').where({
 			isSoldOut: false,
-			_openid: _.neq(app.globalData.openID),
+			_openid: openID == null ? db.RegExp({
+				regexp: '.*'
+			}) : _.neq(openID),
 			// fuzzy search
 			tags: _.elemMatch({
 				$regex: '.*' + kw.pop(),

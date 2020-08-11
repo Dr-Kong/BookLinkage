@@ -35,7 +35,7 @@
 			</view>
 			<view wx:else class="userInputView">
 				<button class="getInfoB" open-type="getUserInfo" bindgetuserinfo="setUserInfo">
-					<image class="userInfo-avatar" src="../../icons/_starred.png" />
+					<image class="userInfo-avatar" src="" />
 				</button>
 				<!-- Search Bar-->
 				<view class="inputView">

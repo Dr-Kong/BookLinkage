@@ -1,105 +1,105 @@
 // pages/mine/mine.js
 const app = getApp(),
-  util = require('../../utils/util.js')
+	util = require('../../utils/util.js')
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    a: app
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad() {
-    const that = this
-    if (app.globalData.userInfo == null) {
-      wx.getSetting({
-        success(r) {
-          if (r.authSetting['scope.userInfo']) {
-            wx.getUserInfo({
-              success(res) {
-                util.setUserInfo(res)
-                util.setOpenID(res)
-                that.setData({
-                  a: getApp()
-                })
-              }
-            })
-          }
-        }
-      })
-    } else if (that.data.a.globalData.userInfo == null) {
-      that.setData({
-        a: getApp()
-      })
-    }
-  },
+	/**
+	 * 页面的初始数据
+	 */
+	data: {
+		a: app
+	},
+	/**
+	 * 生命周期函数--监听页面加载
+	 */
+	onLoad() {
+		const that = this
+		if (app.globalData.userInfo == null) {
+			wx.getSetting({
+				success(r) {
+					if (r.authSetting['scope.userInfo']) {
+						wx.getUserInfo({
+							success(res) {
+								util.setUserInfo(res)
+								util.setOpenID(res)
+								that.setData({
+									a: getApp()
+								})
+							}
+						})
+					}
+				}
+			})
+		} else if (that.data.a.globalData.userInfo == null) {
+			that.setData({
+				a: getApp()
+			})
+		}
+	},
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {
 
-  },
+	},
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
+	/**
+	 * 生命周期函数--监听页面显示
+	 */
+	onShow() {
 
-  },
+	},
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+	/**
+	 * 生命周期函数--监听页面隐藏
+	 */
+	onHide: function () {
 
-  },
+	},
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+	/**
+	 * 生命周期函数--监听页面卸载
+	 */
+	onUnload: function () {
 
-  },
+	},
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+	/**
+	 * 页面相关事件处理函数--监听用户下拉动作
+	 */
+	onPullDownRefresh: function () {
 
-  },
+	},
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+	/**
+	 * 页面上拉触底事件的处理函数
+	 */
+	onReachBottom: function () {
 
-  },
+	},
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+	/**
+	 * 用户点击右上角分享
+	 */
+	onShareAppMessage: function () {
 
-  },
+	},
 
-  setUserInfo(e) {
-    const res = e.detail
-    util.setUserInfo(res)
-    util.setOpenID(res)
-    this.setData({
-      a: getApp()
-    })
-  },
+	setUserInfo(e) {
+		const res = e.detail
+		util.setUserInfo(res)
+		util.setOpenID(res)
+		this.setData({
+			a: getApp()
+		})
+	},
 
-  loginReminder() {
-    wx.showToast({
-      title: '请登录以使用此功能',
-      icon: 'none'
-    })
-  }
+	loginReminder() {
+		wx.showToast({
+			title: '请登录以使用此功能',
+			icon: 'none'
+		})
+	}
 })
