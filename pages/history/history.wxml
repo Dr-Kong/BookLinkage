@@ -8,16 +8,17 @@
 		wx:key='index'
 		src='{{item.fileID[0]}}'
 		title='{{item.bkName}}'
-		title-class=''
+		title-class='bookName'
 		contents-class=''>
 		<!-- Status -->
 		<view>
-			<text class='{{item.isSoldOut ? "" : ""}}'>
-				{{item.isSoldOut ? '已下架' : "等待交易"}}
+			<text class='{{item.isSoldOut ? "soldOut" : "waiting"}}'>
+				状态：{{item.isSoldOut ? '已下架' : "等待交易"}}
 			</text>
 		</view>
 		<!-- Putaway -->
-		<view wx:if="{{type != 1 && item.isSoldOut == true}}">
+		<view wx:if="{{type != 1 && item.isSoldOut == true}}"
+		class="resell">
 			<text bindtap="putAway"
 				data-bkID="{{item._id}}">
 				重新上架
@@ -25,28 +26,30 @@
 		</view>
 		<!-- Detail -->
 		<navigator url="{{'../book/book?type=' + type + '&bkID=' + item._id}}">
-			<text>书本详情</text>
+			<text class="detail">书本详情</text>
 		</navigator>
 		<!-- Edit -->
 		<navigator url="{{'../upload/upload?type=1&bkID=' + item._id}}"
 			wx:if="{{type == 0}}">
-			<text>编辑</text>
+			<text class="edit">编辑</text>
 		</navigator>
 		<!-- Delete -->
 		<view>
 			<text bindtap="delete"
 				wx:if="{{type == 0}}"
-				data-bkID="{{item._id}}">
+				data-bkID="{{item._id}}"
+				class="delete">
 				删除
 			</text>
 			<text bindtap="delete"
 				wx:else='{{type == 1}}'
-				data-bkID="{{item._id}}">
+				data-bkID="{{item._id}}"
+				class="removeStarred">
 				移除收藏
 			</text>
 		</view>
 		<!-- Price -->
-		<view><text> ￥ {{item.price}} </text></view>
+		<view class="price">{{' ￥ ' + item.price + ' '}}</view>
 	</expandable-list>
 	<text wx:if="{{bkList.length == 0 && type != 0}}">
 		暂时没有找到书本，请在书本详情界面{{type == 1 ? '添加收藏' : '开始咨询'}}

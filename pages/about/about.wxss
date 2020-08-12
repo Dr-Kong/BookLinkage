@@ -2,7 +2,7 @@
 .inscribe {
 	font-size: small;
 	width: 700rpx;
-	padding-top: 150rpx;
+	padding-top: 130rpx;
 	text-align: center;
 }
 
@@ -13,7 +13,7 @@
 }
 
 .intro {
-	padding-top: 150rpx;
+	padding-top: 100rpx;
 	font-size: medium;
 	width: 500rpx;
 }
