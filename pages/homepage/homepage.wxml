@@ -4,42 +4,21 @@
 		<!-- Notifictions -->
 		<text class="notice">注：具体交易价格以实际咨询为准</text>
 		<view class="wid">
-			<view wx:if="{{a.globalData.userInfo != null}}"  
-			class="userInputView">
+			<view class="userInputView">
 				<!-- User Avatar -->
-				<image class="userInfo-avatar"
-				   src="{{a.globalData.userInfo.avatarUrl}}"
-					 bindtap="bindViewTap"/>
-
+				<button class="getInfoB"
+					open-type="getUserInfo"
+					bindgetuserinfo="setUserInfo"
+					wx:if="{{a.globalData.userInfo.avatarUrl == null}}">
+					<image class="userInfo-avatar"/>
+				</button>
+				<image wx:else
+					class="userInfo-avatar"
+					src="{{a.globalData.userInfo.avatarUrl}}"
+					bindtap="bindViewTap"/>
 				<!-- Search Bar -->
 				<view class="inputView">
 					<view class="space"/>
-					<view class="bgc">
-						<input value="{{keywords}}"
-						maxlength="-1"
-						disabled="{{isFocus == false}}"
-						placeholder="输入书本名称(请用空格分隔关键词)"
-						placeholder-class="PHC"
-						confirm-type="search"
-						bindinput="searchByKeywords"
-						bindconfirm='hideKeyboard'/>
-					</view>
-				</view>
-				<view class="cancel">
-				<view class="space"></view>
-					<button wx:if="{{isFocus}}" bindtap="cancelSearch" 
-				  size="mini" class="cancelButton">
-					X
-					</button>
-				</view>
-			</view>
-			<view wx:else class="userInputView">
-				<button class="getInfoB" open-type="getUserInfo" bindgetuserinfo="setUserInfo">
-					<image class="userInfo-avatar" src="" />
-				</button>
-				<!-- Search Bar-->
-				<view class="inputView">
-					<view class="space"></view>
 					<view class="bgc">
 						<input value="{{keywords}}"
 						maxlength="-1"

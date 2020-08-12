@@ -19,14 +19,17 @@ function format_number(n) {
 } */
 
 function setOpenID(res) {
-	wx.cloud.callFunction({
-		name: 'getOpenID',
-		data: {
-			e: wx.cloud.CloudID(res.cloudID)
-		},
-		complete(r) {
-			app.globalData.openID = r.result.openid
-		}
+	return new Promise(resolve => {
+		wx.cloud.callFunction({
+			name: 'getOpenID',
+			data: {
+				e: wx.cloud.CloudID(res.cloudID)
+			},
+			success(r) {
+				app.globalData.openID = r.result.openid
+				resolve()
+			}
+		})
 	})
 }
 

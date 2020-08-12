@@ -28,35 +28,52 @@ Page({
 		})
 	},
 
-	onLoad() {
-		const that = this
-		if (app.globalData.userInfo == null) {
-			wx.getSetting({
-				success(r) {
-					if (r.authSetting['scope.userInfo']) {
-						wx.getUserInfo({
-							success(res) {
-								util.setUserInfo(res)
-								util.setOpenID(res)
-								that.setData({
-									a: getApp()
-								})
-								that.onShow()
-							}
-						})
-					}
-				}
-			})
-		} else if (that.data.a.globalData.userInfo == null) {
-			// Authorized on another page
-			that.setData({
-				a: getApp()
-			})
-		}
-	},
+	onLoad() {},
 
 	onShow() {
-		this.search()
+		const that = this
+		new Promise(resolve => {
+			if (app.globalData.userInfo == null) {
+				wx.getSetting().then(r => {
+					return new Promise(res => {
+						if (r.authSetting['scope.userInfo']) {
+							// authorized
+							wx.getUserInfo({
+								success: res
+							})
+						} else {
+							res()
+						}
+					})
+				}).then(result => {
+					return new Promise(res => {
+						if (result != null) {
+							util.setOpenID(result).then(() => {
+								util.setUserInfo(result)
+								res()
+							})
+						} else {
+							res()
+						}
+					})
+				}).then(() => {
+					that.setData({
+						a: getApp()
+					})
+					resolve()
+				})
+			} else {
+				resolve()
+			}
+		}).then(() => {
+			if (that.data.a.globalData.userInfo == null) {
+				// Authorized on another page, yet this page was loaded
+				that.setData({
+					a: getApp()
+				})
+			}
+			that.search()
+		})
 	},
 
 	onReachBottom() {
@@ -73,12 +90,18 @@ Page({
 
 	setUserInfo(e) {
 		const res = e.detail
-		util.setUserInfo(res)
-		util.setOpenID(res)
-		this.setData({
-			a: getApp()
+		wx.showLoading({
+			title: '登录中',
+			mask: true
 		})
-		this.onShow()
+		util.setOpenID(res).then(() => {
+			util.setUserInfo(res)
+			this.setData({
+				a: getApp()
+			})
+			this.search()
+			wx.hideLoading()
+		})
 	},
 
 	searchByKeywords(e) {
@@ -118,30 +141,30 @@ Page({
 	},
 
 	search() {
-		var temp = [],
-			that = this,
+		const that = this,
 			kw = that.data.tags,
 			openID = app.globalData.openID
+		var temp = [],
+			i = kw.length - 2
 		db.collection('uploads').where({
 			isSoldOut: false,
-			_openid: openID == null ? db.RegExp({
-				regexp: '.*'
-			}) : _.neq(openID),
+			_openid: _.neq(openID == null ? '' : openID),
 			// fuzzy search
 			tags: _.elemMatch({
-				$regex: '.*' + kw.pop(),
+				$regex: '.*' + kw[i + 1],
 				$options: 'i'
 			})
 		}).get({
 			success(res) {
 				temp = res.data
-				while (kw.length > 0 && temp.length > 0) {
-					const cur = kw.pop()
-					for (let i = 0; i < temp.length; i++) {
-						if (temp[i].tags.indexOf(cur) == -1) {
-							temp.splice(i, 1)
+				while (i > 0 && temp.length > 0) {
+					const cur = kw[i]
+					for (let j = 0; j < temp.length; j++) {
+						if (temp[j].tags.indexOf(cur) == -1) {
+							temp.splice(j, 1)
 						}
 					}
+					i--
 				}
 				that.setData({
 					bl: temp

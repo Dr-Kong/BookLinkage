@@ -7,7 +7,7 @@ App({
 			env: "booklinkage-ryfw4",
 			traceUser: true
 		})
-		wx.getSetting({
+		/* wx.getSetting({
 			success(r) {
 				if (r.authSetting['scope.userInfo']) {
 					wx.getUserInfo({
@@ -26,7 +26,7 @@ App({
 					})
 				}
 			}
-		})
+		}) */
 		/* // 登录
 		wx.login()
 		// 获取用户信息

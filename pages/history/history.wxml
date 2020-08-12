@@ -46,7 +46,9 @@
 			</text>
 		</view>
 		<!-- Price -->
-		<view><text>{{' ￥ ' + item.price + ' '}}</text></view>
+		<view><text> ￥ {{item.price}} </text></view>
 	</expandable-list>
-	<text>- - - 已展示全部记录 - - -</text>
+	<text wx:if="{{bkList.length == 0 && type != 0}}">
+		暂时没有找到书本，请在书本详情界面{{type == 1 ? '添加收藏' : '开始咨询'}}
+	</text>
 </view>

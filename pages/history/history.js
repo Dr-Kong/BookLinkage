@@ -13,7 +13,7 @@ Page({
 	data: {
 		type: null,
 		titles: ['上传历史', '我的收藏', '咨询历史'],
-		bkList: null
+		bkList: []
 	},
 
 	/**
@@ -23,7 +23,6 @@ Page({
 		this.setData({
 			type: options.type
 		})
-		this.setBkList()
 	},
 
 	/**
@@ -36,8 +35,8 @@ Page({
 	/**
 	 * Lifecycle function--Called when page show
 	 */
-	onShow: function () {
-
+	onShow() {
+		this.setBkList()
 	},
 
 	/**
@@ -57,15 +56,18 @@ Page({
 	/**
 	 * Page event handler function--Called when user drop down
 	 */
-	onPullDownRefresh: function () {
-
+	onPullDownRefresh() {
+		this.setBkList()
 	},
 
 	/**
 	 * Called when page reach bottom
 	 */
-	onReachBottom: function () {
-
+	onReachBottom() {
+		wx.showToast({
+			title: '已加载全部书本',
+			icon: 'none'
+		})
 	},
 
 	/**
@@ -79,33 +81,48 @@ Page({
 		const t = this.data.type,
 			arr = ['uploads', 'favorites', 'bargains'],
 			that = this
+		wx.showLoading({
+			title: '加载中……',
+			mask: true
+		})
 		db.collection(arr[t]).where({
 			_openid: app.globalData.openID
-		}).get({
-			success(res) {
+		}).get().then(res => {
+			const r = res.data
+			return new Promise(resolve => {
 				if (t == 0) {
 					// list of uploads
-					that.setData({
-						bkList: res.data
-					})
+					resolve(r)
 				} else {
-					var temp = []
-					if (res.data.length != 0) {
+					// empty promise
+					var promise = Promise.resolve(),
+						temp = []
+					if (r.length != 0) {
 						// list of favorites or bargains
-						const bkIDList = res.data[0].arr
+						const bkIDList = r[0].arr
 						for (let i = 0; i < bkIDList.length; i++) {
-							db.collection('uploads').doc(bkIDList[i]).get({
-								success(r) {
-									temp.push(r.data)
-								}
+							promise = promise.then(() => {
+								return new Promise(res => {
+									db.collection('uploads').doc(
+										bkIDList[i]
+									).get().then(r => {
+										temp.push(r.data)
+										res()
+									})
+								})
 							})
 						}
 					}
-					that.setData({
-						bkList: temp
+					promise.then(() => {
+						resolve(temp)
 					})
 				}
-			}
+			})
+		}).then(list => {
+			that.setData({
+				bkList: list
+			})
+			wx.hideLoading()
 		})
 	},
 
