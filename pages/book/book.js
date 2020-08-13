@@ -12,8 +12,9 @@ Page({
 	 */
 	data: {
 		type: null,
+		bkID: null,
 		record: null,
-		starred: null,
+		starred: false,
 		showContactInfo: false
 	},
 
@@ -21,24 +22,9 @@ Page({
 	 * Lifecycle function--Called when page load
 	 */
 	onLoad(options) {
-		const that = this
-		db.collection('uploads').doc(options.bkID).get({
-			success(res) {
-				const r = res.data
-				if (r == null) {
-					wx.showToast({
-						title: '所查询的书本已被删除！',
-						icon: 'none',
-						success(res) {
-							wx.navigateBack()
-						}
-					})
-				}
-				that.setData({
-					type: options.type,
-					record: r
-				})
-			}
+		this.setData({
+			type: parseInt(options.type),
+			bkID: options.bkID
 		})
 	},
 
@@ -54,40 +40,60 @@ Page({
 	 */
 	onShow() {
 		const that = this
-		if (that.data.type != 2) {
-			// check star
-			db.collection('favorites').where({
-				_openid: app.globalData.openID
-			}).get({
-				success(res) {
-					const r = res.data[0].arr
-					for (let i = 0; i < r.length; i++) {
-						if (r[i] == that.data.record._id) {
-							that.setData({
-								starred: true
-							})
-						}
-					}
+		wx.showLoading({
+			title: '加载中……',
+			mask: true
+		})
+		db.collection('uploads').doc(that.data.bkID).get().then(res => {
+			const r = res.data
+			if (r == null) {
+				wx.showToast({
+					title: '所查询的书本已被删除！',
+					icon: 'none'
+				}).then(() => {
+					wx.navigateBack()
+				})
+			}
+			that.setData({
+				record: r
+			})
+			if (that.data.type != 2) {
+				db.collection('uploads').doc(
+					that.data.record._id
+				).get().then(res => {
 					// check if sold out
-					db.collection('uploads').doc(
-						that.data.record._id
-					).get({
-						success(res) {
-							if (res.data.isSoldOut) {
-								wx.showToast({
-									title: '此书本已经下架！',
-									icon: 'none',
-									success(res) {
-										wx.navigateBack()
-									}
+					if (res.data.isSoldOut) {
+						wx.showToast({
+							title: '此书本已经下架！',
+							icon: 'none'
+						}).then(() => {
+							wx.navigateBack()
+						})
+					} else {
+						return Promise.resolve()
+					}
+				}).then(() => {
+					return db.collection('favorites').where({
+						_openid: app.globalData.openID
+					}).get()
+				}).then(res => {
+					if (res.data.length != 0) {
+						// check star
+						const r = res.data[0].arr
+						for (let i = 0; i < r.length; i++) {
+							if (r[i] == that.data.record._id) {
+								that.setData({
+									starred: true
 								})
 							}
 						}
-					})
-				}
-			})
-		}
-
+					}
+					wx.hideLoading()
+				})
+			} else {
+				wx.hideLoading()
+			}
+		})
 	},
 
 	/**
@@ -108,7 +114,9 @@ Page({
 	 * Page event handler function--Called when user drop down
 	 */
 	onPullDownRefresh() {
-		this.onShow()
+		wx.stopPullDownRefresh().then(() => {
+			this.onShow()
+		})
 	},
 
 	/**
@@ -130,34 +138,33 @@ Page({
 			bkID = that.data.record._id,
 			s = that.data.starred
 		if (app.globalData.userInfo != null) {
-			// set val on current page
-			that.setData({
-				starred: !s
-			})
 			// set val in database
 			db.collection('favorites').where({
 				_openid: app.globalData.openID
-			}).get({
-				success(res) {
-					if (res.data.length == 0) {
-						db.collection('favorites').add({
-							data: {
-								arr: [bkID]
-							}
-						})
-					} else {
-						db.collection('favorites').where({
-							_openid: app.globalData.openID
-						}).update({
-							data: {
-								arr: s ? _.pull(bkID) : _.unshift(bkID)
-							}
-						})
-					}
-					wx.showToast({
-						title: '收藏成功'
+			}).get().then(res => {
+				if (res.data.length == 0) {
+					return db.collection('favorites').add({
+						data: {
+							arr: [bkID]
+						}
+					})
+				} else {
+					return db.collection('favorites').where({
+						_openid: app.globalData.openID
+					}).update({
+						data: {
+							arr: s ? _.pull(bkID) : _.unshift(bkID)
+						}
 					})
 				}
+			}).then(() => {
+				wx.showToast({
+					title: s ? '已取消收藏' : '收藏成功！'
+				})
+				// set local val
+				that.setData({
+					starred: !s
+				})
 			})
 		} else {
 			wx.showToast({
@@ -168,58 +175,72 @@ Page({
 	},
 
 	bargain() {
-		const that = this
+		const that = this,
+			bkID = that.data.bkID
 		if (app.globalData.userInfo != null) {
+			wx.showLoading({
+				title: '加载中……',
+				mask: true
+			})
 			if (that.data.type == 2) {
 				that.setData({
 					showContactInfo: true
 				})
+				wx.hideLoading()
 			} else {
-				db.collection('uploads').doc(that.data.record._id).get({
-					success(res) {
-						// check if sold out
-						if (res.data.isSoldOut) {
-							wx.showToast({
-								title: '在你浏览时，已经有人开始咨询了！',
-								icon: 'none',
-								success(res) {
-									wx.navigateBack()
-								}
-							})
-						} else {
-							that.setData({
-								showContactInfo: true
-							})
-							db.collection('uploads').doc(
-								that.data.record._id
-							).update({
-								data: {
-									isSoldOut: true
-								}
-							})
-							db.collection('bargains').where({
-								_openid: app.globalData.openID
-							}).get({
-								success(res) {
-									if (r.data.length == 0) {
-										db.collection('bargains').add({
-											data: {
-												arr: [bkID]
-											}
-										})
-									} else {
-										db.collection('bargains').where({
-											_openid: app.globalData.openID
-										}).update({
-											data: {
-												arr: _.unshift(bkID)
-											}
-										})
+				db.collection('uploads').doc(
+					that.data.record._id
+				).get().then(res => {
+					// check if sold out
+					if (res.data.isSoldOut) {
+						wx.showToast({
+							title: '在你浏览时，已经有人开始咨询了！',
+							icon: 'none'
+						}).then(() => {
+							wx.navigateBack()
+						})
+					} else {
+						// update bk record
+						return wx.cloud.callFunction({
+							name: 'update',
+							data: {
+								collection: 'uploads',
+								where: {
+									_id: that.data.record._id
+								},
+								update: {
+									data: {
+										isSoldOut: true
 									}
 								}
-							})
-						}
+							}
+						})
 					}
+				}).then(() => {
+					return db.collection('bargains').where({
+						_openid: app.globalData.openID
+					}).get()
+				}).then(res => {
+					if (res.data.length == 0) {
+						return db.collection('bargains').add({
+							data: {
+								arr: [bkID]
+							}
+						})
+					} else {
+						return db.collection('bargains').where({
+							_openid: app.globalData.openID
+						}).update({
+							data: {
+								arr: _.unshift(bkID)
+							}
+						})
+					}
+				}).then(() => {
+					that.setData({
+						showContactInfo: true
+					})
+					wx.hideLoading()
 				})
 			}
 		} else {
@@ -241,16 +262,13 @@ Page({
 
 	copy(e) {
 		wx.setClipboardData({
-			data: e.currentTarget.dataset.txt,
-			success(res) {
-				wx.getClipboardData({
-					success(res) {
-						wx.showToast({
-							title: '复制成功！'
-						})
-					}
-				})
-			}
+			data: e.currentTarget.dataset.txt
+		}).then(() => {
+			return wx.getClipboardData()
+		}).then(() => {
+			wx.showToast({
+				title: '复制成功！'
+			})
 		})
 	}
 })

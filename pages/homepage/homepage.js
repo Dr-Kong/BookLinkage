@@ -10,7 +10,7 @@ const db = wx.cloud.database({
 
 Page({
 	data: {
-		a: app,
+		a: null,
 		_sbjList: util._sbjList,
 		sbjList: sbjList,
 		pubList: pubList,
@@ -32,8 +32,14 @@ Page({
 
 	onShow() {
 		const that = this
+		wx.showLoading({
+			title: '加载中……',
+			mask: true
+		})
 		new Promise(resolve => {
-			if (app.globalData.userInfo == null) {
+			if (app.globalData.userInfo != null) {
+				resolve()
+			} else {
 				wx.getSetting().then(r => {
 					return new Promise(res => {
 						if (r.authSetting['scope.userInfo']) {
@@ -57,21 +63,13 @@ Page({
 						}
 					})
 				}).then(() => {
-					that.setData({
-						a: getApp()
-					})
 					resolve()
 				})
-			} else {
-				resolve()
 			}
 		}).then(() => {
-			if (that.data.a.globalData.userInfo == null) {
-				// Authorized on another page, yet this page was loaded
-				that.setData({
-					a: getApp()
-				})
-			}
+			that.setData({
+				a: getApp()
+			})
 			that.search()
 		})
 	},
@@ -85,13 +83,15 @@ Page({
 	},
 
 	onPullDownRefresh() {
-		this.onShow()
+		wx.stopPullDownRefresh().then(() => {
+			this.onShow()
+		})
 	},
 
 	setUserInfo(e) {
 		const res = e.detail
 		wx.showLoading({
-			title: '登录中',
+			title: '登录中……',
 			mask: true
 		})
 		util.setOpenID(res).then(() => {
@@ -135,7 +135,7 @@ Page({
 			sbj: val[0],
 			pub: val[1],
 			isFocus: false,
-			tags: [_sbjList[val[0]], pubList[val[1]]]
+			tags: [sbjList[val[0]], pubList[val[1]]]
 		})
 		this.search()
 	},
@@ -146,6 +146,9 @@ Page({
 			openID = app.globalData.openID
 		var temp = [],
 			i = kw.length - 2
+		wx.showLoading({
+			title: '获取书本信息中……',
+		})
 		db.collection('uploads').where({
 			isSoldOut: false,
 			_openid: _.neq(openID == null ? '' : openID),
@@ -169,6 +172,7 @@ Page({
 				that.setData({
 					bl: temp
 				})
+				wx.hideLoading()
 				if (temp.length == 0) {
 					wx.showToast({
 						title: '暂时没有您想要的书本',

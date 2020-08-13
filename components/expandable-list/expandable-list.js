@@ -24,7 +24,7 @@ Component({
 	},
 
 	/* External Classes */
-	externalClasses: ['title-class', 'contents-class'],
+	externalClasses: ['title-class'],
 
 	/**
 	 * Component methods

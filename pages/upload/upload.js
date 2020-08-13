@@ -30,20 +30,19 @@ Page({
 		isLegal: null,
 		p: '',
 		addInfo: '',
-		tempPaths: null,
-		hasUserInfo: false
+		tempPaths: []
 	},
 	/**
 	 * Lifecycle function--Called when page load
 	 */
 	onLoad(options) {
 		const that = this
-		if (options.type == 1) {
+		if (options.type === 1) {
 			db.collection('uploads').doc(options.bkID).get({
 				success(res) {
 					const r = res.data
 					that.setData({
-						type: options.type,
+						type: parseInt(options.type),
 						_id: options.bkID,
 						lastName: r.lastName,
 						wxID: r.wxID,
@@ -52,8 +51,7 @@ Page({
 						isLegal: r.isLegal,
 						p: r.price,
 						addInfo: r.additionalInfo,
-						tempPaths: r.fileID,
-						hasUserInfo: true
+						tempPaths: r.fileID
 					})
 				}
 			})
@@ -66,8 +64,7 @@ Page({
 					that.setData({
 						lastName: r.lastName,
 						wxID: r.wxID,
-						tel: r.telephone,
-						hasUserInfo: r.wxID != '' || r.telephone != ''
+						tel: r.telephone
 					})
 				}
 			})
@@ -129,15 +126,13 @@ Page({
 
 	setWxID(e) {
 		this.setData({
-			wxID: e.detail.value,
-			hasUserInfo: true
+			wxID: e.detail.value
 		})
 	},
 
 	setTel(e) {
 		this.setData({
 			tel: e.detail.value,
-			hasUserInfo: true
 		})
 	},
 
@@ -182,7 +177,6 @@ Page({
 	chooseImg() {
 		const that = this
 		var tp = that.data.tempPaths
-		tp = (tp == null) ? [] : tp
 		wx.chooseImage({
 			sizeType: ['original'],
 			sourceType: ['album', 'camera'],
@@ -216,13 +210,10 @@ Page({
 			tel = that.data.tel
 		var tp = that.data.tempPaths,
 			tags = []
-		// disable the buttom in case of repeated upload
-		that.setData({
-			hasUserInfo: false
-		})
 		// humanistic optimize
 		wx.showLoading({
-			title: t == 0 ? '上传中' : '更新信息中'
+			title: t == 0 ? '上传中' : '更新信息中',
+			mask: true
 		})
 		if (t == 0) {
 			if (s != 11) {
@@ -265,19 +256,15 @@ Page({
 		}
 		// upload img and record its cloudpath
 		for (let i = 0; i < tp.length; i++) {
-			// remove cloud img url
-			if (tp[i].substr(0, 8) == 'cloud://') {
-				tp.splice(i, 1)
-				i--
-				continue
-			}
 			const cur = tp[i]
-			var cp = Date.parse(new Date()) / 10 + i + '.jpg'
-			tp[i] = 'cloud://booklinkage-ryfw4.626f-booklinkage-ryfw4-1302677239/' + cp
-			wx.cloud.uploadFile({
-				cloudPath: cp,
-				filePath: cur
-			})
+			if (cur.substr(0, 8) != 'cloud://') {
+				var cp = Date.parse(new Date()) / 10 + i + '.jpg'
+				tp[i] = 'cloud://booklinkage-ryfw4.626f-booklinkage-ryfw4-1302677239/' + cp
+				wx.cloud.uploadFile({
+					cloudPath: cp,
+					filePath: cur
+				})
+			}
 		}
 		that.setData({
 			tempPaths: tp
@@ -297,7 +284,6 @@ Page({
 					})
 				},
 				success(res) {
-					wx.hideLoading()
 					wx.showToast({
 						title: '更新成功',
 						mask: true,
@@ -307,10 +293,6 @@ Page({
 					})
 				},
 				fail(err) {
-					// enable the buttom
-					that.setData({
-						hasUserInfo: true
-					})
 					wx.hideLoading()
 					wx.showToast({
 						title: '失败',
@@ -333,7 +315,6 @@ Page({
 					isLegal: il
 				},
 				success(res) {
-					wx.hideLoading()
 					wx.showToast({
 						title: '上传成功',
 						mask: true,
@@ -343,10 +324,6 @@ Page({
 					})
 				},
 				fail(err) {
-					// enable the buttom
-					that.setData({
-						hasUserInfo: true
-					})
 					wx.hideLoading()
 					wx.showToast({
 						title: '失败',

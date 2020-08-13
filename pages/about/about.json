@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "关于我们",
-  "usingComponents": {},
-  "disableScroll": true
+	"navigationBarTitleText": "关于我们",
+	"usingComponents": {},
+	"enablePullDownRefresh": false
 }

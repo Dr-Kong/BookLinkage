@@ -5,11 +5,11 @@
 		<!-- Title Text -->
 		<view bindtap="expand">{{title}}</view>
 		<!-- Title Img -->
-		<image wx:if='{{src != ""}}' src="{{src}}"/>
+		<image wx:if='{{src != ""}}' src="{{src}}" mode="aspectFill"/>
 
 	</view>
 	<!-- Contents -->
-    <view class='contents contents-class' wx:if="{{on}}">
+    <view class='contents' wx:if="{{on}}">
 		<slot/>
 	</view>
 </view>

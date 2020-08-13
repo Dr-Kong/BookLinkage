@@ -50,7 +50,7 @@
 	</view>
 	<!-- 'input' for short placeholder, 'textarea' for long -->
 	<text>
-		请准确输入书名，并用空格区分不同词语（例：Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
+		请准确输入书名，并用空格区分不同词语（例：Cambridge Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
 	</text>
 	<input placeholder="书名"
 		   maxlength="-1"
@@ -96,7 +96,7 @@
 		</view>
 	</view>
 	<!-- in case of duplicate uploads -->
-	<button disabled="{{!hasUserInfo || tempPaths == null}}"
+	<button disabled="{{wxID == '' && tel == '' || tempPaths == null}}"
 			bindtap="upload">
 		 {{type == 0 ? '上传书本' : '提交更新'}} 
 	</button>

@@ -1,6 +1,7 @@
 {
-  "navigationBarTitleText": "解答反馈",
-  "usingComponents": {
-    "expandable-list": "../../components/expandable-list/expandable-list"
-  }
+	"navigationBarTitleText": "解答反馈",
+	"usingComponents": {
+		"expandable-list": "../../components/expandable-list/expandable-list"
+	},
+	"enablePullDownRefresh": false
 }

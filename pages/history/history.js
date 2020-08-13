@@ -21,7 +21,7 @@ Page({
 	 */
 	onLoad(options) {
 		this.setData({
-			type: options.type
+			type: parseInt(options.type)
 		})
 	},
 
@@ -57,7 +57,9 @@ Page({
 	 * Page event handler function--Called when user drop down
 	 */
 	onPullDownRefresh() {
-		this.setBkList()
+		wx.stopPullDownRefresh().then(() => {
+			this.onShow()
+		})
 	},
 
 	/**
@@ -81,6 +83,7 @@ Page({
 		const t = this.data.type,
 			arr = ['uploads', 'favorites', 'bargains'],
 			that = this
+		var temp = []
 		wx.showLoading({
 			title: '加载中……',
 			mask: true
@@ -89,38 +92,34 @@ Page({
 			_openid: app.globalData.openID
 		}).get().then(res => {
 			const r = res.data
-			return new Promise(resolve => {
-				if (t == 0) {
-					// list of uploads
-					resolve(r)
-				} else {
-					// empty promise
-					var promise = Promise.resolve(),
-						temp = []
-					if (r.length != 0) {
-						// list of favorites or bargains
-						const bkIDList = r[0].arr
-						for (let i = 0; i < bkIDList.length; i++) {
-							promise = promise.then(() => {
-								return new Promise(res => {
-									db.collection('uploads').doc(
-										bkIDList[i]
-									).get().then(r => {
-										temp.push(r.data)
-										res()
-									})
+			if (t == 0) {
+				// list of uploads
+				temp = r
+				return Promise.resolve()
+			} else {
+				// empty promise
+				var promise = Promise.resolve()
+				if (r.length != 0) {
+					// list of favorites or bargains
+					const bkIDList = r[0].arr
+					for (let i = 0; i < bkIDList.length; i++) {
+						promise = promise.then(() => {
+							return new Promise(res => {
+								db.collection('uploads').doc(
+									bkIDList[i]
+								).get().then(r => {
+									temp.push(r.data)
+									res()
 								})
 							})
-						}
+						})
 					}
-					promise.then(() => {
-						resolve(temp)
-					})
 				}
-			})
-		}).then(list => {
+				return promise
+			}
+		}).then(() => {
 			that.setData({
-				bkList: list
+				bkList: temp
 			})
 			wx.hideLoading()
 		})
@@ -134,40 +133,89 @@ Page({
 	},
 
 	putAway(e) {
-		db.collection('uploads').doc(e.currentTarget.dataset.bkID).update({
-			data: {
-				isSoldOut: false
-			}
+		const t = this.data.type,
+			bkID = e.currentTarget.dataset.bkid
+		wx.showLoading({
+			title: '重新上架中……',
+			mask: true
 		})
-	},
-
-	delete(e) {
-		const bkID = e.currentTarget.dataset.bkID,
-			a = [null, 'favorites', 'bargains'],
-			t = this.data.type
-		if (t == 0) {
-			// remove upload img
-			db.collection('uploads').doc(bkID).get({
-				success(res) {
-					wx.cloud.deleteFile({
-						fileList: res.data.fileID
-					})
+		wx.cloud.callFunction({
+			name: 'update',
+			data: {
+				collection: 'uploads',
+				where: {
+					_id: bkID
+				},
+				update: {
+					data: {
+						isSoldOut: false
+					}
 				}
-			})
-			// remove upload record
-			db.collection('uploads').doc(bkID).remove()
-			// run twice, on favorites and bargains
-			for (let i = 1; i < 3; i++) {
-				db.collection(a[i]).where({
-					arr: _.elemMatch(bkID)
+			}
+		}).then(() => {
+			if (t == 0) {
+				// seller deletes buyer's record
+				return wx.cloud.callFunction({
+					name: 'update',
+					data: {
+						collection: 'bargains',
+						bkID: bkID,
+						case: 2
+					}
+				})
+			} else {
+				// buyer deletes their own record
+				return db.collection('bargains').where({
+					_openid: app.globalData.openID
 				}).update({
 					data: {
 						arr: _.pull(bkID)
 					}
 				})
 			}
-		} else if (t == 1) {
-			db.collection('favorites').where({
+		}).then(() => {
+			return wx.showToast({
+				title: '上架成功',
+				mask: true
+			})
+		}).then(() => {
+			this.setBkList()
+		})
+	},
+
+	delete(e) {
+		const bkID = e.currentTarget.dataset.bkid,
+			a = [null, 'favorites', 'bargains'],
+			t = this.data.type
+		wx.showLoading({
+			title: '删除中……',
+			mask: true
+		})
+		if (t == 0) {
+			// remove uploaded img
+			var promise = db.collection('uploads').doc(bkID).get().then(res => {
+				return wx.cloud.deleteFile({
+					fileList: res.data.fileID
+				})
+			}).then(() => {
+				// remove upload record
+				return db.collection('uploads').doc(bkID).remove()
+			})
+			// run twice, on favorites and bargains
+			for (let i = 1; i < 3; i++) {
+				promise = promise.then(() => {
+					return wx.cloud.callFunction({
+						name: 'update',
+						data: {
+							collection: a[i],
+							bkID: bkID,
+							case: 2
+						}
+					})
+				})
+			}
+		} else {
+			var promise = db.collection('favorites').where({
 				_openid: app.globalData.openID
 			}).update({
 				data: {
@@ -175,5 +223,13 @@ Page({
 				}
 			})
 		}
+		promise.then(() => {
+			return wx.showToast({
+				title: '删除成功',
+				mask: true
+			})
+		}).then(() => {
+			this.setBkList()
+		})
 	}
 })

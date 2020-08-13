@@ -36,8 +36,7 @@
 		{{record.additionalInfo}}
 	</text>
 	<!-- Star -->
-	<cover-view wx:if="{{type != 0}}"
-	class="starred">
+	<cover-view wx:if="{{type == 1}}" class="starred">
 		<!-- Selected -->
 		<image wx:if="{{starred}}"
 			class="Img"
@@ -52,7 +51,7 @@
 			mode="scaleToFill"/>
 	</cover-view>
 	<!-- Bargain -->
-	<cover-view wx:if="{{type != 0}}" class="bargain">
+	<cover-view wx:if="{{type != 0 && !showContactInfo}}" class="bargain">
 		<button bindtap="bargain">
 			{{type == 1 ? '开始咨询' : '查看联系方式'}}
 		</button>
@@ -62,27 +61,26 @@
 	<cover-view wx:if="{{showContactInfo}}"
 	class="contactInfo">
 		<cover-view wx:if="{{record.lastName != ''}}"
-		class="ssName">
+			class="ssName">
 			{{' ' + record.lastName + '同学 '}}
 		</cover-view>
 		<cover-view wx:if="{{record.wxID != ''}}"
-		class="ssWXID">
+			class="ssWXID">
 			{{'微信：' + record.wxID}}
 			<button>
 				<!-- Copy -->
-				<image src=""
+				<image src="../../icons/copy.png"
 					bindtap="copy"
 					class="copy"
 					data-txt="{{record.wxID}}"/>
 			</button>
 		</cover-view>
-		<cover-view wx:if="{{record.telephone != ''}}"
-		class="ssTL">
+		<cover-view wx:if="{{record.telephone != ''}}" class="ssTL">
 			{{'电话号码：' + record.telephone}}
 		</cover-view>
 		<button>
 				<!-- Copy -->
-				<image src=""
+				<image src="../../icons/copy.png"
 					bindtap="copy"
 					class="copy"
 					data-txt="{{record.telephone}}"/>
