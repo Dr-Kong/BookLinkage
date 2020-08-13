@@ -16,9 +16,9 @@ Page({
 		pubList: pubList,
 		sbj: 11,
 		pub: 0,
-		bl: null,
+		bl: [],
 		keywords: '',
-		isFocus: null,
+		isFocus: true,
 		tags: ['']
 	},
 	// switch to mine
@@ -74,14 +74,6 @@ Page({
 		})
 	},
 
-	onReachBottom() {
-		wx.showToast({
-			title: this.data.isFocus == null ?
-				'请使用输入关键词或滚动选择进行查询' : '已展示所有符合条件的书本',
-			icon: 'none'
-		})
-	},
-
 	onPullDownRefresh() {
 		wx.stopPullDownRefresh().then(() => {
 			this.onShow()
@@ -90,6 +82,9 @@ Page({
 
 	setUserInfo(e) {
 		const res = e.detail
+		if (res.userInfo == null) {
+			return
+		}
 		wx.showLoading({
 			title: '登录中……',
 			mask: true
@@ -101,6 +96,12 @@ Page({
 			})
 			this.search()
 			wx.hideLoading()
+		})
+	},
+
+	changeSearch() {
+		this.setData({
+			isFocus: false
 		})
 	},
 
@@ -124,7 +125,7 @@ Page({
 			}
 		}
 		that.setData({
-			tags: tempTags
+			tags: tempTags.length == 0 ? [''] : tempTags
 		})
 		that.search()
 	},
@@ -132,8 +133,8 @@ Page({
 	searchByTags(e) {
 		const val = e.detail.value
 		this.setData({
-			sbj: val[0],
-			pub: val[1],
+			sbj: val[0] ? val[0] : 11,
+			pub: val[1] ? val[1] : 0,
 			isFocus: false,
 			tags: [sbjList[val[0]], pubList[val[1]]]
 		})
@@ -149,37 +150,29 @@ Page({
 		wx.showLoading({
 			title: '获取书本信息中……',
 		})
-		db.collection('uploads').where({
-			isSoldOut: false,
-			_openid: _.neq(openID == null ? '' : openID),
-			// fuzzy search
-			tags: _.elemMatch({
-				$regex: '.*' + kw[i + 1],
-				$options: 'i'
-			})
-		}).get({
-			success(res) {
-				temp = res.data
-				while (i > 0 && temp.length > 0) {
-					const cur = kw[i]
-					for (let j = 0; j < temp.length; j++) {
-						if (temp[j].tags.indexOf(cur) == -1) {
-							temp.splice(j, 1)
-						}
-					}
-					i--
-				}
-				that.setData({
-					bl: temp
-				})
-				wx.hideLoading()
-				if (temp.length == 0) {
-					wx.showToast({
-						title: '暂时没有您想要的书本',
-						icon: 'none'
-					})
-				}
+		wx.cloud.callFunction({
+			name: 'get',
+			data: {
+				collection: 'uploads',
+				case: 2,
+				openID: openID,
+				keyWord: kw[i + 1]
 			}
+		}).then(res => {
+			temp = res.result.data
+			while (i > 0 && temp.length > 0) {
+				const cur = kw[i]
+				for (let j = 0; j < temp.length; j++) {
+					if (temp[j].tags.indexOf(cur) == -1) {
+						temp.splice(j, 1)
+					}
+				}
+				i--
+			}
+			that.setData({
+				bl: temp
+			})
+			wx.hideLoading()
 		})
 	},
 
@@ -188,21 +181,13 @@ Page({
 	},
 
 	cancelSearch() {
-		const that = this
-		db.collection('uploads').where({
-			isSoldOut: false,
-			_openid: _.neq(app.globalData.openID)
-		}).get({
-			success(res) {
-				that.setData({
-					sbj: 11,
-					pub: 0,
-					bl: res.data,
-					keywords: '',
-					isFocus: null,
-					tags: ['']
-				})
-			}
+		this.setData({
+			sbj: 11,
+			pub: 0,
+			keywords: '',
+			isFocus: true,
+			tags: ['']
 		})
+		this.search()
 	}
 })

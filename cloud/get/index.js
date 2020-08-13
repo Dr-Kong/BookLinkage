@@ -14,6 +14,17 @@ exports.main = async (event, context) => {
 		appid: wxContext.APPID,
 		unionid: wxContext.UNIONID,
 	} */
+	if (event.case == 2) {
+		event.where = {
+			isSoldOut: false,
+			_openid: _.neq(event.openID == null ? '' : event.openID),
+			// fuzzy search
+			tags: _.elemMatch({
+				$regex: '.*' + event.keyWord,
+				$options: 'i'
+			})
+		}
+	}
 	if (event.where == null) {
 		return await db.collection(event.collection).get()
 	} else {

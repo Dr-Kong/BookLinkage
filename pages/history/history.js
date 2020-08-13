@@ -88,10 +88,16 @@ Page({
 			title: '加载中……',
 			mask: true
 		})
-		db.collection(arr[t]).where({
-			_openid: app.globalData.openID
-		}).get().then(res => {
-			const r = res.data
+		wx.callFunction({
+			name: 'get',
+			data: {
+				collection: arr[t],
+				where: {
+					_openid: app.globalData.openID
+				}
+			}
+		}).then(res => {
+			const r = res.result.data
 			if (t == 0) {
 				// list of uploads
 				temp = r

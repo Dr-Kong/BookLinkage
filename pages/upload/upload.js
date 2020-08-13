@@ -30,7 +30,8 @@ Page({
 		isLegal: null,
 		p: '',
 		addInfo: '',
-		tempPaths: []
+		tempPaths: [],
+		cloudTempPaths: []
 	},
 	/**
 	 * Lifecycle function--Called when page load
@@ -191,10 +192,15 @@ Page({
 
 	removeImg(e) {
 		const i = e.currentTarget.dataset.i,
-			tp = this.data.tempPaths
-		tp.splice(i, 1)
+			tp = this.data.tempPaths,
+			ctp = this.data.cloudTempPaths,
+			cur = tp.splice(i, 1)
+		if (cur.substr(0, 8) != 'cloud://') {
+			ctp.push(cur)
+		}
 		this.setData({
-			tempPaths: tp
+			tempPaths: tp,
+			cloudTempPaths: ctp
 		})
 	},
 

@@ -1,138 +1,164 @@
 /**index.wxss**/
 .userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.userInputView .userInfo-avatar{
-  width: 100rpx;
-  height: 100rpx;
-  margin: 20rpx;
-  margin-top: 30rpx;
-  border-radius: 50%;
-  margin-left: 5%;
-}
-.userInputView .getInfoB{
-  width: 100rpx;
-  height: 100rpx;
-  margin: 20rpx;
-  margin-top: 30rpx;
-  border-radius: 50%;
-  margin-left: 5%;
+.userInputView .userInfo-avatar {
+	width: 100rpx;
+	height: 100rpx;
+	margin: 20rpx;
+	margin-top: 30rpx;
+	border-radius: 50%;
+	margin-left: 5%;
 }
 
-.usermotto {
-  margin-top: 200px;
-}
-.container{
-  padding: 5rpx 0;
-}
-
-.notice{
-  font-size: small;
-  color: red;
-  margin-left: 18%;
-}
-.userInputView{
-  display: flex;
-  flex-direction: row;
-}
-.userInputView.inputView{
-  display: flex;
-  flex-direction: column;
-}
-.inputIt{
-  position: relative;
-  padding: 0px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  box-sizing: border-box;
-  background-color: #ededed;
-  background-color: var(--weui-BG-0);
-  -webkit-text-size-adjust: 100%;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.userInputView.cancel{
-    display: none;
-    margin-left: 8px;
-    line-height: 28px;
-    color: #576b95;
-    color: var(--weui-LINK);
-    white-space: nowrap;
+.userInputView .getInfoB {
+	width: 100rpx;
+	height: 100rpx;
+	margin: 20rpx;
+	margin-top: 30rpx;
+	border-radius: 50%;
+	margin-left: 5%;
 }
 
-.cancelButton{
-  width: 20rpx;
-  height: 50rpx;
-  border-radius: 50%;
-}
-.wid{
-  width: 100%;
-  background-color: rgb(170, 168, 168);
-}
-.space{
-  height: 50rpx;
-  width: 100%;
-  background-color: rgb(170, 168, 168);
-}
-.input{
-  width: 500rpx
-}
-.PHC{
-  
-  font-size: small;
-}
-.bgc{
-  background-color: white;
-  width: 500rpx;
-}
-.bookItem{
-  width: 100%;
-  height: 700rpx;
-  display: flex;
-  border-bottom: 1px solid #ccc;
-}
-.bookItem .bookImg{
-  flex: 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 30rpx;
-}
-.bookItem .bookImg image{
-  width: 100%;
-}
-.bookItem .bookInfo{
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.bookItem .bookInfo .bookName{
-  display: flex;
-  overflow: hidden;
-  flex-direction: row-reverse;
-  font-size: large;
-  font-weight: bold;
-  margin-right: 30rpx;
-}
-.bookItem .bookInfo .bookPrice{
-  color: red;
-  display: flex;
-  flex-direction: row-reverse;
-  font-size: 32rpx;
-  margin-right: 30rpx;
-}
-.bookItem .bookInfo .bookLegal{
-  font-size: medium;
-  font-weight: normal;
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 30rpx;
-  color: green;
+.container {
+	padding: 5rpx 0;
 }
 
+.notice {
+	font-size: small;
+	color: red;
+	margin-left: 18%;
+}
+
+.userInputView {
+	display: flex;
+	flex-direction: row;
+}
+
+.userInputView.inputView {
+	display: flex;
+	flex-direction: column;
+}
+
+.inputIt {
+	position: relative;
+	padding: 0px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	box-sizing: border-box;
+	background-color: #ededed;
+	background-color: var(--weui-BG-0);
+	-webkit-text-size-adjust: 100%;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.userInputView.cancel {
+	display: none;
+	margin-left: 8px;
+	line-height: 28px;
+	color: #576b95;
+	color: var(--weui-LINK);
+	white-space: nowrap;
+}
+
+.cancelButton {
+	width: 20rpx;
+	height: 50rpx;
+	border-radius: 50%;
+}
+
+.wid {
+	width: 100%;
+	background-color: rgb(170, 168, 168);
+}
+
+.space {
+	height: 50rpx;
+	width: 100%;
+	background-color: rgb(170, 168, 168);
+}
+
+.input {
+	width: 500rpx
+}
+
+.PHC {
+
+	font-size: small;
+}
+
+.bgc {
+	background-color: white;
+	width: 500rpx;
+}
+
+.picker {
+	width: 500rpx;
+	height: 300px
+}
+
+.indicator {
+	height: 50px
+}
+
+.column {
+	line-height: 50px
+}
+
+.bookItem {
+	width: 100%;
+	height: 700rpx;
+	display: flex;
+	border-bottom: 1px solid #ccc;
+}
+
+.bookItem .bookImg {
+	flex: 3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 30rpx;
+}
+
+.bookItem .bookImg image {
+	width: 100%;
+}
+
+.bookItem .bookInfo {
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.bookItem .bookInfo .bookName {
+	display: flex;
+	overflow: hidden;
+	flex-direction: row-reverse;
+	font-size: large;
+	font-weight: bold;
+	margin-right: 30rpx;
+}
+
+.bookItem .bookInfo .bookPrice {
+	color: red;
+	display: flex;
+	flex-direction: row-reverse;
+	font-size: 32rpx;
+	margin-right: 30rpx;
+}
+
+.bookItem .bookInfo .bookLegal {
+	font-size: medium;
+	font-weight: normal;
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 30rpx;
+	color: green;
+}
