@@ -25,6 +25,7 @@
 
 .container {
 	padding: 5rpx 0;
+	background-color: white
 }
 
 .notice {
@@ -75,13 +76,13 @@
 
 .wid {
 	width: 100%;
-	background-color: rgb(170, 168, 168);
+	background-color:  #edece8
 }
 
 .space {
 	height: 50rpx;
 	width: 100%;
-	background-color: rgb(170, 168, 168);
+	background-color: #edece8
 }
 
 .input {

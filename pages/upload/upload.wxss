@@ -13,12 +13,12 @@
 }
 .container{
   padding: 30rpx 0;
-  background-color: rgb(210, 210, 219);
+  background-color: #edece8;
 }
 .inputC{
   margin-top: 15rpx;
   align-items: center;
-  border-bottom: grey solid 4rpx;
+  border-bottom: #edece8 solid 3rpx;
   width: 100%;
   margin-bottom: 15rpx;
   background-color: white;
@@ -64,4 +64,7 @@
   position: absolute;
   top: 5rpx;
   right: 5rpx;
+}
+.bgcw{
+  background-color: white;
 }

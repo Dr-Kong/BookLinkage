@@ -24,29 +24,31 @@
 			请注意区分校本数学，ap微积分及ap统计，ap环科以及校本地理，英文小说请选英语
 		</text>
 
-		<view class="BI">
-			<text class="bookInfo1">科目：{{_sbjList[sbj]}}</text>
-			<text class="bookInfo2" wx:if="sbj != 11"> 出版商：{{pubList[pub]}}</text>
+		<view class="bgcw">
+			<view class="BI">
+				<text class="bookInfo1">科目：{{_sbjList[sbj]}}</text>
+				<text class="bookInfo2" wx:if="sbj != 11"> 出版商：{{pubList[pub]}}</text>
+			</view>
+			<picker-view indicator-style="height: 50px;"
+						style="width: 500rpx; height: 300px; margin-left: 100rpx;"
+						value="{{[sbj, pub]}}"
+						bindchange="setBkInfo">
+				<!-- subject -->
+				<picker-view-column>
+					<view wx:for="{{_sbjList}}" wx:key='index'
+						style="line-height: 50px; margin-left: 20rpx;" >
+						{{item}}
+					</view>
+				</picker-view-column>
+				<!-- publisher -->
+				<picker-view-column>
+					<view wx:for="{{_pubList}}" wx:key='index'
+						style="line-height: 50px">
+						{{item}} {{pubList[index]}}
+					</view>
+				</picker-view-column>
+			</picker-view>
 		</view>
-		<picker-view indicator-style="height: 50px;"
-					style="width: 500rpx; height: 300px; margin-left: 100rpx"
-					value="{{[sbj, pub]}}"
-					bindchange="setBkInfo">
-			<!-- subject -->
-			<picker-view-column>
-				<view wx:for="{{_sbjList}}" wx:key='index'
-					style="line-height: 50px; margin-left: 20rpx;" >
-					{{item}}
-				</view>
-			</picker-view-column>
-			<!-- publisher -->
-			<picker-view-column>
-				<view wx:for="{{_pubList}}" wx:key='index'
-					style="line-height: 50px">
-					{{item}} {{pubList[index]}}
-				</view>
-			</picker-view-column>
-		</picker-view>
 	</view>
 	<!-- 'input' for short placeholder, 'textarea' for long -->
 	<text>

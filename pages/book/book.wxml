@@ -37,18 +37,18 @@
 	</text>
 	<!-- Star -->
 	<cover-view wx:if="{{type == 1}}" class="starred">
-		<!-- Selected -->
-		<image wx:if="{{starred}}"
-			class="Img"
-			bindtap="star"
-			src="../../icons/_starred.png"
-			mode="scaleToFill"/>
-		<!-- Unselected -->
-		<image wx:else
-			class="Img"
-			bindtap="star"
-			src="../../icons/starred.png"
-			mode="scaleToFill"/>
+			<!-- Selected -->
+			<cover-image wx:if="{{starred}}"
+				class="Img"
+				bindtap="star"
+				src="../../icons/_starred.png"
+				mode="scaleToFill"/>
+			<!-- Unselected -->
+			<cover-image wx:else
+				class="Img"
+				bindtap="star"
+				src="../../icons/starred.png"
+				mode="scaleToFill"/>
 	</cover-view>
 	<!-- Bargain -->
 	<cover-view wx:if="{{type != 0 && !showContactInfo}}" class="bargain">

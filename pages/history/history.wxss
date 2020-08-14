@@ -32,12 +32,13 @@
 }
 .waiting{
   display: flex;
+  color: green;
   flex-direction: row-reverse;
   margin-right: 10rpx;
 }
 .resell{
   margin-top: 40rpx;
-  color: green;
+  color: blue;
   display: flex;
   flex-direction: row-reverse;
   margin-right: 10rpx;
