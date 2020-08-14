@@ -43,8 +43,8 @@
 		
 	</view>
 	<!-- Tags selecting -->
-	<view bindtap="changeSearch">选择科目及出版商</view>
-	<expandable-list title-class=''>
+	<view class="chooseBook">选择科目及出版商</view>
+	<expandable-list title-class='title' title='展开列表'>
 		<picker-view class="picker"
 			indicator-class="indicator"
 			value="{{[sbj, pub]}}"

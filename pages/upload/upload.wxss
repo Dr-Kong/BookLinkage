@@ -24,8 +24,13 @@
   background-color: white;
   height: 65rpx;
 }
-.bookInfo{
-  margin-left: 60rpx;
+.bookInfo1{
+  margin-left: 100rpx;
+  font-size: large;
+  font-weight: bold;
+}
+.bookInfo2{
+  margin-left: 50rpx;
   font-size: large;
   font-weight: bold;
 }

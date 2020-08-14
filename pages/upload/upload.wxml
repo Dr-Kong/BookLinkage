@@ -25,17 +25,17 @@
 		</text>
 
 		<view class="BI">
-			<text class="bookInfo">科目：{{_sbjList[sbj]}}</text>
-			<text class="bookInfo" wx:if="sbj != 11"> 出版商：{{pubList[pub]}}</text>
+			<text class="bookInfo1">科目：{{_sbjList[sbj]}}</text>
+			<text class="bookInfo2" wx:if="sbj != 11"> 出版商：{{pubList[pub]}}</text>
 		</view>
 		<picker-view indicator-style="height: 50px;"
-					style="width: 500rpx; height: 300px;"
+					style="width: 500rpx; height: 300px; margin-left: 100rpx"
 					value="{{[sbj, pub]}}"
 					bindchange="setBkInfo">
 			<!-- subject -->
 			<picker-view-column>
 				<view wx:for="{{_sbjList}}" wx:key='index'
-					style="line-height: 50px">
+					style="line-height: 50px; margin-left: 20rpx;" >
 					{{item}}
 				</view>
 			</picker-view-column>
