@@ -88,7 +88,7 @@ Page({
 			title: '加载中……',
 			mask: true
 		})
-		wx.callFunction({
+		wx.cloud.callFunction({
 			name: 'get',
 			data: {
 				collection: arr[t],

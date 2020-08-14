@@ -22,7 +22,6 @@
 						<view class="space"></view>
 						<input value="{{keywords}}"
 						maxlength="-1"
-						disabled="{{!isFocus}}"
 						placeholder="书本名称(用空格分隔关键词)"
 						placeholder-class="PHC"
 						confirm-type="search"
@@ -34,7 +33,7 @@
 				<view>
 					<view class="space"></view>
 					<view class="cancel"
-						wx:if="{{isFocus && keywords.length != 0}}"
+						wx:if="{{keywords.length != 0}}"
 						bindtap="cancelSearch" > 
 						取消
 					</view>
@@ -45,7 +44,7 @@
 	</view>
 	<!-- Tags selecting -->
 	<view bindtap="changeSearch">选择科目及出版商</view>
-	<expandable-list title-class='' wx:if="{{!isFocus}}">
+	<expandable-list title-class=''>
 		<picker-view class="picker"
 			indicator-class="indicator"
 			value="{{[sbj, pub]}}"
@@ -68,7 +67,7 @@
 			</picker-view-column>
 		</picker-view>
 	</expandable-list>
-	<text wx:if="{{!isFocus && (sbj != 11 || pub != 0)}}"
+	<text wx:if="{{sbj != 11 || pub != 0}}"
 		bindtap="cancelSearch">
 		取消
 	</text>

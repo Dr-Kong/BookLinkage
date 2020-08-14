@@ -18,7 +18,6 @@ Page({
 		pub: 0,
 		bl: [],
 		keywords: '',
-		isFocus: true,
 		tags: ['']
 	},
 	// switch to mine
@@ -99,18 +98,11 @@ Page({
 		})
 	},
 
-	changeSearch() {
-		this.setData({
-			isFocus: false
-		})
-	},
-
 	searchByKeywords(e) {
 		const str = e.detail.value,
 			that = this
 		that.setData({
-			keywords: str,
-			isFocus: true
+			keywords: str
 		})
 		var tempTags = str.split(' ')
 		for (var i = 0; i < tempTags.length; i++) {
@@ -125,7 +117,7 @@ Page({
 			}
 		}
 		that.setData({
-			tags: tempTags.length == 0 ? [''] : tempTags
+			tags: that.data.tags.concat(tempTags.length == 0 ? [''] : tempTags)
 		})
 		that.search()
 	},
@@ -135,8 +127,7 @@ Page({
 		this.setData({
 			sbj: val[0] ? val[0] : 11,
 			pub: val[1] ? val[1] : 0,
-			isFocus: false,
-			tags: [sbjList[val[0]], pubList[val[1]]]
+			tags: this.data.tags.concat([sbjList[val[0]], pubList[val[1]]])
 		})
 		this.search()
 	},
@@ -185,7 +176,6 @@ Page({
 			sbj: 11,
 			pub: 0,
 			keywords: '',
-			isFocus: true,
 			tags: ['']
 		})
 		this.search()
