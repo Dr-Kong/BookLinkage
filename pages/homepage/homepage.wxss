@@ -24,7 +24,7 @@
 }
 
 .container {
-	padding: 5rpx 0;
+	padding: 5rpx 0 0 0;
 	background-color: white
 }
 
@@ -76,7 +76,7 @@
 
 .wid {
 	width: 100%;
-	background-color:  #edece8
+	background-color: #edece8
 }
 
 .space {
@@ -90,7 +90,6 @@
 }
 
 .PHC {
-
 	font-size: small;
 }
 
@@ -98,18 +97,22 @@
 	background-color: white;
 	width: 500rpx;
 }
-.title{
+
+.title {
 	font-weight: bold;
 }
-.chooseBook{
+
+.chooseBook {
 	font-size: large;
 	font-weight: bold;
 
 }
-.ELC{
+
+.ELC {
 	width: 100%;
 	height: 600rpx;
 }
+
 .picker {
 	width: 500rpx;
 	height: 300px
@@ -124,18 +127,22 @@
 }
 
 .bookItem {
-	width: 100%;
+	margin: 6rpx;
+	height: 475rpx;
+	width: 300rpx;
+	/* width: 100%;
 	height: 700rpx;
 	display: flex;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #ccc; */
 }
 
 .bookItem .bookImg {
-	flex: 3;
+	max-height: 375rpx;
+	/* flex: 3;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-left: 30rpx;
+	margin-left: 30rpx; */
 }
 
 .bookItem .bookImg image {

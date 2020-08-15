@@ -40,7 +40,6 @@
 				</view>
 			</view>
 		</view>
-		
 	</view>
 	<!-- Tags selecting -->
 	<view class="chooseBook">选择科目及出版商</view>
@@ -71,26 +70,60 @@
 		bindtap="cancelSearch">
 		取消
 	</text>
-	<!-- Books Item -->
-	<navigator wx:for="{{bl}}"
+		<!-- wx:if="{{item._openid != a.globalData.openID}}" -->
+	<!-- <navigator wx:for="{{bl}}"
 		wx:key='index'
-		wx:if="{{item._openid != a.globalData.openID}}"
 		url="{{'../book/book?bkID=' + bl[index]._id + '&type=1'}}"
 		class="bookItem">
-		<!-- Bk Img -->
 		<view class="bookImg" >
 			<image src="{{item.fileID[0]}}" mode="aspectFill" lazy-load="{{true}}" />
 		</view>
 		<view class="bookInfo">
-			<!-- Book Name -->
 			<view class="bookName" >{{item.bkName}}</view>
-			<!-- Legal -->
 			<view class="bookLegal" >{{item.isLegal ? '正版书籍' : ''}}</view>
-			<!-- Price -->
 			<view class="bookPrice" 
 				wx:if="{{item.price != ''}}">
 				{{' ￥ ' + item.price}}
 			</view>
 		</view>
-	</navigator>
+	</navigator> -->
+	<!-- Books Item -->
+	<view class="bg-white no-padding fixed">
+		<view class="grid col-2 padding-xs">
+			<navigator wx:for="{{bl}}"
+				wx:key='index'
+				url="{{'../book/book?bkID=' + bl[index]._id + '&type=1'}}"
+				class="cu-card case">
+				<view class="cu-item shadow bookItem">
+					<view class="image">
+						<!-- Bk Img -->
+						<image class="bg-white bookImg"
+						src="{{item.fileID[0]}}"
+						mode="aspectFill"
+						lazy-load="{{true}}"/>
+					</view>
+					<view class="cu-list">
+						<view class="cu-item">
+							<view class="content padding-lr-sm">
+								<!-- Book Name -->
+								<view class="text-cut text text text-left">
+									{{item.bkName}}
+								</view>
+								<!-- Legal -->
+								<view class="text-cut text-gray text-sm text-left">
+									{{item.isLegal ? '正版书籍' : ''}}
+								</view>
+								<view class="flex">
+									<!-- Price -->
+									<view class="text-red text-bold" wx:if="{{item.price != ''}}">
+										{{' ￥ ' + item.price}}
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</navigator>
+		</view>
+	</view>	
 </view>

@@ -2,8 +2,21 @@
 .inscribe {
 	font-size: small;
 	width: 700rpx;
-	padding-top: 130rpx;
+	padding-top: 150rpx;
 	text-align: center;
+}
+
+.qoute {
+	padding-top: 50rpx;
+	text-align: center;
+	font-size: small;
+	width: 700rpx;
+}
+
+.name {
+	text-align: right;
+	font-size: small;
+	width: 700rpx;
 }
 
 .logo {

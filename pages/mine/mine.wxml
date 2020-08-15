@@ -1,12 +1,13 @@
 <!--pages/mine/mine.wxml-->
-<view class="container">
+<scroll-view class="container">
 	<view class="userBackground">
 		<view wx:if="{{a.globalData.userInfo != null}}">
-			<image class="filter" mode="aspectFill"
-			src="{{a.globalData.userInfo.avatarUrl}}" ></image>
+			<image class="filter"
+				mode="aspectFill"
+				src="{{a.globalData.userInfo.avatarUrl}}"/>
 		</view>
 		<view class="userInfo" 
-		wx:if="{{a.globalData.userInfo != null}}">
+			wx:if="{{a.globalData.userInfo != null}}">
 			<image class="userInfo-avatar"
 				   src="{{a.globalData.userInfo.avatarUrl}}"/>
 			<view class="userinfo-nickname">
@@ -21,40 +22,80 @@
 			</button>
 		</view>
 	</view>
-
+<!-- 
 	<view class="user-content">
 		<navigator class="user-upload"
 			url="{{a.globalData.userInfo == null ? '' : '../upload/upload?type=0'}}"
 			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
 			上传书本
-			<!-- <image src="../../icons/upload"/> -->
 		</navigator>
 		<navigator class="user-history"
 			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=0'}}"
 			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
 			上传历史
-			<!-- <image src="../../icons/uploads"/> -->
 		</navigator>
 		<navigator class="user-history"
 			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=1'}}"
 			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
 			我的收藏
-			<!-- <image src="../../icons/favorites"/> -->
 		</navigator>
 		<navigator class="user-history"
 			url="{{a.globalData.userInfo == null ? '' : '../history/history?type=2'}}"
 			bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
 			咨询历史
-			<!-- <image src="../../icons/bargains"/> -->
 		</navigator>
 		<navigator class="user-feedback" url="../feedback/feedback">
 			解答反馈
-			<!-- <image src="../../icons/feedback"/> -->
 		</navigator>
 		<navigator class="user-about" url="../about/about">
 			关于我们
-			<!-- <image src="../../icons/about"/> -->
 		</navigator>
 	</view>
-	
-</view>
+ -->
+	<view class="user-content cu-list menu shadow-lg">
+		<view class="cu-item arrow">
+			<navigator class="content"
+		  		url="{{a.globalData.userInfo == null ? '' : '../upload/upload?type=0'}}"
+		  		bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
+				<text class="icon-upload text-olive"/>
+				<text class="text-grey">上传书本</text>
+			</navigator>
+		</view>
+		<view class="cu-item arrow">
+				<navigator class="content"
+					url="{{a.globalData.userInfo == null ? '' : '../history/history?type=0'}}"
+					bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
+				<text class="icon-all text-green"/>
+				<text class="text-grey">上传历史</text>
+			</navigator>
+		</view>
+		<view class="cu-item arrow">
+			<navigator class="content"
+				url="{{a.globalData.userInfo == null ? '' : '../history/history?type=1'}}"
+				bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
+				<text class="icon-favorfill text-olive"/>
+				<text class="text-grey">我的收藏</text>
+			</navigator>
+		</view>
+		<view class="cu-item arrow">
+			<navigator class="content"
+				url="{{a.globalData.userInfo == null ? '' : '../history/history?type=2'}}"
+				bindtap="{{a.globalData.userInfo == null ? 'loginReminder' : ''}}">
+				<text class="icon-formfill text-green"/>
+				<text class="text-grey">咨询历史</text>
+			</navigator>
+		</view>
+		<view class="cu-item arrow">
+		  <navigator class="content" url="../feedback/feedback">
+			<text class="icon-questionfill text-olive"/>
+			<text class="text-grey">解答反馈</text>
+		  </navigator>
+		</view>
+		<view class="cu-item arrow">
+		  <navigator class="content" url="../about/about">
+			<text class="icon-infofill text-green"/>
+			<text class="text-grey">关于我们</text>
+		  </navigator>
+		</view>
+	</view>
+</scroll-view>

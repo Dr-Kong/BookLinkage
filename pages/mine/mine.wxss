@@ -1,77 +1,76 @@
 /* pages/mine/mine.wxss */
 .userInfo-avatar {
-  width: 150rpx;
-  height: 150rpx;
-  border-radius: 50%;
+	width: 150rpx;
+	height: 150rpx;
+	border-radius: 50%;
 }
 
 .userinfo-nickname {
-  margin-top: 40rpx;
-  color: white;
-  font-size: medium;
-  font-weight: bold;
+	margin-top: 40rpx;
+	color: white;
+	font-size: medium;
+	font-weight: bold;
 }
 
 .userInfo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 20%;
-  text-align: center;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 20%;
+	text-align: center;
 }
 
 .userBackground {
-  width: 100%;
-  height: 50vh;
-  margin-top: 0%;
-  height: 55vh;
+	width: 100%;
+	height: 50vh;
+	margin-top: 0%;
 }
 
 .filter {
-  filter: blur(10rpx);
-  height: 55vh;
-  width: 100%;
+	filter: blur(10rpx);
+	height: 55vh;
+	width: 100%;
 }
 
 .container {
-  padding-top: 0%;
-  height: 1200rpx;
-  width: 100%;
-  background-color: #edece8;
+	padding-top: 0%;
+	width: 100%;
+	background-color: #edece8;
 }
 
 .user-content {
-  margin-top: 40rpx;
-  width: 100%;
+	width: 100%;
+	margin-top: 50rpx;
 }
 
 .user-history {
-  margin-top: 10rpx;
-  padding: 20rpx;
-  width: 100%;
-  background-color: #fff;
+	margin-top: 10rpx;
+	padding: 20rpx;
+	width: 100%;
+	background-color: #fff;
 }
 
 .user-about {
-  margin-top: 10rpx;
-  background-color: #fff;
-  width: 100%;
-  padding: 20rpx;
+	margin-top: 10rpx;
+	background-color: #fff;
+	width: 100%;
+	padding: 20rpx;
 }
 
 .user-feedback {
-  margin-top: 10rpx;
-  background-color: #fff;
-  width: 100%;
-  padding: 20rpx;
+	margin-top: 10rpx;
+	background-color: #fff;
+	width: 100%;
+	padding: 20rpx;
 }
 
 .user-upload {
-  margin-top: 10rpx;
-  background-color: #fff;
-  width: 100%;
-  padding: 20rpx;
+	margin-top: 10rpx;
+	background-color: #fff;
+	width: 100%;
+	padding: 20rpx;
 }
-.signIn{
-  margin-top: 200rpx;
+
+.signIn {
+	margin-top: 200rpx;
 }
