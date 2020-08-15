@@ -67,14 +67,14 @@
 		<cover-view wx:if="{{record.wxID != ''}}"
 			class="ssWXID">
 			{{'微信：' + record.wxID}}
-			<button>
+		</cover-view>
+		<button>
 				<!-- Copy -->
 				<image src="../../icons/copy.png"
 					bindtap="copy"
 					class="copy"
 					data-txt="{{record.wxID}}"/>
 			</button>
-		</cover-view>
 		<cover-view wx:if="{{record.telephone != ''}}" class="ssTL">
 			{{'电话号码：' + record.telephone}}
 		</cover-view>

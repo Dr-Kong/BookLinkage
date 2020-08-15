@@ -58,15 +58,19 @@
 .ssName{
   font-size: large;
   font-weight: bold;
+  margin-left: 40%;
 }
 .ssWXID{
   margin-top: 30rpx;
+  margin-left: 20%;
 }
 .copy{
+  height: 50rpx;
+  width: 50rpx;
   align-self: center;
   
 }
 .ssTL{
   margin-top: 100rpx;
-  align-self: center;
+  margin-left: 20%;
 }
