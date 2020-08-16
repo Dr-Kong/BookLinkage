@@ -2,18 +2,19 @@
 .title {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between; 
+	justify-content: space-between;
 	flex-wrap: wrap;
 	font-weight: bold;
+	text-align: center;
 }
 
 .contents {
-  overflow: visible; 
+	overflow: visible;
 	white-space: initial;
 	border-bottom: rgb(172, 179, 173) solid 2rpx;
 	padding: 10rpx;
 }
 
-.container{
+.container {
 	padding: 20rpx 0;
 }

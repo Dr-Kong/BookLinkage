@@ -2,12 +2,11 @@
 <view class="container">
 	<swiper indicator-dots="{{true}}"
 		circular='{{true}}'
+		class= "screen-swiper swiper"
 		autoplay="true" 
 		interval="3000" 
-		duration="1000"
-		class="swiper" >
-		<swiper-item wx:for="{{record.fileID}}" wx:key='index'
-			class="swiper-item">
+		duration="1000">
+		<swiper-item wx:for="{{record.fileID}}" wx:key='index'>
 			<image src="{{item}}"
 				mode="aspectFill"
 				data-i="index"
@@ -15,7 +14,13 @@
 		</swiper-item>
 	</swiper>
 	<!-- Notification -->
-	<text class="notice">由于平台无法跟踪交易是否完成，将所有咨询视作交易完成。如果交易未完成，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架</text>
+	<view class="notice">
+		<text>
+			请确认书籍信息
+			由于平台无法跟踪交易状态，将所有咨询视作交易完成。
+			如果交易未成功，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架。
+		</text>
+	</view>
 	<!-- Bk Name -->
 	<text wx:if="{{record.bkName != ''}}"
 		class="bkName">

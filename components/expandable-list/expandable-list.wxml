@@ -1,13 +1,7 @@
 <!--components/list/list.wxml-->
 <view class='container'>
 	<!-- Title -->
-	<view class='title title-class'>
-		<!-- Title Text -->
-		<view bindtap="expand">{{title}}</view>
-		<!-- Title Img -->
-		<image wx:if='{{src != ""}}' src="{{src}}" mode="aspectFill"/>
-
-	</view>
+	<view class='title title-class' bindtap="expand">{{title}}</view>
 	<!-- Contents -->
     <view class='contents' wx:if="{{on}}">
 		<slot/>
