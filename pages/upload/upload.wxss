@@ -1,70 +1,108 @@
 /* pages/upload/upload.wxss */
 
-.imgs{
-  width: 200rpx;
-  height: 200rpx;
-  margin: 50rpx;
-  float: left;
+.imgs {
+	width: 200rpx;
+	height: 200rpx;
+	margin: 50rpx;
+	float: left;
 }
 
-.fullwidth{
-  width: 100%;
-  height: 800rpx;
-}
-.container{
-  padding: 30rpx 0;
-  background-color: #edece8;
-}
-.inputC{
-  margin-top: 15rpx;
-  align-items: center;
-  border-bottom: #edece8 solid 3rpx;
-  width: 100%;
-  margin-bottom: 15rpx;
-  background-color: white;
-  height: 65rpx;
-}
-.bookInfo1{
-  margin-left: 100rpx;
-  font-size: large;
-  font-weight: bold;
-}
-.bookInfo2{
-  margin-left: 50rpx;
-  font-size: large;
-  font-weight: bold;
-}
-.BI{
-  margin-top: 50rpx;
-}
-.additionalInfo{
-  height: 400rpx;
-  width: 90%;
+.fullwidth {
+	width: 100%;
+	height: 800rpx;
 }
 
-.imgDisplay{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  height: 600rpx;
+.container {
+	padding: 30rpx 0;
+	background-color: #edece8;
 }
 
-.up_img_wrap{
-  width: 100rpx;
-  height: 100rpx;
-  position: relative;
-  padding: 30rpx;
+.inputC {
+	margin-top: 15rpx;
+	align-items: center;
+	border-bottom: #edece8 solid 3rpx;
+	width: 100%;
+	margin-bottom: 15rpx;
+	background-color: white;
+	height: 65rpx;
 }
-.up_img_wrap .oneImg{
-  width: 100%;
-  height: 100%;
-  border-radius: 15rpx;
+
+.bookInfo1 {
+	margin-left: 100rpx;
+	font-size: large;
+	font-weight: bold;
 }
-.up_img_wrap .oneIcon{
-  position: absolute;
-  top: 5rpx;
-  right: 5rpx;
+
+.bookInfo2 {
+	margin-left: 100rpx;
+	font-size: large;
+	font-weight: bold;
 }
-.bgcw{
-  background-color: white;
+
+.BI {
+	margin-top: 50rpx;
+}
+
+.additionalInfo {
+	margin-top: 15rpx;
+	height: 400rpx;
+	width: 750rpx;
+}
+
+.imgDisplay {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	height: 600rpx;
+}
+
+.up_img_wrap {
+	width: 100rpx;
+	height: 100rpx;
+	position: relative;
+	padding: 30rpx;
+}
+
+.up_img_wrap .oneImg {
+	width: 100%;
+	height: 100%;
+	border-radius: 15rpx;
+}
+
+.up_img_wrap .oneIcon {
+	position: absolute;
+	top: 5rpx;
+	right: 5rpx;
+}
+
+.bgcw {
+	background-color: white;
+}
+
+.margin {
+	margin-top: 15rpx;
+}
+
+.picker {
+	width: 500rpx;
+	height: 300px;
+	margin-left: 125rpx;
+}
+
+.indicator {
+	height: 50px;
+}
+
+.column {
+	line-height: 50px;
+	margin-left: 20rpx;
+}
+
+.text-bold {
+	font-style: bold;
+}
+
+.text-wrap {
+	width: 700rpx;
+	text-align: center;
 }

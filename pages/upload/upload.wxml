@@ -1,8 +1,10 @@
 <!--pages/upload/upload.wxml-->
 <view class="container">
-	<view>个人信息</view>
+	<view class="text-bold">个人信息</view>
 	<view>
-		<text>请允许他人通过微信号和手机号添加您，并准确填写如下信息。您也可以在下方图片上传入口中添加个人名片，方便购书者与您沟通。</text>
+		<view class="text-wrap">
+			请允许他人通过微信号和手机号添加您，并准确填写如下信息。您也可以在下方图片上传入口中添加个人名片，方便购书者与您沟通。
+		</view>
 		<view class="inputC">
 			<input value='{{lastName}}' placeholder="中文姓氏"
 					maxlength="2" type="text" confirm-type="next"
@@ -18,32 +20,29 @@
 					maxlength="11" type="number" bindinput="setTel"/>
 		</view>
 	</view>
-	<view>书本信息</view>
+	<view class="text-bold">书本信息</view>
 	<view wx:if="{{type != 1}}">
-		<text>
-			请注意区分校本数学，ap微积分及ap统计，ap环科以及校本地理，英文小说请选英语
-		</text>
-
+		<view class="text-wrap">
+			微积分/统计请选数学，环科请选地理，英文小说请选英语
+		</view>
 		<view class="bgcw">
 			<view class="BI">
 				<text class="bookInfo1">科目：{{_sbjList[sbj]}}</text>
 				<text class="bookInfo2" wx:if="sbj != 11"> 出版商：{{pubList[pub]}}</text>
 			</view>
-			<picker-view indicator-style="height: 50px;"
-						style="width: 500rpx; height: 300px; margin-left: 100rpx;"
-						value="{{[sbj, pub]}}"
-						bindchange="setBkInfo">
+			<picker-view class="picker"
+				indicator-class="indicator"
+				value="{{[sbj, pub]}}"
+				bindchange="setBkInfo">
 				<!-- subject -->
 				<picker-view-column>
-					<view wx:for="{{_sbjList}}" wx:key='index'
-						style="line-height: 50px; margin-left: 20rpx;" >
+					<view wx:for="{{_sbjList}}" wx:key='index' class="column">
 						{{item}}
 					</view>
 				</picker-view-column>
 				<!-- publisher -->
 				<picker-view-column>
-					<view wx:for="{{_pubList}}" wx:key='index'
-						style="line-height: 50px">
+					<view wx:for="{{_pubList}}" wx:key='index' class="column">
 						{{item}} {{pubList[index]}}
 					</view>
 				</picker-view-column>
@@ -51,15 +50,17 @@
 		</view>
 	</view>
 	<!-- 'input' for short placeholder, 'textarea' for long -->
-	<text>
-		请准确输入书名，并用空格区分不同词语（例：Cambridge Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
-	</text>
-	<input placeholder="书名"
-		   maxlength="-1"
-		   value="{{bkName}}"
-		   confirm-type="next"
-		   bindinput="setBkName"
-			 class="inputC"/>
+	<view class="bgcw margin">
+		<view class="text-wrap">
+			请准确输入书名，用空格区分不同词语（例：Cambridge Economics for IB 第二版），隔开的词语将作为关键词，供购书者查找
+		</view>
+		<input placeholder="书名"
+			maxlength="-1"
+			value="{{bkName}}"
+			confirm-type="next"
+			bindinput="setBkName"
+			class="inputC"/>
+	</view>
 	<input placeholder="是否原版书籍（非复印影印版）"
 		maxlength="1"
 		confirm-type="next"
@@ -72,18 +73,17 @@
 		confirm-type="next"
 		bindinput="setP"
 		class="inputC"/>
-	<text>
-		其他信息（如：新旧程度，全新/九成新），请用空格区分关键词
-	</text>
-	<view class="additonalInfo">
-		<textarea placeholder="其他信息"
-			value="{{addInfo}}"
+	<view class="additonalInfo bgcw">
+		<view class="text-wrap">
+			其他信息，如：少量笔记 九成新，用空格区分关键词
+		</view>
+		<textarea value="{{addInfo}}"
 			maxlength="-1"
 			bindinput="setAddInfo"/>
 	</view>
-	<text>
+	<view class="text-wrap">
 		如果在图片中上传个人名片，请在交易完成以后及时到历史记录中下架，防止多次咨询
-	</text>
+	</view>
 	<button bindtap="chooseImg">+</button>
 	<!-- Img Preview -->
 	<view class="imgDisplay">

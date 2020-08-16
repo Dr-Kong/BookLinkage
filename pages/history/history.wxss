@@ -1,78 +1,90 @@
 /* pages/history/history.wxss */
-.bookName{
-  margin-left: 5%;
-  font-size: larger;
-  font-weight: bold;
-}
-.price{
-  margin-top: 50rpx;
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 10rpx;
-  color: red;
+.bookName {
+	margin-left: 5%;
+	font-size: larger;
+	font-weight: bold;
 }
 
-.container{
-  padding: 50rpx 0;
+.price {
+	margin-top: 50rpx;
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 10rpx;
+	color: red;
 }
 
-
-
-
-.space{
-  background-color: #fff;
-  width: 100%;
-  height: 80rpx;
-}
-.soldOut{
-  color: red;
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 10rpx;
-}
-.waiting{
-  display: flex;
-  color: green;
-  flex-direction: row-reverse;
-  margin-right: 10rpx;
-}
-.resell{
-  margin-top: 40rpx;
-  color: blue;
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 10rpx;
-}
-.detail{
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 10rpx;
- 
-  font-weight: bold;
-  margin-top: 40rpx;
+.container {
+	padding: 50rpx 0;
 }
 
-.edit{
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 10rpx;
-
-  font-weight: bold;
-  margin-top: 40rpx;
+.box {
+	margin-top: 110rpx;
+	width: 750rpx;
 }
-.delete{
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 10rpx;
-  
-  font-weight: bold;
-  margin-top: 0rpx;
-}
-.removeStarred{
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 10rpx;
 
-  font-weight: bold;
-  margin-top: 40rpx;
+.sub-box {
+	padding: 12rpx 0;
+	margin-left: 10rpx;
+}
+
+.space {
+	background-color: #fff;
+	width: 100%;
+	height: 80rpx;
+}
+
+.soldOut {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 10rpx;
+}
+
+.waiting {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 10rpx;
+}
+
+.resell {
+	margin-top: 40rpx;
+	color: blue;
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 10rpx;
+}
+
+.detail {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 10rpx;
+
+	font-weight: bold;
+	margin-top: 40rpx;
+}
+
+.edit {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 10rpx;
+
+	font-weight: bold;
+	margin-top: 40rpx;
+}
+
+/* .delete {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 10rpx;
+
+	font-weight: bold;
+	margin-top: 0rpx;
+} */
+
+.removeStarred {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 10rpx;
+
+	font-weight: bold;
+	margin-top: 40rpx;
 }
