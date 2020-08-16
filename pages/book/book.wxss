@@ -71,22 +71,22 @@
 .ssName {
 	font-size: large;
 	font-weight: bold;
-	margin-left: 40%;
+	text-align: center;
 }
 
 .ssWXID {
-	margin-top: 30rpx;
-	margin-left: 20%;
+	margin-top: 20rpx;
+	text-align: center;
+	overflow: visible;
 }
 
 .copy {
-	height: 50rpx;
-	width: 50rpx;
-	align-self: center;
-
+	padding-top: 10rpx;
+	text-align: center;
+	font-weight: bold;
 }
 
 .ssTL {
-	margin-top: 100rpx;
-	margin-left: 20%;
+	margin-top: 20rpx;
+	overflow: visible;
 }

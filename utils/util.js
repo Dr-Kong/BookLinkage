@@ -39,12 +39,12 @@ function setUserInfo(res) {
 
 const pubList = ['', 'barron', 'cambridge', 'hease', 'hodder', 'mcgraw', 'oxford', 'xdf'],
 	_pubList = ['', '巴郎', '剑桥', '', '', '麦格劳', '牛津', '新东方'],
-	sbjList = ['arthistory', 'biology', 'calculus', 'chemistry', 'chinese', 'computerscience',
-		'economics', 'english', 'environmentalscience', 'geograph', 'mathematics',
-		'others', 'physics', 'psychology', 'statistics', 'tok', 'unitedstateshistory'
+	sbjList = ['biology', 'chemistry', 'chinese', 'computerscience',
+		'economics', 'english', 'geograph', 'mathematics',
+		'others', 'physics', 'psychology', 'tok'
 	],
-	_sbjList = ['艺术史', '生物', '微积分', '化学', '中文', '计算机', '经济', '英语',
-		'环境科学', '地理', '数学', '其他', '物理', '心理', '统计', '知识论', '美国历史'
+	_sbjList = ['生物', '化学', '中文', '计算机', '经济', '英语',
+		'地理', '数学', '其他', '物理', '心理', '知识论'
 	]
 
 module.exports = {

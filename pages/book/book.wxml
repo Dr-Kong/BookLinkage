@@ -6,11 +6,12 @@
 		autoplay="true" 
 		interval="3000" 
 		duration="1000">
-		<swiper-item wx:for="{{record.fileID}}" wx:key='index'>
+		<swiper-item wx:for="{{record.fileID}}"
+			wx:key='index'
+			data-i="{{index}}"
+			bindtap="preview">
 			<image src="{{item}}"
-				mode="aspectFill"
-				data-i="index"
-				bindtap="preview"/>
+				mode="aspectFill"/>
 		</swiper-item>
 	</swiper>
 	<!-- Notification -->
@@ -71,24 +72,21 @@
 		</cover-view>
 		<cover-view wx:if="{{record.wxID != ''}}"
 			class="ssWXID">
-			{{'微信：' + record.wxID}}
+			{{'微信号：' + record.wxID}}
+			<cover-view bindtap="copy"
+				data-txt="{{record.telephone}}"
+				class="copy">
+				复制
+			</cover-view>
 		</cover-view>
-		<button>
-				<!-- Copy -->
-				<image src="../../icons/copy.png"
-					bindtap="copy"
-					class="copy"
-					data-txt="{{record.wxID}}"/>
-			</button>
-		<cover-view wx:if="{{record.telephone != ''}}" class="ssTL">
+		<cover-view wx:if="{{record.telephone != ''}}"
+			class="ssTL">
 			{{'电话号码：' + record.telephone}}
+			<cover-view bindtap="copy"
+				data-txt="{{record.telephone}}"
+				class="copy">
+				复制
+			</cover-view>
 		</cover-view>
-		<button>
-				<!-- Copy -->
-				<image src="../../icons/copy.png"
-					bindtap="copy"
-					class="copy"
-					data-txt="{{record.telephone}}"/>
-			</button>
 	</cover-view>
 </view>

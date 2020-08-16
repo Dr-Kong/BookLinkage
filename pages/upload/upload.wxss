@@ -99,7 +99,7 @@
 }
 
 .text-bold {
-	font-style: bold;
+	font-weight: bold;
 }
 
 .text-wrap {
