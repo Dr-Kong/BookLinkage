@@ -21,13 +21,13 @@
 					<view class="bgc">
 						<view class="space"/>
 						<input value="{{keywords}}"
-						maxlength="-1"
-						placeholder="书本名称(用空格分隔关键词)"
-						placeholder-class="PHC"
-						confirm-type="search"
-						bindinput="searchByKeywords"
-						bindconfirm='hideKeyboard'
-						class="inputIt"/>
+							maxlength="-1"
+							placeholder="书本名称（用空格分隔关键词）"
+							placeholder-class="PHC"
+							confirm-type="search"
+							bindinput="searchByKeywords"
+							bindconfirm='hideKeyboard'
+							class="inputIt"/>
 					</view>
 				</view>
 				<view>

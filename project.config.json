@@ -68,15 +68,7 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "pages/book/book",
-					"pathName": "pages/book/book",
-					"query": "type=1&bkID=abd27dd45f38064700a9822604f16f2b",
-					"scene": null
-				}
-			]
+			"list": []
 		}
 	}
 }

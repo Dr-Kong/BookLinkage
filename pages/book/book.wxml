@@ -56,7 +56,7 @@
 				mode="scaleToFill"/>
 	</cover-view>
 	<!-- Bargain -->
-	<cover-view wx:if="{{type != 0 && !showContactInfo}}" class="bargain">
+	<cover-view wx:if="{{!showContactInfo}}" class="bargain">
 		<button bindtap="bargain">
 			{{type == 1 ? '开始咨询' : '查看联系方式'}}
 		</button>
