@@ -30,8 +30,7 @@ Page({
 		isLegal: null,
 		p: '',
 		addInfo: '',
-		tempPaths: [],
-		cloudTempPaths: []
+		tempPaths: []
 	},
 	/**
 	 * Lifecycle function--Called when page load
@@ -180,27 +179,26 @@ Page({
 		var tp = that.data.tempPaths
 		wx.chooseImage({
 			sizeType: ['original'],
-			sourceType: ['album', 'camera'],
-			success(res) {
-				// tempFilePath can be used as the src property of the img tag to display images.
-				that.setData({
-					tempPaths: tp.concat(res.tempFilePaths)
-				})
-			}
+			sourceType: ['album', 'camera']
+		}).then(res => {
+			// tempFilePath can be used as the src property of the img tag to display images.
+			this.setData({
+				tempPaths: tp.concat(res.tempFilePaths)
+			})
 		})
 	},
 
 	removeImg(e) {
 		const i = e.currentTarget.dataset.i,
 			tp = this.data.tempPaths,
-			ctp = this.data.cloudTempPaths,
-			cur = tp.splice(i, 1)
-		if (cur.substr(0, 8) != 'cloud://') {
-			ctp.push(cur)
+			cur = tp.splice(i, 1)[0]
+		if (cur.substring(0, 8) != 'cloud://') {
+			wx.cloud.deleteFile({
+				fileList: [cur]
+			})
 		}
 		this.setData({
-			tempPaths: tp,
-			cloudTempPaths: ctp
+			tempPaths: tp
 		})
 	},
 

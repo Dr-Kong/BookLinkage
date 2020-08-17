@@ -53,20 +53,20 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	height: 600rpx;
+	width: 600rpx
 }
 
 .up_img_wrap {
 	width: 200rpx;
 	height: 200rpx;
 	position: relative;
-	padding: 30rpx;
+	padding: 30rpx
 }
 
 .up_img_wrap .oneImg {
 	width: 100%;
 	height: 100%;
-	border-radius: 15rpx;
+	border-radius: 15rpx
 }
 
 .up_img_wrap .oneIcon {
@@ -105,4 +105,8 @@
 .text-wrap {
 	width: 700rpx;
 	text-align: center;
+}
+
+.space {
+	height: 15rpx;
 }

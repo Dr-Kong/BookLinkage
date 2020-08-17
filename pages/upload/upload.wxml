@@ -97,7 +97,7 @@
 				class="oneIcon" />
 		</view>
 	</view>
-	<!-- in case of duplicate uploads -->
+	<view class="space"/>
 	<button disabled="{{wxID == '' && tel == '' || tempPaths == null}}"
 			bindtap="upload">
 		 {{type == 0 ? '上传书本' : '提交更新'}} 
