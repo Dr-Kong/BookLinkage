@@ -37,7 +37,7 @@ Page({
 	 */
 	onLoad(options) {
 		const that = this
-		if (options.type === 1) {
+		if (options.type == 1) {
 			db.collection('uploads').doc(options.bkID).get({
 				success(res) {
 					const r = res.data
