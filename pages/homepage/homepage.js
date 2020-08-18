@@ -10,7 +10,7 @@ const db = wx.cloud.database({
 
 Page({
 	data: {
-		a: null,
+		a: app,
 		_sbjList: util._sbjList,
 		sbjList: sbjList,
 		pubList: pubList,
@@ -30,47 +30,35 @@ Page({
 	onLoad() {},
 
 	onShow() {
-		const that = this
 		wx.showLoading({
 			title: '加载中……',
 			mask: true
 		})
-		new Promise(resolve => {
-			if (app.globalData.userInfo != null) {
-				resolve()
-			} else {
-				wx.getSetting().then(r => {
-					return new Promise(res => {
-						if (r.authSetting['scope.userInfo']) {
-							// authorized
-							wx.getUserInfo({
-								success: res
-							})
-						} else {
-							res()
-						}
-					})
-				}).then(result => {
-					return new Promise(res => {
-						if (result != null) {
-							util.setOpenID(result).then(() => {
-								util.setUserInfo(result)
-								res()
-							})
-						} else {
-							res()
-						}
-					})
-				}).then(() => {
-					resolve()
+		if (app.globalData.userInfo == null) {
+			wx.getSetting().then(r => {
+				if (r.authSetting['scope.userInfo']) {
+					return wx.getUserInfo()
+				} else {
+					this.search()
+					return Promise.reject()
+				}
+			}).then(res => {
+				util.setUserInfo(res)
+				return util.setOpenID(res)
+			}).then(() => {
+				this.setData({
+					a: getApp()
+				})
+				this.search()
+			})
+		} else {
+			if (this.data.a.globalData.userInfo == null) {
+				this.setData({
+					a: getApp()
 				})
 			}
-		}).then(() => {
-			that.setData({
-				a: getApp()
-			})
-			that.search()
-		})
+			this.search()
+		}
 	},
 
 	onPullDownRefresh() {
@@ -99,9 +87,8 @@ Page({
 	},
 
 	searchByKeywords(e) {
-		const str = e.detail.value,
-			that = this
-		that.setData({
+		const str = e.detail.value
+		this.setData({
 			keywords: str
 		})
 		var tempTags = str.split(' ')
@@ -116,10 +103,10 @@ Page({
 				i--
 			}
 		}
-		that.setData({
-			tags: that.data.tags.concat(tempTags.length == 0 ? [''] : tempTags)
+		this.setData({
+			tags: this.data.tags.concat(tempTags.length == 0 ? [''] : tempTags)
 		})
-		that.search()
+		this.search()
 	},
 
 	searchByTags(e) {
@@ -133,8 +120,7 @@ Page({
 	},
 
 	search() {
-		const that = this,
-			kw = that.data.tags,
+		const kw = this.data.tags,
 			openID = app.globalData.openID
 		var temp = [],
 			i = kw.length - 2
@@ -160,7 +146,7 @@ Page({
 				}
 				i--
 			}
-			that.setData({
+			this.setData({
 				bl: temp
 			})
 			wx.hideLoading()

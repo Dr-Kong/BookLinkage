@@ -24,7 +24,7 @@ Page({
 		lastName: '',
 		wxID: '',
 		tel: '',
-		sbj: 11,
+		sbj: 8,
 		pub: 0,
 		bkName: '',
 		isLegal: null,

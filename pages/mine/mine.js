@@ -12,25 +12,23 @@ Page({
 	},
 
 	onShow() {
-		const that = this
 		if (app.globalData.userInfo == null) {
-			wx.getSetting({
-				success(r) {
-					if (r.authSetting['scope.userInfo']) {
-						wx.getUserInfo({
-							success(res) {
-								util.setUserInfo(res)
-								util.setOpenID(res)
-								that.setData({
-									a: getApp()
-								})
-							}
-						})
-					}
+			wx.getSetting().then(r => {
+				if (r.authSetting['scope.userInfo']) {
+					return wx.getUserInfo()
+				} else {
+					return Promise.reject()
 				}
+			}).then(res => {
+				util.setUserInfo(res)
+				return util.setOpenID(res)
+			}).then(() => {
+				this.setData({
+					a: getApp()
+				})
 			})
-		} else if (that.data.a.globalData.userInfo == null) {
-			that.setData({
+		} else if (this.data.a.globalData.userInfo == null) {
+			this.setData({
 				a: getApp()
 			})
 		}
@@ -75,6 +73,9 @@ Page({
 
 	setUserInfo(e) {
 		const res = e.detail
+		if (res.userInfo == null) {
+			return
+		}
 		wx.showLoading({
 			title: '登录中',
 		})
