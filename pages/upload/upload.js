@@ -214,127 +214,108 @@ Page({
 			tel = that.data.tel
 		var tp = that.data.tempPaths,
 			tags = []
-		// humanistic optimize
-		wx.showLoading({
-			title: t == 0 ? '上传中' : '更新信息中',
-			mask: true
-		})
-		if (t == 0) {
-			if (s != 11) {
-				tags.push(sbjList[s])
-				tags.push(_sbjList[s])
-			}
-			if (p != 0) {
-				tags.push(pubList[p])
-				tags.push(_pubList[p])
-			}
-			tags.push(bn)
-			tags.push(ai)
-			if (il == true) {
-				tags.push('正版')
-				tags.push('原版')
-				tags.push('原装')
-			} else if (il == false) {
-				tags.push('盗版')
-				tags.push('复印')
-				tags.push('影印版')
-			}
-			for (var i = 0; i < tags.length; i++) {
-				var tempTags = tags[i].split(' ')
-				if (i + 1 < tags.length &&
-					tags.indexOf(tags[i], i + 1) != -1 ||
-					tags.indexOf(tags[i]) != i ||
-					tags[i] == '' ||
-					tags[i] == ' ' ||
-					tempTags.length > 1) {
-					// remove unqualified tag
-					tags.splice(i, 1)
-					// in case of skipping element
-					i--
-					// add splited words
-					if (tempTags.length > 1) {
-						tags = tags.concat(tempTags)
+		wx.requestSubscribeMessage({
+			tmplIds: ['aDLCHqpsEJOAYixkD5JoR5YiugaVFqWDzKj0GPfR2cI']
+		}).finally(() => {
+			wx.showLoading({
+				title: t == 0 ? '上传中' : '更新信息中',
+				mask: true
+			})
+			if (t == 0) {
+				if (s != 11) {
+					tags.push(sbjList[s])
+					tags.push(_sbjList[s])
+				}
+				if (p != 0) {
+					tags.push(pubList[p])
+					tags.push(_pubList[p])
+				}
+				tags.push(bn)
+				tags.push(ai)
+				if (il == true) {
+					tags.push('正版')
+					tags.push('原版')
+					tags.push('原装')
+				} else if (il == false) {
+					tags.push('盗版')
+					tags.push('复印')
+					tags.push('影印版')
+				}
+				for (var i = 0; i < tags.length; i++) {
+					var tempTags = tags[i].split(' ')
+					if (i + 1 < tags.length &&
+						tags.indexOf(tags[i], i + 1) != -1 ||
+						tags.indexOf(tags[i]) != i ||
+						tags[i] == '' ||
+						tags[i] == ' ' ||
+						tempTags.length > 1) {
+						// remove unqualified tag
+						tags.splice(i, 1)
+						// in case of skipping element
+						i--
+						// add splited words
+						if (tempTags.length > 1) {
+							tags = tags.concat(tempTags)
+						}
 					}
 				}
 			}
-		}
-		// upload img and record its cloudpath
-		for (let i = 0; i < tp.length; i++) {
-			const cur = tp[i]
-			if (cur.substr(0, 8) != 'cloud://') {
-				var cp = Date.parse(new Date()) / 10 + i + '.jpg'
-				tp[i] = 'cloud://booklinkage-ryfw4.626f-booklinkage-ryfw4-1302677239/' + cp
-				wx.cloud.uploadFile({
-					cloudPath: cp,
-					filePath: cur
+			// upload img and record its cloudpath
+			for (let i = 0; i < tp.length; i++) {
+				const cur = tp[i]
+				if (cur.substr(0, 8) != 'cloud://') {
+					var cp = Date.parse(new Date()) / 10 + i + '.jpg'
+					tp[i] = 'cloud://booklinkage-ryfw4.626f-booklinkage-ryfw4-1302677239/' + cp
+					wx.cloud.uploadFile({
+						cloudPath: cp,
+						filePath: cur
+					})
+				}
+			}
+			that.setData({
+				tempPaths: tp
+			})
+			// add or update record
+			if (t == 1) {
+				return db.collection('uploads').doc(that.data._id).update({
+					data: {
+						lastName: that.data.lastName,
+						wxID: id,
+						telephone: tel,
+						bkName: bn,
+						price: that.data.p,
+						additionalInfo: ai,
+						fileID: tp
+					}
+				})
+			} else {
+				return db.collection('uploads').add({
+					data: {
+						lastName: that.data.lastName,
+						wxID: id,
+						telephone: tel,
+						bkName: bn,
+						price: that.data.p,
+						additionalInfo: ai,
+						fileID: tp,
+						isSoldOut: false,
+						tags: tags,
+						isLegal: il
+					}
 				})
 			}
-		}
-		that.setData({
-			tempPaths: tp
+		}).then(() => {
+			return wx.showToast({
+				title: (this.data.type == 0 ? '上传' : '更新') + '成功',
+				mask: true
+			})
+		}).then(() => {
+			wx.navigateBack()
+		}).catch(() => {
+			wx.showToast({
+				title: '失败',
+				icon: 'none'
+			})
 		})
-		// add or update record
-		if (t == 1) {
-			db.collection('uploads').doc(that.data._id).update({
-				data: {
-					lastName: that.data.lastName,
-					wxID: id,
-					telephone: tel,
-					bkName: bn,
-					price: that.data.p,
-					additionalInfo: ai,
-					fileID: _.push({
-						each: tp
-					})
-				},
-				success(res) {
-					wx.showToast({
-						title: '更新成功',
-						mask: true,
-						success(res) {
-							wx.navigateBack()
-						}
-					})
-				},
-				fail(err) {
-					wx.hideLoading()
-					wx.showToast({
-						title: '失败',
-						icon: 'none'
-					})
-				}
-			})
-		} else {
-			db.collection('uploads').add({
-				data: {
-					lastName: that.data.lastName,
-					wxID: id,
-					telephone: tel,
-					bkName: bn,
-					price: that.data.p,
-					additionalInfo: ai,
-					fileID: tp,
-					isSoldOut: false,
-					tags: tags,
-					isLegal: il
-				},
-				success(res) {
-					wx.showToast({
-						title: '上传成功',
-						mask: true,
-						success(res) {
-							wx.navigateBack()
-						}
-					})
-				},
-				fail(err) {
-					wx.hideLoading()
-					wx.showToast({
-						title: '失败',
-						icon: 'none'
-					})
-				}
-			})
-		}
 	}
 })

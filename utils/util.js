@@ -1,22 +1,23 @@
 const app = getApp()
 
-/* function format_time(date) {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
+function formatTime(date) {
+	const year = date.getFullYear()
+	const month = date.getMonth() + 1
+	const day = date.getDate()
+	const hour = date.getHours()
+	const minute = date.getMinutes()
+	const second = date.getSeconds()
 
-  return [year, month, day].map(format_number)
-         + '_' +
-         [hour, minute, second].map(format_number)
+	return [year, month, day].map(formatNumber).join('/') +
+		' ' +
+		[hour, minute, second].map(formatNumber).join(':')
+
 }
 
-function format_number(n) {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-} */
+function formatNumber(n) {
+	n = n.toString()
+	return n[1] ? n : '0' + n
+}
 
 function setOpenID(res) {
 	return wx.cloud.callFunction({
@@ -50,5 +51,6 @@ module.exports = {
 	sbjList: sbjList,
 	_sbjList: _sbjList,
 	setOpenID: setOpenID,
-	setUserInfo: setUserInfo
+	setUserInfo: setUserInfo,
+	formatTime: formatTime
 }

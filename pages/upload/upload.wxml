@@ -2,8 +2,16 @@
 <view class="container">
 	<view class="text-bold">个人信息</view>
 	<view>
-		<view class="text-wrap">
-			请允许他人通过微信号和手机号添加您，并准确填写如下信息。您也可以在下方图片上传入口中添加个人名片，方便购书者与您沟通。
+		<view class="text-wrap width-constrain">
+			<text>
+				请允许他人通过微信号和手机号添加您，并准确填写如下信息。
+				
+				您也可以在下方图片上传入口中添加个人名片，方便购书者与您沟通。
+				
+				自己上传的书本无法在搜索界面找到，可在“上传历史”中确认并更改部分信息。
+				
+				当有同学咨询书本以后，小程序会通过订阅消息告诉您书本已经下架。
+			</text>
 		</view>
 		<view class="inputC">
 			<input value='{{lastName}}' placeholder="中文姓氏"
@@ -61,7 +69,8 @@
 			bindinput="setBkName"
 			class="inputC"/>
 	</view>
-	<input placeholder="是否原版书籍（非复印影印版）"
+	<input value="{{isLegal ? '是' : '否'}}"
+		placeholder="是否原版书籍（非复印影印版）"
 		maxlength="1"
 		confirm-type="next"
 		bindinput="setIsLegal"
@@ -98,7 +107,7 @@
 		</view>
 	</view>
 	<view class="space"/>
-	<button disabled="{{wxID == '' && tel == '' || tempPaths == null}}"
+	<button disabled="{{wxID == '' && tel == '' || tempPaths.length == 0}}"
 			bindtap="upload">
 		 {{type == 0 ? '上传书本' : '提交更新'}} 
 	</button>

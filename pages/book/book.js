@@ -3,7 +3,8 @@ const app = getApp(),
 	db = wx.cloud.database({
 		throwOnNotFound: false
 	}),
-	_ = db.command
+	_ = db.command,
+	util = require('../../utils/util')
 
 Page({
 
@@ -239,6 +240,19 @@ Page({
 				}).then(() => {
 					that.setData({
 						showContactInfo: true
+					})
+					db.collection('userinfo').add({
+						data: {
+							userInfo: app.globalData.userInfo
+						}
+					})
+					wx.cloud.callFunction({
+						name: 'soldOutInform',
+						data: {
+							touser: this.data.record._openid,
+							bkName: this.data.record.bkName,
+							time: util.formatTime(new Date())
+						}
 					})
 					wx.hideLoading()
 				})

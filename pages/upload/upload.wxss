@@ -107,6 +107,10 @@
 	text-align: center;
 }
 
+.width-constrain {
+	width: 500rpx;
+}
+
 .space {
 	height: 15rpx;
 }
