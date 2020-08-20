@@ -311,11 +311,6 @@ Page({
 			})
 		}).then(() => {
 			wx.navigateBack()
-		}).catch(() => {
-			wx.showToast({
-				title: '失败',
-				icon: 'none'
-			})
 		})
 	}
 })

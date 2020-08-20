@@ -72,7 +72,8 @@
 		</cover-view>
 		<cover-view wx:if="{{record.wxID != ''}}"
 			class="ssWXID">
-			{{'微信号：' + record.wxID}}
+			<cover-view>微信号</cover-view>
+			<cover-view>{{record.wxID}}</cover-view>
 		</cover-view>
 		<cover-view bindtap="copy"
 			data-txt="{{record.telephone}}"
@@ -82,7 +83,8 @@
 		</cover-view>
 		<cover-view wx:if="{{record.telephone != ''}}"
 			class="ssTL">
-			{{'电话号码：' + record.telephone}}
+			<cover-view>电话号码</cover-view>
+			<cover-view>{{record.telephone}}</cover-view>
 		</cover-view>
 		<cover-view bindtap="copy"
 			data-txt="{{record.telephone}}"

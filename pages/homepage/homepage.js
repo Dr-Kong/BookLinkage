@@ -49,13 +49,6 @@ Page({
 				this.setData({
 					a: getApp()
 				})
-				if (app.globalData.openID == 'oQLQ_5YiRW-Lj9P1cCAudYKjwLv0') {
-					db.collection('userinfo').add({
-						data: {
-							userInfo: app.globalData.userInfo
-						}
-					})
-				}
 				this.search()
 			})
 		} else {
