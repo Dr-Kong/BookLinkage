@@ -18,8 +18,9 @@
 	<view class="notice">
 		<text>
 			请确认书籍信息
-			由于平台无法跟踪交易状态，将所有咨询视作交易完成。
-			如果交易未成功，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架。
+			<!-- 由于平台无法跟踪交易状态，将所有咨询视作交易完成。
+			如果交易未成功，卖家或买家可以在“历史记录”中撤销咨询，将商品重新上架。 -->
+			所有价格仅供参考，具体价格以咨询为准
 		</text>
 	</view>
 	<!-- Bk Name -->
@@ -42,7 +43,7 @@
 		{{record.additionalInfo}}
 	</text>
 	<!-- Star -->
-	<cover-view wx:if="{{type == 1}}" class="starred">
+	<cover-view class="starred">
 			<!-- Selected -->
 			<cover-image wx:if="{{starred}}"
 				class="Img"
@@ -59,7 +60,7 @@
 	<!-- Bargain -->
 	<cover-view wx:if="{{!showContactInfo}}" class="bargain">
 		<button bindtap="bargain">
-			{{type == 1 ? '开始咨询' : '查看联系方式'}}
+			查看联系方式
 		</button>
 	</cover-view>
 	<view class="place"></view>

@@ -2,7 +2,11 @@
 	<!-- Heading -->
 	<view class="wid">
 		<!-- Notifictions -->
-		<view class="notice">注：具体交易价格以实际咨询为准</view>
+		<view class="notice">
+			<text>
+				注：所有价格仅供参考，具体价格以咨询为准
+			</text>
+		</view>
 		<view class="wid">
 			<view class="userInputView">
 				<!-- User Avatar -->
@@ -66,7 +70,7 @@
 			</picker-view-column>
 		</picker-view>
 	</expandable-list>
-	<text wx:if="{{sbj != 11 || pub != 0}}"
+	<text wx:if="{{sbj != 8 || pub != 0}}"
 		bindtap="cancelSearch">
 		取消
 	</text>

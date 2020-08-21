@@ -60,37 +60,39 @@ Page({
 			})
 			if (that.data.type != 2) {
 				db.collection('uploads').doc(
-					that.data.record._id
-				).get().then(res => {
-					// check if sold out
-					if (res.data.isSoldOut) {
-						wx.showToast({
-							title: '此书本已经下架！',
-							icon: 'none'
-						}).then(() => {
-							wx.navigateBack()
-						})
-					} else {
-						return Promise.resolve()
-					}
-				}).then(() => {
-					return db.collection('favorites').where({
-						_openid: app.globalData.openID
-					}).get()
-				}).then(res => {
-					if (res.data.length != 0) {
-						// check star
-						const r = res.data[0].arr
-						for (let i = 0; i < r.length; i++) {
-							if (r[i] == that.data.record._id) {
-								that.setData({
-									starred: true
-								})
+						that.data.record._id
+					).get()
+					/* .then(res => {
+										// check if sold out
+										if (res.data.isSoldOut) {
+											wx.showToast({
+												title: '此书本已经下架！',
+												icon: 'none'
+											}).then(() => {
+												wx.navigateBack()
+											})
+										} else {
+											return Promise.resolve()
+										}
+									}) */
+					.then(() => {
+						return db.collection('favorites').where({
+							_openid: app.globalData.openID
+						}).get()
+					}).then(res => {
+						if (res.data.length != 0) {
+							// check star
+							const r = res.data[0].arr
+							for (let i = 0; i < r.length; i++) {
+								if (r[i] == that.data.record._id) {
+									that.setData({
+										starred: true
+									})
+								}
 							}
 						}
-					}
-					wx.hideLoading()
-				})
+						wx.hideLoading()
+					})
 			} else {
 				wx.hideLoading()
 			}
@@ -178,57 +180,61 @@ Page({
 	bargain() {
 		const that = this,
 			bkID = that.data.bkID
-		if (app.globalData.userInfo != null) {
-			wx.showLoading({
-				title: '加载中……',
-				mask: true
+		/* if (app.globalData.userInfo != null) { */
+		wx.showLoading({
+			title: '加载中……',
+			mask: true
+		})
+		if (that.data.type == 2) {
+			that.setData({
+				showContactInfo: true
 			})
-			if (that.data.type == 2) {
-				that.setData({
-					showContactInfo: true
-				})
-				wx.hideLoading()
-			} else {
-				db.collection('uploads').doc(
-					that.data.record._id
-				).get().then(res => {
-					// check if sold out
-					if (res.data.isSoldOut) {
-						wx.showToast({
-							title: '在你浏览时，已经有人开始咨询了！',
-							icon: 'none'
-						}).then(() => {
-							wx.navigateBack()
-						})
-					} else {
-						// update bk record
-						return wx.cloud.callFunction({
-							name: 'update',
-							data: {
-								collection: 'uploads',
-								where: {
-									_id: that.data.record._id
-								},
-								update: {
-									data: {
-										isSoldOut: true
-									}
+			wx.hideLoading()
+		} else {
+			/* db.collection('uploads').doc(
+				that.data.bkID
+			).get().then(res => {
+				// check if sold out
+				if (res.data.isSoldOut) {
+					wx.showToast({
+						title: '在你浏览时，已经有人开始咨询了！',
+						icon: 'none'
+					}).then(() => {
+						wx.navigateBack()
+					})
+				} else {
+					// update bk record
+					return wx.cloud.callFunction({
+						name: 'update',
+						data: {
+							collection: 'uploads',
+							where: {
+								_id: that.data.record._id
+							},
+							update: {
+								data: {
+									isSoldOut: true
 								}
 							}
-						})
-					}
-				}).then(() => {
-					return db.collection('bargains').where({
-						_openid: app.globalData.openID
-					}).get()
-				}).then(res => {
-					if (res.data.length == 0) {
+						}
+					})
+				}
+			}).then(() => {
+				return  */
+			db.collection('bargains').where({
+					_openid: app.globalData.openID
+				}).get()
+				/* 
+								}) */
+				.then(res => {
+					const r = res.data
+					if (r.length == 0) {
 						return db.collection('bargains').add({
 							data: {
 								arr: [bkID]
 							}
 						})
-					} else {
+					} else if (!r[0].arr.includes(bkID)) {
 						return db.collection('bargains').where({
 							_openid: app.globalData.openID
 						}).update({
@@ -236,33 +242,35 @@ Page({
 								arr: _.unshift(bkID)
 							}
 						})
+					} else {
+						return Promise.resolve()
 					}
 				}).then(() => {
 					that.setData({
 						showContactInfo: true
 					})
-					db.collection('userinfo').add({
+					/* db.collection('userinfo').add({
 						data: {
 							userInfo: app.globalData.userInfo
 						}
-					})
-					wx.cloud.callFunction({
+					}) */
+					/* wx.cloud.callFunction({
 						name: 'soldOutInform',
 						data: {
 							touser: this.data.record._openid,
 							bkName: this.data.record.bkName,
 							time: util.formatTime(new Date())
 						}
-					})
+					}) */
 					wx.hideLoading()
 				})
-			}
-		} else {
+		}
+		/* } else {
 			wx.showToast({
 				title: '请登录以使用此功能',
 				icon: 'none'
 			})
-		}
+		} */
 	},
 
 	preview(e) {

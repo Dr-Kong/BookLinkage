@@ -138,56 +138,56 @@ Page({
 		this.setBkList()
 	},
 
-	putAway(e) {
-		const t = this.data.type,
-			bkID = e.currentTarget.dataset.bkid
-		wx.showLoading({
-			title: '重新上架中……',
-			mask: true
-		})
-		wx.cloud.callFunction({
-			name: 'update',
-			data: {
-				collection: 'uploads',
-				where: {
-					_id: bkID
-				},
-				update: {
-					data: {
-						isSoldOut: false
-					}
-				}
-			}
-		}).then(() => {
-			if (t == 0) {
-				// seller deletes buyer's record
-				return wx.cloud.callFunction({
-					name: 'update',
-					data: {
-						collection: 'bargains',
-						bkID: bkID,
-						case: 2
-					}
-				})
-			} else {
-				// buyer deletes their own record
-				return db.collection('bargains').where({
-					_openid: app.globalData.openID
-				}).update({
-					data: {
-						arr: _.pull(bkID)
-					}
-				})
-			}
-		}).then(() => {
-			return wx.showToast({
-				title: '上架成功',
+	/* 	putAway(e) {
+			const t = this.data.type,
+				bkID = e.currentTarget.dataset.bkid
+			wx.showLoading({
+				title: '重新上架中……',
 				mask: true
 			})
-		}).then(() => {
-			this.setBkList()
-		})
-	},
+			wx.cloud.callFunction({
+				name: 'update',
+				data: {
+					collection: 'uploads',
+					where: {
+						_id: bkID
+					},
+					update: {
+						data: {
+							isSoldOut: false
+						}
+					}
+				}
+			}).then(() => {
+				if (t == 0) {
+					// seller deletes buyer's record
+					return wx.cloud.callFunction({
+						name: 'update',
+						data: {
+							collection: 'bargains',
+							bkID: bkID,
+							case: 2
+						}
+					})
+				} else {
+					// buyer deletes their own record
+					return db.collection('bargains').where({
+						_openid: app.globalData.openID
+					}).update({
+						data: {
+							arr: _.pull(bkID)
+						}
+					})
+				}
+			}).then(() => {
+				return wx.showToast({
+					title: '上架成功',
+					mask: true
+				})
+			}).then(() => {
+				this.setBkList()
+			})
+		}, */
 
 	delete(e) {
 		const bkID = e.currentTarget.dataset.bkid,
@@ -221,7 +221,7 @@ Page({
 				})
 			}
 		} else {
-			var promise = db.collection('favorites').where({
+			var promise = db.collection(a[t]).where({
 				_openid: app.globalData.openID
 			}).update({
 				data: {

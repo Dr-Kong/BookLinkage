@@ -16,7 +16,7 @@ exports.main = async (event, context) => {
 	} */
 	if (event.case == 2) {
 		event.where = {
-			isSoldOut: false,
+			// isSoldOut: false,
 			_openid: _.neq(event.openID == null ? '' : event.openID),
 			// fuzzy search
 			tags: _.elemMatch({

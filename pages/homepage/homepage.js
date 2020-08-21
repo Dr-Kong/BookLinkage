@@ -14,7 +14,7 @@ Page({
 		_sbjList: util._sbjList,
 		sbjList: sbjList,
 		pubList: pubList,
-		sbj: 11,
+		sbj: 8,
 		pub: 0,
 		bl: [],
 		keywords: '',
@@ -104,17 +104,24 @@ Page({
 			}
 		}
 		this.setData({
-			tags: this.data.tags.concat(tempTags.length == 0 ? [''] : tempTags)
+			tags: tempTags.length == 0 ? [''] : tempTags
 		})
 		this.search()
 	},
 
 	searchByTags(e) {
 		const val = e.detail.value
+		var temp = []
+		if (val[0] != 8) {
+			temp.push(sbjList[val[0]])
+		}
+		if (val[1] != 0) {
+			temp.push(pubList[val[1]])
+		}
 		this.setData({
-			sbj: val[0] ? val[0] : 11,
-			pub: val[1] ? val[1] : 0,
-			tags: this.data.tags.concat([sbjList[val[0]], pubList[val[1]]])
+			sbj: val[0],
+			pub: val[1],
+			tags: temp
 		})
 		this.search()
 	},
@@ -137,10 +144,16 @@ Page({
 			}
 		}).then(res => {
 			temp = res.result.data
-			while (i > 0 && temp.length > 0) {
-				const cur = kw[i]
+			while (i > -1 && temp.length > 0) {
+				const cur = kw[i].toLocaleLowerCase()
 				for (let j = 0; j < temp.length; j++) {
-					if (temp[j].tags.indexOf(cur) == -1) {
+					var isMatch = false
+					Array.from(temp[j].tags, tag => {
+						if (tag.toLocaleLowerCase().includes(cur)) {
+							isMatch = true
+						}
+					})
+					if (!isMatch) {
 						temp.splice(j, 1)
 					}
 				}

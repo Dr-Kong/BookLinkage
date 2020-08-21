@@ -214,15 +214,15 @@ Page({
 			tel = that.data.tel
 		var tp = that.data.tempPaths,
 			tags = []
-		wx.requestSubscribeMessage({
+		Promise.resolve().then/* wx.requestSubscribeMessage({
 			tmplIds: ['aDLCHqpsEJOAYixkD5JoR5YiugaVFqWDzKj0GPfR2cI']
-		}).finally(() => {
+		}).finally */(() => {
 			wx.showLoading({
 				title: t == 0 ? '上传中' : '更新信息中',
 				mask: true
 			})
 			if (t == 0) {
-				if (s != 11) {
+				if (s != 8) {
 					tags.push(sbjList[s])
 					tags.push(_sbjList[s])
 				}
@@ -298,7 +298,7 @@ Page({
 						price: that.data.p,
 						additionalInfo: ai,
 						fileID: tp,
-						isSoldOut: false,
+						// isSoldOut: false,
 						tags: tags,
 						isLegal: il
 					}

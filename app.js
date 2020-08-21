@@ -2,20 +2,20 @@
 
 App({
 	onLaunch() {
-		const that = this
+		// const that = this
 		wx.cloud.init({
-				env: "booklinkage-ryfw4",
-				traceUser: true
-			}),
-			Promise.prototype.finally = function (callback) {
-				let P = this.constructor
-				return this.then(
-					value => P.resolve(callback()).then(() => value),
-					reason => P.resolve(callback()).then(() => {
-						throw reason
-					})
-				)
-			}
+			env: "booklinkage-ryfw4",
+			traceUser: true
+		})
+		/* Promise.prototype.finally = function (callback) {
+			let P = this.constructor
+			return this.then(
+				value => P.resolve(callback()).then(() => value),
+				reason => P.resolve(callback()).then(() => {
+					throw reason
+				})
+			)
+		} */
 		/* wx.getSetting({
 			success(r) {
 				if (r.authSetting['scope.userInfo']) {
