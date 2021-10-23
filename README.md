@@ -6,6 +6,6 @@
 
 愿满载学长学姐们拼搏汗水的扉页，成为学弟学妹们迈向征程的起点。
 
-Powered by Dr.Kong & Robert Sun
+Powered by Ly Kong & Robert Sun
 
 Specially acknowledge Levine & **Shenzhen Senior High School (Group) International Division**
